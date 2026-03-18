@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOUNDBATH — Tech Stack Strategy</title>
+<title>SOUNDBATH — Technology Strategy</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- PASSWORD GATE -->
 <div id="gate">
   <div class="gate-grain"></div>
   <div class="gate-rule"></div>
@@ -20,7 +19,7 @@
     <button class="gate-btn" onclick="checkPassword()">Enter</button>
   </div>
   <div class="gate-error" id="gate-error"></div>
-  <div class="gate-footer">Confidential · Caroline Godwin · 2025</div>
+  <div class="gate-footer">Confidential · Caroline Godwin · 2026</div>
 </div>
 
 <nav class="site-nav" id="sitenav">
@@ -47,24 +46,18 @@
 <div class="page-wrap">
 
   <div class="page-hero fade-up">
-    <div class="page-hero-eyebrow">Tech infrastructure strategy · Miami bathhouse + cultural space</div>
+    <div class="page-hero-eyebrow">Technology infrastructure strategy · Miami luxury bathhouse + cultural space</div>
     <h1>Building <em>SOUNDBATH</em><br>from the ground up.</h1>
-    <p class="page-hero-desc">Two architecture approaches for a membership-driven luxury bathhouse in Miami. Both share the same foundation — they diverge meaningfully in billing, community, and operations. Prepared by Caroline Godwin, full-stack developer.</p>
-    <div class="page-hero-tags">
-      <span class="tag tag-neutral">Three phases</span>
-      <span class="tag tag-gold">ThisIsSoundbath.com</span>
-      <span class="tag tag-neutral">Miami, FL · 2025</span>
-    </div>
+    <p class="page-hero-desc">Two architecture approaches for a social-forward bathhouse and cultural space in Miami — a membership-driven community that needs to capture early interest now, activate founding memberships before opening, and integrate smoothly with bathhouse operations at launch. Prepared by Caroline Godwin.</p>
   </div>
 
-  <!-- STRATEGY CARDS -->
-  <div class="section-label fade-up">Two approaches — explore each or read the comparison first</div>
+  <div class="section-label fade-up">Two approaches — explore each or read the full comparison</div>
 
   <div class="strategy-cards fade-up d1">
     <a class="strategy-card exp-card" href="stack-experience.html">
       <div class="strategy-card-tag">The Experience Stack</div>
       <h2>Built for speed, luxury feel, and community from day one.</h2>
-      <p>Purpose-built wellness tools, a polished member app, and a curated community platform. The fastest path from brief to live. Best if brand experience and pre-opening community are top priorities.</p>
+      <p>Purpose-built wellness tools, a polished member app, and a curated community platform. The fastest path from brief to live. Best when brand experience and pre-opening community are top priorities.</p>
       <div class="strategy-card-tools">
         <span class="strategy-card-tool">Framer</span>
         <span class="strategy-card-tool">Beehiiv</span>
@@ -74,14 +67,14 @@
         <span class="strategy-card-tool">Book4Time</span>
       </div>
       <div class="strategy-card-hours">
-        <span>◷ 160 hrs total across all phases</span>
-        <span style="font-size:16px;">→</span>
+        <span>◷ ~160 hrs estimated across all phases</span>
+        <span style="font-size:18px">→</span>
       </div>
     </a>
     <a class="strategy-card arch-card" href="stack-architect.html">
       <div class="strategy-card-tag">The Architect Stack</div>
       <h2>Built for data ownership, portability, and long-term flexibility.</h2>
-      <p>Separates billing, CRM, and operations so no single vendor controls the customer relationship. More configuration upfront — but the architecture survives any platform change.</p>
+      <p>Separates billing, CRM, and operations so no single vendor controls the customer relationship. More configuration upfront — the data architecture survives any platform change.</p>
       <div class="strategy-card-tools">
         <span class="strategy-card-tool">Webflow</span>
         <span class="strategy-card-tool">Stripe</span>
@@ -90,13 +83,12 @@
         <span class="strategy-card-tool">Zenoti</span>
       </div>
       <div class="strategy-card-hours">
-        <span>◷ 175 hrs total across all phases</span>
-        <span style="font-size:16px;">→</span>
+        <span>◷ ~175 hrs estimated across all phases</span>
+        <span style="font-size:18px">→</span>
       </div>
     </a>
   </div>
 
-  <!-- SHARED PRINCIPLES -->
   <div class="section-head fade-up">
     <div class="section-num">01</div>
     <h2>What both stacks <em>agree on</em></h2>
@@ -105,16 +97,15 @@
 
   <div class="shared-grid">
     <div class="shared-item fade-up d1"><h4>Cloudflare for DNS</h4><p>Free CDN, DDoS protection, DNSSEC. All domains point here regardless of registrar.</p></div>
-    <div class="shared-item fade-up d2"><h4>Google Workspace</h4><p>$12/user/mo. Business email, MFA, Shared Drives. SPF + DKIM + DMARC before any outbound email.</p></div>
-    <div class="shared-item fade-up d3"><h4>HubSpot as CRM spine</h4><p>The master relationship record. Every customer-facing tool syncs back here. Free CRM is genuinely capable.</p></div>
-    <div class="shared-item fade-up d4"><h4>Zapier as early glue</h4><p>~$20/mo integration layer between tools. Graduate to direct API webhooks when volume justifies it.</p></div>
-    <div class="shared-item fade-up d1"><h4>Looker Studio</h4><p>Free analytics dashboard connecting all operational tools. Sufficient for early-stage reporting.</p></div>
-    <div class="shared-item fade-up d2"><h4>Data portability first</h4><p>Confirm full customer data export (CSV or API) before signing any vendor contract. Non-negotiable.</p></div>
-    <div class="shared-item fade-up d3"><h4>Domain strategy</h4><p>Buy defensively, pick one canonical URL, 301 redirect all others. Acquire soundbath.miami immediately.</p></div>
-    <div class="shared-item fade-up d4"><h4>Phase 3 — start now</h4><p>Book4Time and Zenoti both require 3–4 month procurement cycles. Begin conversations well before site selection.</p></div>
+    <div class="shared-item fade-up d2"><h4>Google Workspace</h4><p>Business email, MFA, Shared Drives. SPF + DKIM + DMARC authentication before any outbound email.</p></div>
+    <div class="shared-item fade-up d3"><h4>HubSpot as CRM spine</h4><p>The master relationship record. Every customer-facing tool syncs back here. Free CRM is genuinely capable to start.</p></div>
+    <div class="shared-item fade-up d4"><h4>Zapier as early glue</h4><p>Lightweight integration layer between tools. Graduate to direct API webhooks when complexity justifies it.</p></div>
+    <div class="shared-item fade-up d1"><h4>Looker Studio for analytics</h4><p>Free unified dashboard connecting all operational tools. Sufficient for early-stage reporting.</p></div>
+    <div class="shared-item fade-up d2"><h4>Data portability first</h4><p>Confirm full customer data export via CSV or API before signing any vendor contract. Non-negotiable.</p></div>
+    <div class="shared-item fade-up d3"><h4>Domain strategy</h4><p>One canonical URL, everything else 301 redirects. Acquire soundbath.miami immediately.</p></div>
+    <div class="shared-item fade-up d4"><h4>Start Phase 3 conversations now</h4><p>Book4Time and Zenoti both require 3–4 month procurement cycles. Begin vendor conversations early.</p></div>
   </div>
 
-  <!-- PHASE OVERVIEW -->
   <div class="section-head fade-up">
     <div class="section-num">02</div>
     <h2>Three phases, <em>clear milestones</em></h2>
@@ -123,9 +114,7 @@
 
   <table class="swap-tbl fade-up" style="margin-bottom:40px">
     <thead>
-      <tr>
-        <th>Phase</th><th>Goal</th><th>When</th><th>Key outputs</th>
-      </tr>
+      <tr><th>Phase</th><th>Goal</th><th>When</th><th>Key outputs</th></tr>
     </thead>
     <tbody>
       <tr>
@@ -150,7 +139,7 @@
   </table>
 
   <div class="callout callout-dark fade-up">
-    <p><strong>Not sure which stack?</strong> The <a href="comparison.html" style="color:var(--ink);font-weight:500;text-decoration:underline;text-underline-offset:3px">comparison page</a> scores each across seven factors including pricing, luxury feel, ease of use, data ownership, and Miami market fit — with an honest hybrid recommendation.</p>
+    <p><strong>Not sure which stack?</strong> The <a href="comparison.html" style="color:var(--ink);font-weight:500;text-decoration:underline;text-underline-offset:3px">comparison page</a> scores each approach across seven factors — including brand feel, data ownership, ease of use, and Miami market fit — with a clear breakdown of what each stack does and doesn't do well.</p>
   </div>
 
 </div>
@@ -162,44 +151,22 @@
     <a class="footer-link" href="stack-architect.html">Architect Stack</a>
     <a class="footer-link" href="comparison.html">Compare</a>
   </div>
-  <div class="footer-copy" style="font-size:11px;color:var(--faint)">Prepared by Caroline Godwin · 2025</div>
+  <div class="footer-copy">Caroline Godwin · 2026</div>
 </footer>
 
 <script>
-const PASS = 'MiamiFL';
-function checkPassword() {
-  const val = document.getElementById('gate-input').value;
-  const err = document.getElementById('gate-error');
-  if (val === PASS) {
-    sessionStorage.setItem('sb_auth', '1');
-    document.getElementById('gate').classList.add('hidden');
-    err.textContent = '';
-  } else {
-    err.textContent = 'Incorrect access code.';
-    document.getElementById('gate-input').value = '';
-    document.getElementById('gate-input').focus();
-  }
+const PASS='MiamiFL';
+function checkPassword(){
+  const v=document.getElementById('gate-input').value,e=document.getElementById('gate-error');
+  if(v===PASS){sessionStorage.setItem('sb_auth','1');document.getElementById('gate').classList.add('hidden');e.textContent=''}
+  else{e.textContent='Incorrect access code.';document.getElementById('gate-input').value='';document.getElementById('gate-input').focus()}
 }
-document.getElementById('gate-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
-if (sessionStorage.getItem('sb_auth') === '1') {
-  document.getElementById('gate').classList.add('hidden');
-}
-
-window.addEventListener('scroll', () => {
-  document.getElementById('sitenav').classList.toggle('scrolled', window.scrollY > 20);
-});
-
-function toggleMenu() {
-  const hb = document.getElementById('hamburger');
-  const mm = document.getElementById('mobilemenu');
-  hb.classList.toggle('open');
-  mm.classList.toggle('open');
-}
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+document.getElementById('gate-input').addEventListener('keydown',e=>{if(e.key==='Enter')checkPassword()});
+if(sessionStorage.getItem('sb_auth')==='1')document.getElementById('gate').classList.add('hidden');
+window.addEventListener('scroll',()=>document.getElementById('sitenav').classList.toggle('scrolled',window.scrollY>20));
+function toggleMenu(){document.getElementById('hamburger').classList.toggle('open');document.getElementById('mobilemenu').classList.toggle('open')}
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>

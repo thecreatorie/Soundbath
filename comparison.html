@@ -19,7 +19,7 @@
     <button class="gate-btn" onclick="checkPassword()">Enter</button>
   </div>
   <div class="gate-error" id="gate-error"></div>
-  <div class="gate-footer">Confidential · Caroline Godwin · 2025</div>
+  <div class="gate-footer">Confidential · Caroline Godwin · 2026</div>
 </div>
 
 <nav class="site-nav" id="sitenav">
@@ -31,9 +31,7 @@
       <a class="nav-link arch-pill" href="stack-architect.html">The Architect Stack</a>
       <a class="nav-link active" href="comparison.html">Compare</a>
     </div>
-    <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
   </div>
   <div class="nav-mobile-menu" id="mobilemenu">
     <a class="nav-link" href="index.html">Overview</a>
@@ -46,49 +44,44 @@
 <div class="page-wrap">
 
   <div class="page-hero fade-up">
-    <div class="page-hero-eyebrow">Unbiased analysis · Verified pricing March 2026</div>
+    <div class="page-hero-eyebrow">Unbiased analysis · Tools verified March 2026</div>
     <h1>Experience vs. Architect.<br><em>Which is right?</em></h1>
-    <p class="page-hero-desc">Both stacks share the same foundation. They diverge in five meaningful ways. This document scores each stack across seven factors, breaks down every tool divergence, and gives an honest final recommendation — including where each stack genuinely falls short.</p>
+    <p class="page-hero-desc">Both stacks share the same foundation. They diverge in five meaningful ways. This document scores each stack across seven factors, breaks down every tool divergence, and gives an honest final recommendation — including where each approach genuinely falls short.</p>
     <div class="page-hero-tags">
-      <span class="tag tag-exp">Experience Stack · 160 hrs</span>
-      <span class="tag tag-arch">Architect Stack · 175 hrs</span>
-      <span class="tag tag-neutral">Pricing verified March 2026</span>
+      <span class="tag tag-exp">Experience Stack · ~160 hrs estimated</span>
+      <span class="tag tag-arch">Architect Stack · ~175 hrs estimated</span>
     </div>
   </div>
 
-  <!-- HOURS COMPARISON STRIP -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:48px" class="fade-up">
-    <div style="background:var(--exp-pale);border:.5px solid rgba(42,82,64,.25);border-radius:var(--r-md);padding:20px 24px;">
-      <div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--exp);margin-bottom:8px;font-weight:500">Experience Stack · Hours</div>
-      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px">
-        <div style="font-family:var(--serif);font-size:36px;font-weight:300">160 hrs</div>
-        <div style="font-size:22px;font-family:var(--serif);color:var(--gold2)">$16,000</div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr auto;gap:4px;font-size:12px;color:var(--muted)">
-        <div>Phase 1 — Foundation</div><div style="text-align:right;font-weight:400;color:var(--ink)">30 hrs</div>
-        <div>Phase 2 — Membership</div><div style="text-align:right;font-weight:400;color:var(--ink)">50 hrs</div>
-        <div>Phase 3 — Operations</div><div style="text-align:right;font-weight:400;color:var(--ink)">80 hrs</div>
+  <!-- HOURS COMPARISON -->
+  <div class="hours-compare fade-up">
+    <div class="hours-compare-card exp">
+      <div class="hours-compare-label">Experience Stack · Estimated Hours</div>
+      <div class="hours-compare-total">~160 hrs</div>
+      <div class="hours-compare-breakdown">
+        <span>Phase 1 — Foundation</span><span>~30 hrs</span>
+        <span>Phase 2 — Membership</span><span>~50 hrs</span>
+        <span>Phase 3 — Operations</span><span>~80 hrs</span>
       </div>
     </div>
-    <div style="background:var(--arch-pale);border:.5px solid rgba(124,90,46,.25);border-radius:var(--r-md);padding:20px 24px;">
-      <div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--arch);margin-bottom:8px;font-weight:500">Architect Stack · Hours</div>
-      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px">
-        <div style="font-family:var(--serif);font-size:36px;font-weight:300">175 hrs</div>
-        <div style="font-size:22px;font-family:var(--serif);color:var(--gold2)">$17,500</div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr auto;gap:4px;font-size:12px;color:var(--muted)">
-        <div>Phase 1 — Foundation</div><div style="text-align:right;font-weight:400;color:var(--ink)">38 hrs</div>
-        <div>Phase 2 — Membership</div><div style="text-align:right;font-weight:400;color:var(--ink)">52 hrs</div>
-        <div>Phase 3 — Operations</div><div style="text-align:right;font-weight:400;color:var(--ink)">85 hrs</div>
+    <div class="hours-compare-card arch">
+      <div class="hours-compare-label">Architect Stack · Estimated Hours</div>
+      <div class="hours-compare-total">~175 hrs</div>
+      <div class="hours-compare-breakdown">
+        <span>Phase 1 — Foundation</span><span>~38 hrs</span>
+        <span>Phase 2 — Membership</span><span>~52 hrs</span>
+        <span>Phase 3 — Operations</span><span>~85 hrs</span>
       </div>
     </div>
   </div>
+
+  <div style="font-size:12px;color:var(--subtle);margin-top:-38px;margin-bottom:52px;font-weight:300;font-style:italic">All estimates are implementation hours only. Ongoing tool subscription costs are separate and shown in the monthly cost scorecard below.</div>
 
   <!-- SCORECARD -->
   <div class="section-head fade-up">
     <div class="section-num">01</div>
     <h2>Factor-by-factor <em>scorecard</em></h2>
-    <p>Five dots = strongest possible score in each category. Winner called honestly for each factor.</p>
+    <p>Five dots = strongest possible score in that category. Winner called honestly for each factor.</p>
   </div>
 
   <div class="scorecard fade-up">
@@ -99,16 +92,16 @@
     </div>
 
     <div class="sc-row">
-      <div class="sc-factor"><div class="sc-factor-name">Monthly cost</div><div class="sc-factor-sub">Phase 1 + 2 active</div></div>
+      <div class="sc-factor"><div class="sc-factor-name">Monthly running cost</div><div class="sc-factor-sub">Ongoing tool subscriptions — separate from implementation hours</div></div>
       <div class="sc-cell">
         <div class="sc-dots"><div class="dot-exp"></div><div class="dot-exp"></div><div class="dot-exp"></div><div class="dot-empty"></div><div class="dot-empty"></div></div>
-        <span class="sc-win win-arch">Higher</span>
-        <p class="sc-note">~$280/mo at Phase 2. Glofox (custom, $110–200+ base; can exceed $600/mo with add-ons), Circle.so ($89), Beehiiv ($49 Scale), Framer ($30), Zapier ($20). More fixed monthly line items. Glofox pricing requires a demo — no public rate card.</p>
+        <span class="sc-win win-arch">Higher fixed cost</span>
+        <p class="sc-note">More fixed monthly subscriptions — Glofox (custom pricing, no public rate card), Circle.so, Beehiiv Scale, Framer, Zapier. Glofox pricing opacity is a real risk: multiple user reviews flag surprise price increases and escalating add-on costs.</p>
       </div>
       <div class="sc-cell">
         <div class="sc-dots"><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-empty"></div></div>
-        <span class="sc-win win-arch">Lower fixed</span>
-        <p class="sc-note">~$200/mo at Phase 2. Webflow ($23), HubSpot Starter ($15/seat), Eventbrite (% only), Zapier ($20), Stripe (% only). Fewer fixed tools. Note: Stripe's 2.9%+30¢ per transaction adds up at volume — 100 members × $150/mo = ~$450/mo in fees.</p>
+        <span class="sc-win win-arch">Lower fixed cost</span>
+        <p class="sc-note">Fewer fixed subscriptions — Webflow, HubSpot Starter, Zapier. Eventbrite and Stripe are usage-based. Tradeoff: Stripe's per-transaction fees add up at volume. Run the numbers against projected membership count to compare true cost.</p>
       </div>
     </div>
 
@@ -117,7 +110,7 @@
       <div class="sc-cell">
         <div class="sc-dots"><div class="dot-exp"></div><div class="dot-exp"></div><div class="dot-exp"></div><div class="dot-exp"></div><div class="dot-empty"></div></div>
         <span class="sc-win win-exp">Stronger</span>
-        <p class="sc-note">Framer produces the most refined landing pages of any no-code tool. Glofox has a premium branded member app. Circle.so creates an exclusive destination. The UX matches the brand promise across every touchpoint from first visit to member login.</p>
+        <p class="sc-note">Framer produces the most refined no-code landing pages available. Glofox includes a premium branded member app. Circle.so creates an exclusive community destination. The UX matches the brand promise across every touchpoint from first visit to member login.</p>
       </div>
       <div class="sc-cell">
         <div class="sc-dots"><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-empty"></div><div class="dot-empty"></div></div>
@@ -127,16 +120,16 @@
     </div>
 
     <div class="sc-row">
-      <div class="sc-factor"><div class="sc-factor-name">Ease of use</div><div class="sc-factor-sub">For non-technical ops</div></div>
+      <div class="sc-factor"><div class="sc-factor-name">Ease of use</div><div class="sc-factor-sub">Non-technical operations</div></div>
       <div class="sc-cell">
         <div class="sc-dots"><div class="dot-exp"></div><div class="dot-exp"></div><div class="dot-exp"></div><div class="dot-exp"></div><div class="dot-empty"></div></div>
         <span class="sc-win win-exp">Easier</span>
-        <p class="sc-note">Each tool is opinionated and purpose-built with guided onboarding. A non-technical team member can operate most of this stack day-to-day after initial setup. Luma is exceptionally easy for events. Beehiiv is intuitive for email and waitlist management.</p>
+        <p class="sc-note">Each tool is purpose-built with guided onboarding. A non-technical team member can operate most of this stack day-to-day after initial setup. Luma is particularly easy for events. Beehiiv is intuitive for email and waitlist management.</p>
       </div>
       <div class="sc-cell">
         <div class="sc-dots"><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-empty"></div><div class="dot-empty"></div></div>
         <span class="sc-win win-arch">Developer-dependent</span>
-        <p class="sc-note">Stripe requires developer configuration and is not manageable by non-technical staff. Webflow has a steeper learning curve. This stack keeps the developer more central long-term — which is good for the developer's retainer, but creates ongoing dependency for the client.</p>
+        <p class="sc-note">Stripe requires ongoing developer involvement — subscription logic changes, webhook maintenance, and edge case fixes are not self-service tasks. This stack keeps the developer more central long-term, which creates ongoing dependency but also ongoing engagement.</p>
       </div>
     </div>
 
@@ -145,195 +138,201 @@
       <div class="sc-cell">
         <div class="sc-dots"><div class="dot-exp"></div><div class="dot-exp"></div><div class="dot-exp"></div><div class="dot-empty"></div><div class="dot-empty"></div></div>
         <span class="sc-win win-tie">Good</span>
-        <p class="sc-note">HubSpot is the spine and exports cleanly. But Glofox holds billing history and Circle.so holds community engagement data separately. Glofox's data export capabilities should be confirmed in writing before signing. If Glofox is replaced, migrating stored payment methods carries real churn risk.</p>
+        <p class="sc-note">HubSpot exports cleanly. But Glofox holds billing history and Circle.so holds community data separately. Glofox's data export capabilities must be confirmed in writing before signing. If Glofox is replaced, migrating stored payment methods carries real churn risk.</p>
       </div>
       <div class="sc-cell">
         <div class="sc-dots"><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-arch"></div></div>
         <span class="sc-win win-arch">Strongest</span>
-        <p class="sc-note">Three-system model by design. HubSpot owns the relationship, Stripe owns billing, Zenoti owns operations. Changing any single platform does not compromise the other two. Stripe is the most portable billing layer available — this is the clearest and most meaningful advantage of the Architect Stack.</p>
+        <p class="sc-note">Three-system model by design. HubSpot owns the relationship, Stripe owns billing, Zenoti owns operations. Changing any single platform doesn't compromise the other two. This is the clearest and most meaningful advantage of the Architect Stack.</p>
       </div>
     </div>
 
     <div class="sc-row">
-      <div class="sc-factor"><div class="sc-factor-name">Scalability</div><div class="sc-factor-sub">Multi-location / pivot</div></div>
+      <div class="sc-factor"><div class="sc-factor-name">Vendor independence</div><div class="sc-factor-sub">Can tools be swapped without losing customer data?</div></div>
       <div class="sc-cell">
         <div class="sc-dots"><div class="dot-exp"></div><div class="dot-exp"></div><div class="dot-exp"></div><div class="dot-empty"></div><div class="dot-empty"></div></div>
-        <span class="sc-win win-tie">Good within wellness</span>
-        <p class="sc-note">Scales well within the boutique wellness niche. Book4Time is enterprise-grade. Risk: if SOUNDBATH expands to multiple locations, Glofox's enterprise multi-location pricing can escalate significantly. Wellness-specific tools may not flex well if the model pivots.</p>
+        <span class="sc-win win-tie">Good</span>
+        <p class="sc-note">HubSpot exports cleanly. Glofox holds billing history — if replaced, migrating stored payment methods carries churn risk. Circle.so holds community data separately. Confirm full data export in writing from Glofox before signing anything. Portability is possible but requires due diligence on each vendor contract.</p>
       </div>
       <div class="sc-cell">
-        <div class="sc-dots"><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-empty"></div></div>
-        <span class="sc-win win-arch">Stronger</span>
-        <p class="sc-note">Stripe and HubSpot are used by companies 1,000x the size of SOUNDBATH. Stripe handles multi-location, multi-currency, and complex membership tiers natively. The modular architecture means any individual layer can be swapped without rebuilding the rest — much better for expansion.</p>
+        <div class="sc-dots"><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-arch"></div></div>
+        <span class="sc-win win-arch">Strongest</span>
+        <p class="sc-note">Designed for this explicitly. HubSpot owns the relationship, Stripe owns billing, Zenoti owns operations. Changing any one platform doesn't touch the other two. Stripe is the most portable billing layer available — customer payment history is fully owned regardless of what ops platform is chosen or changed later. This directly addresses the goal of owning customer data at every layer.</p>
       </div>
     </div>
 
     <div class="sc-row">
-      <div class="sc-factor"><div class="sc-factor-name">Speed to launch</div><div class="sc-factor-sub">Phase 1, zero to live</div></div>
+      <div class="sc-factor"><div class="sc-factor-name">Speed to launch</div><div class="sc-factor-sub">Phase 1 zero to live</div></div>
       <div class="sc-cell">
         <div class="sc-dots"><div class="dot-exp"></div><div class="dot-exp"></div><div class="dot-exp"></div><div class="dot-exp"></div><div class="dot-exp"></div></div>
-        <span class="sc-win win-exp">Fastest (30 hrs)</span>
-        <p class="sc-note">Framer and Beehiiv are built for fast, beautiful launches. Beehiiv handles the full waitlist flow out of the box including referral mechanics. 30 hrs of Phase 1 work can realistically go live in under 2 weeks. Fewer custom decisions required at the start.</p>
+        <span class="sc-win win-exp">Fastest (~30 hrs)</span>
+        <p class="sc-note">Framer and Beehiiv are built for fast, beautiful launches. Beehiiv handles the full waitlist flow including referral mechanics out of the box. Phase 1 can realistically go live in under 2 weeks. Fewer custom decisions required at the start.</p>
       </div>
       <div class="sc-cell">
         <div class="sc-dots"><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-empty"></div><div class="dot-empty"></div></div>
-        <span class="sc-win win-arch">Slower (38 hrs)</span>
-        <p class="sc-note">Webflow has a steeper initial curve than Framer. HubSpot Forms replacing Beehiiv means building email automation from scratch. The full data schema design adds setup time. Expect 2–3 weeks for Phase 1 — roughly 1.5x the Experience Stack timeline.</p>
+        <span class="sc-win win-arch">Slower (~38 hrs)</span>
+        <p class="sc-note">Webflow has a steeper initial curve than Framer. Building HubSpot email automation manually takes longer than using Beehiiv's prebuilt flows. The full data schema design for future tool IDs adds meaningful setup time. Expect 2–3 weeks for Phase 1.</p>
       </div>
     </div>
 
     <div class="sc-row">
-      <div class="sc-factor"><div class="sc-factor-name">Miami luxury fit</div><div class="sc-factor-sub">Right for the market</div></div>
+      <div class="sc-factor"><div class="sc-factor-name">Miami luxury fit</div><div class="sc-factor-sub">Right for the target market</div></div>
       <div class="sc-cell">
         <div class="sc-dots"><div class="dot-exp"></div><div class="dot-exp"></div><div class="dot-exp"></div><div class="dot-exp"></div><div class="dot-empty"></div></div>
         <span class="sc-win win-exp">Stronger</span>
-        <p class="sc-note">Framer pages match the aesthetic of Miami's luxury brands — Faena, Soho House, 1 Hotel. Luma's social discovery network is actively used by Miami's creative class. Circle.so creates an exclusive membership community that resonates with the high-net-worth social audience SOUNDBATH is targeting.</p>
+        <p class="sc-note">Framer pages match the aesthetic of Miami's luxury brands — Faena, Soho House, Botaniko. Luma's social discovery network is actively used by Miami's creative class. Circle.so creates an exclusive membership community that resonates with the high-net-worth social audience SOUNDBATH is targeting.</p>
       </div>
       <div class="sc-cell">
         <div class="sc-dots"><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-arch"></div><div class="dot-empty"></div><div class="dot-empty"></div></div>
         <span class="sc-win win-tie">Good with design investment</span>
-        <p class="sc-note">Webflow can absolutely look premium. Zenoti powers Four Seasons and Waldorf Astoria-level operations. The gap is the community and app layer — without a dedicated community space pre-opening, the experience is less immersive for a social, high-expectation Miami audience.</p>
+        <p class="sc-note">Webflow can absolutely look premium. Zenoti powers Four Seasons and Waldorf Astoria-level operations. The gap is the pre-opening community layer — without a dedicated community space, the experience is less immersive for a social, high-expectation Miami audience.</p>
       </div>
     </div>
   </div>
 
-  <!-- TOOL COMPARISON TABLE -->
+  <!-- TOOL TABLE -->
   <div class="section-head fade-up">
     <div class="section-num">02</div>
     <h2>Tool-by-tool <em>breakdown</em></h2>
-    <p>Every point of divergence — and why it matters for SOUNDBATH specifically.</p>
+    <p>Every point of divergence between the stacks — and why it matters for this specific project.</p>
   </div>
 
   <table class="swap-tbl fade-up">
     <thead><tr><th>Category</th><th>Experience Stack</th><th>Architect Stack</th><th>Why the difference matters</th></tr></thead>
     <tbody>
       <tr>
-        <td style="font-size:12px;color:var(--subtle);font-weight:500">Landing page</td>
-        <td><span class="cell-exp">Framer ($30/mo)</span></td>
-        <td><span class="cell-arch">Webflow ($23/mo CMS)</span></td>
-        <td class="cell-note">Framer is faster and more polished out of the box — better for a brand-first waitlist page. Webflow is better if the site will grow to many content pages over time. For Phase 1 only, Framer wins on speed and aesthetics. For a long-term content marketing strategy, Webflow is the better investment.</td>
+        <td style="font-size:13px;color:var(--subtle);font-weight:500">Landing page</td>
+        <td><span class="cell-exp">Framer</span></td>
+        <td><span class="cell-arch">Webflow (CMS plan)</span></td>
+        <td class="cell-note">Framer is faster to launch and more polished out of the box — better for a brand-first waitlist page. Webflow has more CMS depth and is better for a site that will grow to many content pages over time. For Phase 1 only, Framer wins on speed and aesthetics. For a long-term content marketing strategy, Webflow is the stronger investment.</td>
       </tr>
       <tr>
-        <td style="font-size:12px;color:var(--subtle);font-weight:500">Waitlist</td>
-        <td><span class="cell-exp">Beehiiv (free → $49/mo)</span></td>
-        <td><span class="cell-arch">HubSpot Forms (free)</span></td>
-        <td class="cell-note">Beehiiv turns a waitlist into a publication — referral mechanics, newsletter product, and a beautiful subscribe flow out of the box. Free plan covers 2,500 subscribers. HubSpot Forms is simpler and cheaper but requires manually building email sequences. If Vishal wants to send a pre-opening newsletter, Beehiiv is clearly better.</td>
+        <td style="font-size:13px;color:var(--subtle);font-weight:500">Waitlist</td>
+        <td><span class="cell-exp">Beehiiv</span></td>
+        <td><span class="cell-arch">HubSpot Forms</span></td>
+        <td class="cell-note">Beehiiv turns a waitlist into a publication — referral mechanics, a newsletter product, and a polished subscribe flow out of the box. The free plan covers 2,500 subscribers. HubSpot Forms is simpler and free but requires building email automation manually. If the goal is to send a pre-opening newsletter to build anticipation, Beehiiv is clearly the better choice.</td>
       </tr>
       <tr>
-        <td style="font-size:12px;color:var(--subtle);font-weight:500">Membership billing</td>
-        <td><span class="cell-exp">Glofox (custom pricing)</span></td>
-        <td><span class="cell-arch">Stripe Billing (2.9%+30¢)</span></td>
-        <td class="cell-note">The highest-stakes divergence. Glofox is fast to set up but owns the billing relationship. Multiple user reviews flag hidden fees, price increases, and multi-year contract pressure. Stripe separates billing entirely — if any other platform is replaced, billing continuity is unaffected. Glofox wins on ease; Stripe wins decisively on portability and long-term risk.</td>
+        <td style="font-size:13px;color:var(--subtle);font-weight:500">Membership billing</td>
+        <td><span class="cell-exp">Glofox</span></td>
+        <td><span class="cell-arch">Stripe Billing</span></td>
+        <td class="cell-note">The highest-stakes divergence. Glofox bundles billing with membership management — fast to set up but Glofox owns the billing relationship. Multiple independent user reviews flag hidden fees, unexpected price increases, and pressure toward multi-year contracts. Stripe separates billing entirely — if any other platform is ever replaced, billing continuity is unaffected. Glofox wins on ease and speed. Stripe wins decisively on portability and long-term risk.</td>
       </tr>
       <tr>
-        <td style="font-size:12px;color:var(--subtle);font-weight:500">Community</td>
-        <td><span class="cell-exp">Circle.so ($89/mo + 2% fee)</span></td>
+        <td style="font-size:13px;color:var(--subtle);font-weight:500">Community</td>
+        <td><span class="cell-exp">Circle.so</span></td>
         <td><span class="cell-arch">HubSpot email sequences</span></td>
-        <td class="cell-note">Circle.so creates a destination founding members can inhabit before the bathhouse opens. For SOUNDBATH's social, creative Miami audience, this is a genuine differentiator. HubSpot email is one-directional. The Architect Stack can add Circle.so without architectural conflict — consider including it in either stack.</td>
+        <td class="cell-note">Circle.so creates a destination founding members can actually inhabit before the bathhouse opens. For a social, creative Miami audience, this is a genuine brand differentiator. HubSpot email is one-directional — members receive information but don't participate. The Architect Stack can add Circle.so without architectural conflict — it's an additive layer, not a replacement.</td>
       </tr>
       <tr>
-        <td style="font-size:12px;color:var(--subtle);font-weight:500">Event ticketing</td>
-        <td><span class="cell-exp">Luma (5% fee or $59/mo)</span></td>
-        <td><span class="cell-arch">Eventbrite (~6.4% blended)</span></td>
-        <td class="cell-note">Luma is social-first and lower-cost — 5% vs Eventbrite's ~6.4% blended fee. Used by Miami's creative community as a discovery platform. Eventbrite has a more mature API and larger marketplace audience. For cultural events aimed at Miami's creative class, Luma is the better brand fit. This is the closest call in the comparison.</td>
+        <td style="font-size:13px;color:var(--subtle);font-weight:500">Event ticketing</td>
+        <td><span class="cell-exp">Luma</span></td>
+        <td><span class="cell-arch">Eventbrite</span></td>
+        <td class="cell-note">Luma is social-first and lower-cost — verified lower blended fees than Eventbrite at comparable volume. It's used by Miami's creative community as a discovery platform. Eventbrite has a more mature API and a larger marketplace audience. For cultural events aimed at Miami's creative class, Luma is the better brand fit. For operational maturity and API infrastructure, Eventbrite wins. This is the closest call in the comparison.</td>
       </tr>
       <tr>
-        <td style="font-size:12px;color:var(--subtle);font-weight:500">Bathhouse booking</td>
-        <td><span class="cell-exp">Book4Time (enterprise)</span></td>
-        <td><span class="cell-arch">Zenoti (enterprise)</span></td>
-        <td class="cell-note">Both are enterprise-grade luxury spa platforms. Book4Time has stronger North American hotel integration (Four Seasons, Mandarin Oriental) — right if hotel partnership is a possibility. Zenoti has deeper standalone wellness logic and a more modern API — right if SOUNDBATH is definitively standalone. Get demos from both before committing.</td>
+        <td style="font-size:13px;color:var(--subtle);font-weight:500">Referral-to-booking</td>
+        <td><span class="cell-exp">Beehiiv + Glofox + Luma</span></td>
+        <td><span class="cell-arch">HubSpot + Stripe promo codes</span></td>
+        <td class="cell-note">The brief calls for a system where referrals lead to bookings, not just waitlist signups. In the Experience Stack, Beehiiv tracks the referral and the booking endpoint is Glofox (membership) or Luma (event). In the Architect Stack, a UTM-tagged referral link routes to a Stripe checkout with a promo code — Stripe logs the conversion and a webhook closes the attribution loop in HubSpot. Both approaches work; the Experience Stack is more turnkey, the Architect Stack requires deliberate wiring but gives cleaner data ownership.</td>
       </tr>
       <tr>
-        <td style="font-size:12px;color:var(--subtle);font-weight:500">DNS</td>
-        <td><span class="cell-same">Cloudflare (free)</span></td>
-        <td><span class="cell-same">Cloudflare (free)</span></td>
-        <td class="cell-note"><span class="same-pill">Same</span>&nbsp; Both strategies agree. Cloudflare is the only sensible choice for DNS management.</td>
+        <td style="font-size:13px;color:var(--subtle);font-weight:500">Bathhouse ops</td>
+        <td><span class="cell-exp">Book4Time</span></td>
+        <td><span class="cell-arch">Zenoti</span></td>
+        <td class="cell-note">Both are enterprise-grade luxury spa platforms used by top-tier wellness brands. Book4Time has strong North American presence and mature scheduling and POS logic. Zenoti has deeper standalone wellness business logic and a more modern API. The right choice will come from running demos with both — each has a different onboarding experience and the fit for the actual operations team matters more than the spec sheet.</td>
       </tr>
       <tr>
-        <td style="font-size:12px;color:var(--subtle);font-weight:500">Email + admin</td>
+        <td style="font-size:13px;color:var(--subtle);font-weight:500">DNS</td>
+        <td><span class="cell-same">Cloudflare</span></td>
+        <td><span class="cell-same">Cloudflare</span></td>
+        <td class="cell-note"><span class="same-pill">Same</span>&nbsp; Both strategies agree. No meaningful alternative.</td>
+      </tr>
+      <tr>
+        <td style="font-size:13px;color:var(--subtle);font-weight:500">Email + admin</td>
         <td><span class="cell-same">Google Workspace</span></td>
         <td><span class="cell-same">Google Workspace</span></td>
-        <td class="cell-note"><span class="same-pill">Same</span>&nbsp; No meaningful alternative at $12/user/mo for a small team. Both stacks agree.</td>
+        <td class="cell-note"><span class="same-pill">Same</span>&nbsp; Both strategies agree for a small team.</td>
       </tr>
       <tr>
-        <td style="font-size:12px;color:var(--subtle);font-weight:500">CRM</td>
-        <td><span class="cell-same">HubSpot (free → $15/seat)</span></td>
-        <td><span class="cell-same">HubSpot (free → $15/seat)</span></td>
-        <td class="cell-note"><span class="same-pill">Same</span>&nbsp; The master relationship record in both stacks. The most important decision in the entire architecture — both strategies agree on it.</td>
+        <td style="font-size:13px;color:var(--subtle);font-weight:500">CRM</td>
+        <td><span class="cell-same">HubSpot</span></td>
+        <td><span class="cell-same">HubSpot</span></td>
+        <td class="cell-note"><span class="same-pill">Same</span>&nbsp; The most important decision in the entire stack — both strategies agree. The master relationship record lives here regardless of which other tools are chosen.</td>
       </tr>
       <tr>
-        <td style="font-size:12px;color:var(--subtle);font-weight:500">Analytics</td>
-        <td><span class="cell-same">Looker Studio (free)</span></td>
-        <td><span class="cell-same">Looker Studio (free)</span></td>
-        <td class="cell-note"><span class="same-pill">Same</span>&nbsp; Free, connects to everything, sufficient for early-stage reporting.</td>
+        <td style="font-size:13px;color:var(--subtle);font-weight:500">Integration glue</td>
+        <td><span class="cell-same">Zapier</span></td>
+        <td><span class="cell-same">Zapier / Make</span></td>
+        <td class="cell-note"><span class="same-pill">Same</span>&nbsp; Early integration layer in both stacks. Graduate to direct API webhooks when complexity justifies it.</td>
       </tr>
     </tbody>
   </table>
 
-  <!-- DEEP DIVES -->
+  <!-- THREE KEY DECISIONS -->
   <div class="section-head fade-up">
     <div class="section-num">03</div>
     <h2>The three decisions <em>that matter most</em></h2>
   </div>
 
-  <div style="margin-bottom:10px;font-size:15px;font-weight:500" class="fade-up">The billing decision: Glofox vs. Stripe</div>
+  <div style="margin-bottom:12px;font-size:16px;font-weight:500" class="fade-up">Billing: Glofox vs. Stripe</div>
   <div class="dd-grid fade-up">
     <div class="dd-card top-exp">
       <div class="dd-tag exp">Experience Stack · Glofox</div>
       <h3>Convenient, fast, wellness-native</h3>
-      <p>Glofox was built for this business type. Membership tiers, branded app, recurring billing, and class booking come pre-configured. A non-technical team can manage it day-to-day. Important caveats verified through user review research: no public pricing, multiple reports of hidden fees, unexpected price increases, and pressure toward long-term (3-year) contracts. Get a detailed written quote, confirm all fees, and verify month-to-month availability before signing.</p>
+      <p>Glofox was built for this business type. Membership tiers, branded app, recurring billing, and class booking come pre-configured. A non-technical team can manage it day-to-day after initial setup. Critical due diligence: no public pricing, multiple independent reports of hidden fees, unexpected price increases, and pressure toward multi-year contracts. Get a full written quote, confirm month-to-month availability, and verify data export before signing anything.</p>
     </div>
     <div class="dd-card top-arch">
       <div class="dd-tag arch">Architect Stack · Stripe</div>
       <h3>Portable, powerful, developer-required</h3>
-      <p>Stripe is the most portable billing infrastructure that exists. Payment history, subscription logic, and customer IDs live independently. If any future ops platform is replaced, billing continuity is fully protected. Real cost: Stripe's 2.9%+30¢ per transaction — at 100 founding members paying $150/mo, that's ~$450/mo in processing fees. Requires real developer configuration to implement membership tiers and billing flows.</p>
+      <p>Stripe is the most portable billing infrastructure available. Payment history, subscription logic, and customer IDs live independently of any other platform. If any future ops tool is replaced, billing continuity is fully protected. Requires real developer configuration — subscription tiers, webhooks, and member portal UX are not self-service. Transaction fees apply per charge — model these against projected membership volume to understand the true cost at scale.</p>
     </div>
     <div class="dd-card top-gold">
       <div class="dd-tag muted">Honest call</div>
-      <h3>Validate Glofox's contract terms before committing — or use Stripe from the start</h3>
-      <p>The Experience Stack is faster and easier. But before choosing Glofox, get full pricing in writing, confirm month-to-month terms are available, and verify data export capabilities. If Glofox's terms are acceptable, it's the right Phase 2 choice for speed. If the contract is multi-year or pricing is opaque, go directly to Stripe. The hybrid approach: use Glofox short-term, plan a Stripe migration once the business stabilizes, and add the <code>glofox_member_id</code> field to HubSpot now so the migration has a clean target.</p>
+      <h3>Validate Glofox's contract before committing — or use Stripe from the start</h3>
+      <p>The Experience Stack is faster and easier. But before choosing Glofox, get full pricing in writing, confirm month-to-month terms are available, and verify data export capabilities. If Glofox's terms are clean, it's the right Phase 2 choice. If the contract is restrictive or pricing is opaque, go directly to Stripe from the start — it takes more setup but the billing layer is fully owned from day one. Either way, establish the tool ID fields in HubSpot contacts immediately so any future migration has a clean target.</p>
     </div>
   </div>
 
-  <div style="margin-bottom:10px;margin-top:36px;font-size:15px;font-weight:500" class="fade-up">The community decision: Circle.so vs. HubSpot email</div>
+  <div style="margin-bottom:12px;margin-top:40px;font-size:16px;font-weight:500" class="fade-up">Community: Circle.so vs. HubSpot email</div>
   <div class="dd-grid fade-up">
     <div class="dd-card top-exp">
       <div class="dd-tag exp">Experience Stack · Circle.so</div>
       <h3>A real destination for founding members</h3>
-      <p>Circle.so creates a branded community that founding members can actually inhabit before the bathhouse opens — discussions, programming previews, and member-to-member connection. For Miami's creative, social audience, this is a genuine brand differentiator. It gives SOUNDBATH a community story before a single tile is laid. The Professional plan at $89/mo (annual) includes a 2% transaction fee on payments processed through Circle — factor this into membership payment flow planning.</p>
+      <p>Circle.so creates a branded community that founding members can actually inhabit before the bathhouse opens — discussions, programming previews, and member-to-member connection. For Miami's creative, social audience, this is a genuine differentiator. It gives SOUNDBATH a community story to tell before a single tile is laid. Note that Circle charges a transaction fee on payments processed through the platform — plan membership payment flows accordingly.</p>
     </div>
     <div class="dd-card top-arch">
       <div class="dd-tag arch">Architect Stack · HubSpot email</div>
       <h3>Functional, not experiential</h3>
-      <p>HubSpot email sequences are effective for nurturing contacts and sending updates. But they're one-directional — members receive information, they don't participate. For a brand explicitly built around social immersion and cultural programming, this undersells the product before it opens. The $89/mo saving is real. But the lost pre-opening community momentum — measured in missed founding member referrals and word-of-mouth — likely costs more.</p>
+      <p>HubSpot email sequences are effective for nurturing contacts and sending updates. But they're one-directional — members receive information, they don't participate. For a brand explicitly built around social immersion and cultural programming, this undersells the product before it opens. The cost savings are real, but the lost pre-opening community momentum — measured in missed founding member referrals and word-of-mouth — likely costs more over time.</p>
     </div>
     <div class="dd-card top-gold">
       <div class="dd-tag muted">Honest call</div>
       <h3>Circle.so is worth adding to either stack for this brand</h3>
-      <p>The Architect Stack can add Circle.so without architectural conflict — it's an additive layer that syncs to HubSpot via Zapier. The data ownership model is unaffected. SOUNDBATH's positioning is explicitly social and cultural. A pre-opening Circle.so community does three things: gives founding members something to be part of immediately, generates organic word-of-mouth, and gives Vishal real signal on what programming his audience wants before opening day. Both stacks should seriously consider including it.</p>
+      <p>The Architect Stack can add Circle.so without architectural conflict — it's an additive layer that syncs to HubSpot via Zapier without replacing either Stripe or Zenoti. The data ownership model is unaffected. SOUNDBATH's positioning is explicitly social and cultural. A pre-opening Circle.so community does three things: gives founding members something to belong to immediately, generates organic word-of-mouth, and gives real signal on what programming the audience wants before opening day. Both stacks should seriously consider including it.</p>
     </div>
   </div>
 
-  <div style="margin-bottom:10px;margin-top:36px;font-size:15px;font-weight:500" class="fade-up">The Phase 3 decision: Book4Time vs. Zenoti</div>
+  <div style="margin-bottom:12px;margin-top:40px;font-size:16px;font-weight:500" class="fade-up">Phase 3 ops: Book4Time vs. Zenoti</div>
   <div class="dd-grid fade-up">
     <div class="dd-card top-exp">
       <div class="dd-tag exp">Experience Stack · Book4Time</div>
-      <h3>The hotel spa industry standard</h3>
-      <p>Used by Four Seasons, Mandarin Oriental, and most major hotel spa brands in North America. The credible choice if hotel partnership at Phase 3 is a realistic possibility. Strong North American support presence and mature API. The right choice if SOUNDBATH benchmarks itself against the hospitality tier or pursues a hotel integration.</p>
+      <h3>Established, mature, widely trusted</h3>
+      <p>Used by Four Seasons Spa, Mandarin Oriental Spa, and other tier-one luxury spa brands. Strong North American support presence, mature scheduling logic, and a well-documented API. Has been in the market long enough that most implementation edge cases are known and solved. The more conservative choice of the two.</p>
     </div>
     <div class="dd-card top-arch">
       <div class="dd-tag arch">Architect Stack · Zenoti</div>
-      <h3>Purpose-built for standalone wellness</h3>
-      <p>More feature-complete for a standalone wellness business — deeper membership logic, better POS integration, stronger native forms and consent workflows. More modern API with cleaner HubSpot and Stripe integration paths. Used by Waldorf Astoria Spa, Ritz-Carlton Spa. Better choice if SOUNDBATH is definitively standalone with no hotel partnership planned.</p>
+      <h3>Modern, flexible, deeper wellness logic</h3>
+      <p>More feature-complete for a standalone wellness business — deeper membership management, better native POS integration, stronger consent form workflows. More modern API that connects more cleanly to HubSpot and Stripe. Used by Waldorf Astoria Spa, Ritz-Carlton Spa, and luxury standalone wellness chains. The better choice for a business that expects its operations to evolve quickly.</p>
     </div>
     <div class="dd-card top-gold">
-      <div class="dd-tag muted">Honest call</div>
-      <h3>Start conversations with both now — decide at site selection</h3>
-      <p>The right choice depends on whether hotel partnership is on the table. Neither platform should be committed to before the physical site is confirmed. Start both sales processes now — 4–5 months before target opening date. The demos will reveal which platform's UX, support, and integration story fits the actual operations team. Both require 3+ month onboarding cycles. Do not leave this decision to 60 days before opening.</p>
+      <div class="dd-tag muted">The call</div>
+      <h3>Run demos with both before the physical site is confirmed</h3>
+      <p>Both platforms require 3–4 month onboarding cycles — start conversations now regardless of which direction feels right. The demos will reveal which platform's UX, support model, and day-to-day management experience is the better fit for the actual operations team. Neither should be committed to before site selection is finalized and the physical layout is known.</p>
     </div>
   </div>
 
-  <!-- FINAL -->
+  <!-- WHO SHOULD CHOOSE WHICH -->
   <div class="section-head fade-up">
     <div class="section-num">04</div>
     <h2>Who should choose <em>which</em></h2>
@@ -344,30 +343,25 @@
       <div class="choose-card-title">Choose the Experience Stack if...</div>
       <ul class="choose-list">
         <li>The waitlist page needs to be live within 2 weeks</li>
-        <li>A branded pre-opening community is central to the brand story</li>
+        <li>A branded pre-opening community is central to the brand strategy</li>
         <li>The team operating it day-to-day is not technical</li>
-        <li>Miami's creative class seeing a polished UX from first contact is the priority</li>
-        <li>Glofox's contract terms are acceptable after due diligence</li>
-        <li>Hotel partnership at Phase 3 is a realistic possibility</li>
+        <li>The Miami creative class seeing a polished UX from first visit is the priority</li>
+        <li>Glofox's contract terms are acceptable after full due diligence</li>
       </ul>
     </div>
     <div class="choose-card arch-top">
       <div class="choose-card-title">Choose the Architect Stack if...</div>
       <ul class="choose-list">
         <li>Data ownership and billing portability are genuinely non-negotiable</li>
-        <li>A longer Phase 1 is acceptable in exchange for cleaner architecture</li>
-        <li>A developer stays engaged long-term to maintain Stripe billing logic</li>
-        <li>SOUNDBATH may expand to multiple locations in a 3–5 year horizon</li>
-        <li>The community experience pre-opening is less central (or Circle.so is added separately)</li>
-        <li>Standalone wellness is the permanent model — no hotel partnership</li>
+        <li>A longer Phase 1 is acceptable in exchange for cleaner long-term architecture</li>
+        <li>Developer engagement continues beyond launch — ongoing involvement is expected</li>
+        <li>The community layer can come later or Circle.so is added as a separate decision</li>
       </ul>
     </div>
   </div>
 
-  <div class="verdict-strip fade-up">
-    <h3>The honest recommendation: a <em>deliberate hybrid</em></h3>
-    <p><strong>Use the Experience Stack for Phase 1 and Phase 2</strong> — Framer, Beehiiv, Circle.so, and Luma get the brand launched beautifully and fast, with a genuine pre-opening community that fits the Miami audience. <strong>Add Circle.so regardless of which stack is chosen</strong> — the $89/mo is worth it for this brand specifically. <strong>On billing</strong>: validate Glofox's contract terms thoroughly before signing. If terms are month-to-month and data export is confirmed, use Glofox for Phase 2 speed. If the contract is multi-year or pricing is opaque, go directly to Stripe. <strong>Add <code>stripe_customer_id</code> to HubSpot contacts from day one</strong> regardless of stack — so a future migration has a clean home. <strong>At Phase 3</strong>: start Book4Time and Zenoti demos simultaneously now. The right choice depends on site type. Neither decision should be deferred to 60 days before opening.</p>
-  </div>
+
+
 
 </div>
 
@@ -378,7 +372,7 @@
     <a class="footer-link" href="stack-experience.html">Experience Stack</a>
     <a class="footer-link" href="stack-architect.html">Architect Stack</a>
   </div>
-  <div class="footer-copy" style="font-size:11px;color:var(--faint)">Caroline Godwin · Pricing verified March 2026</div>
+  <div class="footer-copy">Caroline Godwin · 2026</div>
 </footer>
 
 <script>
