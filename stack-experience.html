@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOUNDBATH — The Experience Stack</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-grain"></div>
+  <div class="gate-rule"></div>
+  <div class="gate-wordmark">Soundbath</div>
+  <div class="gate-sub">Miami · Technology Strategy</div>
+  <label class="gate-label">Access code</label>
+  <div class="gate-field-wrap">
+    <input class="gate-input" type="password" id="gate-input" placeholder="Enter to access" autocomplete="off"/>
+    <button class="gate-btn" onclick="checkPassword()">Enter</button>
+  </div>
+  <div class="gate-error" id="gate-error"></div>
+  <div class="gate-footer">Confidential · Caroline Godwin · 2025</div>
+</div>
+
+<nav class="site-nav" id="sitenav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">Soundbath</a>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html">Overview</a>
+      <a class="nav-link exp-pill active" href="stack-experience.html">The Experience Stack</a>
+      <a class="nav-link arch-pill" href="stack-architect.html">The Architect Stack</a>
+      <a class="nav-link" href="comparison.html">Compare</a>
+    </div>
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile-menu" id="mobilemenu">
+    <a class="nav-link" href="index.html">Overview</a>
+    <a class="nav-link active" href="stack-experience.html">The Experience Stack</a>
+    <a class="nav-link" href="stack-architect.html">The Architect Stack</a>
+    <a class="nav-link" href="comparison.html">Compare Both</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="page-hero fade-up">
+    <div class="page-hero-eyebrow">Strategy 1 of 2 · Experience-first approach</div>
+    <h1>The <em>Experience</em> Stack</h1>
+    <p class="page-hero-desc">Purpose-built wellness SaaS tools optimized for speed to market, luxury brand aesthetics, and a compelling pre-opening member community. Each tool does one thing exceptionally well. The tradeoff: billing and community live in third-party platforms, making future migrations more effort-intensive.</p>
+    <div class="page-hero-tags">
+      <span class="tag tag-exp">Faster launch</span>
+      <span class="tag tag-exp">Premium UX</span>
+      <span class="tag tag-exp">Wellness-native</span>
+      <span class="tag tag-neutral">More monthly tools</span>
+      <span class="tag tag-gold">◷ 160 hrs total</span>
+    </div>
+  </div>
+
+  <div class="tab-bar fade-up">
+    <button class="tab-btn active" onclick="showTab('p1',this)">Phase 1 — Foundation</button>
+    <button class="tab-btn" onclick="showTab('p2',this)">Phase 2 — Membership</button>
+    <button class="tab-btn" onclick="showTab('p3',this)">Phase 3 — Operations</button>
+    <button class="tab-btn" onclick="showTab('domain',this)">Domain Strategy</button>
+    <button class="tab-btn" onclick="showTab('arch',this)">Architecture</button>
+  </div>
+
+  <!-- ── PHASE 1 ── -->
+  <div id="p1" class="tab-pane active">
+
+    <div class="cost-row">
+      <div class="cost-card"><div class="cost-card-label">Est. monthly cost</div><div class="cost-card-val">~$95</div><div class="cost-card-note">Phase 1 active</div></div>
+      <div class="cost-card"><div class="cost-card-label">Timeline to live</div><div class="cost-card-val">1–2 wks</div><div class="cost-card-note">to waitlist page</div></div>
+      <div class="cost-card"><div class="cost-card-label">Phase 1 hours</div><div class="cost-card-val" style="color:var(--gold2)">30 hrs</div><div class="cost-card-note">estimated implementation</div></div>
+    </div>
+
+    <div class="hours-box">
+      <div class="hours-box-header">
+        <div class="hours-box-title">Phase 1 implementation estimate · Caroline Godwin</div>
+        <div class="hours-total">30 hrs <span>estimated</span></div>
+      </div>
+      <div class="hours-grid">
+        <div class="hours-row"><div class="hours-task">Cloudflare DNS setup + all domain configurations</div><div class="hours-val">1.5 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Google Workspace setup + SPF / DKIM / DMARC authentication</div><div class="hours-val">2.5 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Google Shared Drive structure + team permissions</div><div class="hours-val">1 hr</div></div>
+        <div class="hours-row"><div class="hours-task">Framer Pro landing page — design, build, mobile, client revisions</div><div class="hours-val">10 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Beehiiv setup + subscribe widget + referral config + Framer embed</div><div class="hours-val">3 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">HubSpot CRM — contact property schema, pipelines, lifecycle stages</div><div class="hours-val">4 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Zapier — Beehiiv → HubSpot with source attribution</div><div class="hours-val">2 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">GA4 + Search Console + conversion goal setup</div><div class="hours-val">2 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Cross-device + cross-browser QA testing</div><div class="hours-val">3 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Buffer — new tools learning curve + client revision rounds</div><div class="hours-val">1 hr</div></div>
+      </div>
+      <div class="hours-note">Estimate based on 13 years full-stack experience with Claude guidance. Framer is the primary time investment due to design quality expectations for a luxury brand. GA4 and Zapier are straightforward with existing experience. Buffer accounts for any Framer-specific quirks and one round of client feedback.</div>
+    </div>
+
+    <div class="section-label">DNS &amp; infrastructure</div>
+    <div class="tool-grid">
+      <div class="tool-card rec-exp">
+        <div class="tool-header"><span class="tool-name">Cloudflare</span><span class="tool-cost">Free</span></div>
+        <span class="tool-cat cat-infra">DNS</span>&nbsp;<span class="tag tag-dark" style="font-size:10px;padding:2px 8px">Recommended</span>
+        <p class="tool-desc">Best DNS management available — free CDN, DDoS protection, DNSSEC. Point all domain registrars to Cloudflare nameservers. Manage SSL, redirects, and email authentication records from one dashboard.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Google Workspace</span><span class="tool-cost">$12/user/mo</span></div>
+        <span class="tool-cat cat-email">Email</span>
+        <p class="tool-desc">Business Starter. Set up SPF then DKIM first — DMARC requires one of these in place. Key aliases to create immediately: hello@, members@, bookings@, press@. Email is a brand asset from day one.</p>
+      </div>
+    </div>
+
+    <div class="section-label">Website &amp; waitlist</div>
+    <div class="tool-grid">
+      <div class="tool-card rec-exp">
+        <div class="tool-header"><span class="tool-name">Framer</span><span class="tool-cost">$30/mo (Pro)</span></div>
+        <span class="tool-cat cat-web">Landing page</span>&nbsp;<span class="tag tag-dark" style="font-size:10px;padding:2px 8px">Recommended</span>
+        <p class="tool-desc">Most design-forward no-code builder available. React-based output, fast to publish, built-in CMS. Ideal for a brand-first luxury soft launch. Pricing updated Oct 2025 — Pro plan is now $30/mo. Basic at $10/mo is too limited for a client site.</p>
+      </div>
+      <div class="tool-card rec-exp">
+        <div class="tool-header"><span class="tool-name">Beehiiv</span><span class="tool-cost">Free → $49/mo Scale</span></div>
+        <span class="tool-cat cat-web">Waitlist + email</span>&nbsp;<span class="tag tag-dark" style="font-size:10px;padding:2px 8px">Recommended</span>
+        <p class="tool-desc">Built for audience-building. Free plan covers up to 2,500 subscribers with unlimited sends, referral mechanics, and a subscribe widget. Scale plan at $49/mo (annually) unlocks A/B testing and advanced analytics. Connect Framer → Beehiiv → HubSpot via Zapier.</p>
+      </div>
+    </div>
+
+    <div class="section-label">CRM &amp; data</div>
+    <div class="tool-grid">
+      <div class="tool-card rec-exp">
+        <div class="tool-header"><span class="tool-name">HubSpot CRM</span><span class="tool-cost">Free → $15/seat/mo</span></div>
+        <span class="tool-cat cat-crm">CRM</span>&nbsp;<span class="tag tag-dark" style="font-size:10px;padding:2px 8px">Recommended</span>
+        <p class="tool-desc">The central spine. Free CRM handles up to 1M contacts. Starter at $15/seat/mo removes HubSpot branding and unlocks basic automation. Set up contact properties now: <code style="font-size:11px;background:var(--cream2);padding:1px 4px;border-radius:3px">source</code>, <code style="font-size:11px;background:var(--cream2);padding:1px 4px;border-radius:3px">founding_member</code>, <code style="font-size:11px;background:var(--cream2);padding:1px 4px;border-radius:3px">glofox_member_id</code> from day one.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Google Shared Drives</span><span class="tool-cost">Included</span></div>
+        <span class="tool-cat cat-data">Cloud storage</span>
+        <p class="tool-desc">Shared Drives (not personal folders) ensure the business retains file ownership as the team grows. Folder structure: /Brand /Operations /Legal /Finance /Marketing /Programming /Membership /Vendors /Buildout.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">GA4 + Search Console</span><span class="tool-cost">Free</span></div>
+        <span class="tool-cat cat-data">Analytics</span>
+        <p class="tool-desc">Install GA4 via Framer's custom code injection on day one. Track signups, scroll depth, and traffic source. Connect Search Console immediately — SEO data accumulates from the moment the domain resolves.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Zapier</span><span class="tool-cost">~$20/mo</span></div>
+        <span class="tool-cat cat-infra">Integration</span>
+        <p class="tool-desc">Core zap: Beehiiv signup → HubSpot contact with source tracking. Add zaps as the stack grows. Graduate to direct API webhooks when volume and complexity justify it.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 2 ── -->
+  <div id="p2" class="tab-pane">
+
+    <div class="cost-row">
+      <div class="cost-card"><div class="cost-card-label">Est. monthly cost</div><div class="cost-card-val">~$280</div><div class="cost-card-note">Phase 2 active</div></div>
+      <div class="cost-card"><div class="cost-card-label">Timeline</div><div class="cost-card-val">6–9 mo</div><div class="cost-card-note">before opening</div></div>
+      <div class="cost-card"><div class="cost-card-label">Phase 2 hours</div><div class="cost-card-val" style="color:var(--gold2)">50 hrs</div><div class="cost-card-note">estimated implementation</div></div>
+    </div>
+
+    <div class="hours-box">
+      <div class="hours-box-header">
+        <div class="hours-box-title">Phase 2 implementation estimate · Caroline Godwin</div>
+        <div class="hours-total">50 hrs <span>estimated</span></div>
+      </div>
+      <div class="hours-grid">
+        <div class="hours-row"><div class="hours-task">Glofox account setup + membership tier configuration</div><div class="hours-val">8 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Glofox branded member app setup + portal customization</div><div class="hours-val">5 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Circle.so — space structure, welcome automation, branding</div><div class="hours-val">7 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Luma events + Stripe connect + test event + Zapier sync</div><div class="hours-val">4 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">HubSpot marketing sequences + lifecycle automation + templates</div><div class="hours-val">8 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Beehiiv referral program configuration</div><div class="hours-val">2 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Zapier flows — Luma → HubSpot, Circle → HubSpot</div><div class="hours-val">4 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">End-to-end member journey testing (signup → app → community)</div><div class="hours-val">8 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Buffer — Glofox onboarding learning curve + client revisions</div><div class="hours-val">4 hrs</div></div>
+      </div>
+      <div class="hours-note">Glofox has a known onboarding curve — the 8 hrs for initial setup + 5 hrs for the branded app accounts for this. Circle.so is intuitive but the community structure decisions (space names, welcome flows) require client alignment before building. Testing allocates real time for an end-to-end member journey walkthrough.</div>
+    </div>
+
+    <div class="callout callout-blue">
+      <p><strong>Key consideration:</strong> Glofox bundles billing with membership management — convenient, but Glofox owns the billing relationship. Get full pricing in writing, confirm month-to-month contract availability, and verify data export before signing. See the <a href="comparison.html" style="color:var(--exp);font-weight:500">comparison page</a> for full analysis.</p>
+    </div>
+
+    <div class="section-label">Membership management</div>
+    <div class="tool-grid">
+      <div class="tool-card rec-exp caution">
+        <div class="tool-header"><span class="tool-name">Glofox</span><span class="tool-cost">Custom pricing</span></div>
+        <span class="tool-cat cat-mem">Membership</span>&nbsp;<span class="tag tag-dark" style="font-size:10px;padding:2px 8px">Recommended</span>
+        <p class="tool-desc">Modern, mobile-first membership management with a branded member app. Strong tier logic, class scheduling, and recurring billing. Integrates with Stripe and Mailchimp. Purpose-built for boutique wellness.</p>
+        <p class="tool-warning">⚠ No public pricing — requires demo. Third-party sources suggest $110–200+/mo base; can reach $600/mo with add-ons. Multiple user reviews flag hidden fees, price increases, and long-term contract pressure. Get all terms in writing before signing.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Stripe + Memberstack</span><span class="tool-cost">2.9%+30¢ + $49/mo</span></div>
+        <span class="tool-cat cat-mem">Membership (alt.)</span>
+        <p class="tool-desc">If Glofox contract terms are unsatisfactory, Stripe Billing + Memberstack gives complete billing control. More developer work upfront but you own the full data layer and billing history is fully portable.</p>
+      </div>
+    </div>
+
+    <div class="section-label">Community &amp; events</div>
+    <div class="tool-grid">
+      <div class="tool-card rec-exp">
+        <div class="tool-header"><span class="tool-name">Circle.so</span><span class="tool-cost">$89/mo (annual Pro)</span></div>
+        <span class="tool-cat cat-events">Community</span>&nbsp;<span class="tag tag-dark" style="font-size:10px;padding:2px 8px">Recommended</span>
+        <p class="tool-desc">Branded community platform — private discussion spaces, member profiles, event announcements, and live streams. Creates a destination founding members can inhabit before the physical space opens. Note: Circle charges 2% transaction fee on payments processed through the platform, on top of Stripe's standard fees.</p>
+      </div>
+      <div class="tool-card rec-exp">
+        <div class="tool-header"><span class="tool-name">Luma</span><span class="tool-cost">Free (5% fee) · Plus $59/mo</span></div>
+        <span class="tool-cat cat-events">Event ticketing</span>&nbsp;<span class="tag tag-dark" style="font-size:10px;padding:2px 8px">Recommended</span>
+        <p class="tool-desc">Social-first event platform built for cultural communities. Beautiful event pages, Stripe-integrated ticketing, QR check-ins, and a Miami discovery network. Free plan: 5% platform fee + Stripe 2.9%+30¢. Luma Plus at $59/mo drops platform fee to 0%. Lower fees than Eventbrite at comparable volume.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Beehiiv referrals</span><span class="tool-cost">Included in Scale</span></div>
+        <span class="tool-cat cat-events">Referrals</span>
+        <p class="tool-desc">Beehiiv's Scale plan includes referral mechanics — use this before buying a dedicated referral platform. Waitlist referrals and founding member invite codes run through Beehiiv's built-in system with attribution tracked in HubSpot.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 3 ── -->
+  <div id="p3" class="tab-pane">
+
+    <div class="cost-row">
+      <div class="cost-card"><div class="cost-card-label">Cost</div><div class="cost-card-val">Custom</div><div class="cost-card-note">enterprise pricing</div></div>
+      <div class="cost-card"><div class="cost-card-label">Start conversations</div><div class="cost-card-val">Now</div><div class="cost-card-note">3–4 mo procurement</div></div>
+      <div class="cost-card"><div class="cost-card-label">Phase 3 hours</div><div class="cost-card-val" style="color:var(--gold2)">80 hrs</div><div class="cost-card-note">estimated implementation</div></div>
+    </div>
+
+    <div class="hours-box">
+      <div class="hours-box-header">
+        <div class="hours-box-title">Phase 3 implementation estimate · Caroline Godwin</div>
+        <div class="hours-total">80 hrs <span>estimated</span></div>
+      </div>
+      <div class="hours-grid">
+        <div class="hours-row"><div class="hours-task">Book4Time onboarding + booking engine + therapist scheduling config</div><div class="hours-val">18 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">RFID / Gantner hardware integration + locker programming + testing</div><div class="hours-val">16 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Toast POS setup + menu structure + staff training config</div><div class="hours-val">10 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Smartwaiver digital forms + pre-arrival email flow integration</div><div class="hours-val">5 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Persona ID verification integration into booking flow</div><div class="hours-val">5 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Looker Studio ops dashboard — Book4Time + HubSpot + GA4</div><div class="hours-val">8 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Full operational walkthrough testing (booking → check-in → POS)</div><div class="hours-val">12 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Buffer — hardware variables, vendor coordination, edge case fixes</div><div class="hours-val">6 hrs</div></div>
+      </div>
+      <div class="hours-note">Phase 3 is the most variable estimate. Book4Time has a structured onboarding process that paces itself — 18 hrs covers initial config but vendor-side delays are common. RFID hardware depends heavily on physical site constraints. The 6-hr buffer is conservative; real-world RFID + POS integrations often surface unexpected issues during final testing.</div>
+    </div>
+
+    <div style="background:var(--cream2);border:.5px solid var(--border);border-radius:var(--r-md);padding:16px 20px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div>
+        <div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle);margin-bottom:4px">Experience Stack — total estimate</div>
+        <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--ink)">160 hrs <span style="font-size:13px;font-family:var(--sans);color:var(--muted)">Phase 1 + 2 + 3</span></div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle);margin-bottom:4px">At $100/hr (discounted rate)</div>
+        <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--gold2)">$16,000</div>
+      </div>
+    </div>
+
+    <div class="callout callout-amber">
+      <p><strong>Start Book4Time conversations now.</strong> Enterprise wellness booking platforms require 3+ month procurement and onboarding cycles. Ditto for RFID locker vendors — hardware procurement alone takes 6–8 weeks. These are not decisions to make 60 days before opening.</p>
+    </div>
+
+    <div class="section-label">Booking &amp; operations</div>
+    <div class="tool-grid">
+      <div class="tool-card rec-exp">
+        <div class="tool-header"><span class="tool-name">Book4Time</span><span class="tool-cost">Enterprise (custom)</span></div>
+        <span class="tool-cat cat-ops">Booking + ops</span>&nbsp;<span class="tag tag-dark" style="font-size:10px;padding:2px 8px">Recommended</span>
+        <p class="tool-desc">Industry standard for luxury hotel spas — Four Seasons, Mandarin Oriental, and other tier-one properties. Handles guest booking, therapist scheduling, POS, consent forms, and guest profiles. Strong North American support. Best if hotel partnership at Phase 3 is a possibility.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Zenoti</span><span class="tool-cost">Enterprise (custom)</span></div>
+        <span class="tool-cat cat-ops">Booking (alt.)</span>
+        <p class="tool-desc">Alternative to Book4Time. Deeper standalone wellness logic, more modern API, better native membership management. Used by Waldorf Astoria Spa. Consider Zenoti if SOUNDBATH is definitively standalone with no hotel partnership.</p>
+      </div>
+    </div>
+
+    <div class="section-label">RFID, POS, onboarding &amp; analytics</div>
+    <div class="tool-grid">
+      <div class="tool-card rec-exp">
+        <div class="tool-header"><span class="tool-name">Gantner</span><span class="tool-cost">Hardware + SaaS</span></div>
+        <span class="tool-cat cat-rfid">RFID / lockers</span>
+        <p class="tool-desc">European spa and wellness RFID specialist. Wristband-based locker access, cashless spending throughout facility. Used across major European bathhouses and US spa properties. Get quotes from Gantner and Ojmar — evaluate both after site is confirmed.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Toast</span><span class="tool-cost">$69/mo+</span></div>
+        <span class="tool-cat cat-ops">POS</span>
+        <p class="tool-desc">Best if F&B is a major revenue driver. Strong kitchen display and tip flows. If retail is primary, evaluate Book4Time's native POS first — reducing system count reduces integration complexity.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Smartwaiver</span><span class="tool-cost">$39/mo</span></div>
+        <span class="tool-cat cat-ops">Waivers</span>
+        <p class="tool-desc">Digital health intake forms, consent docs, and waiver management. Auto-syncs to guest profiles. Embed in the pre-arrival email flow — don't make waivers a front-desk bottleneck on opening day.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Persona</span><span class="tool-cost">~$0.80/verify</span></div>
+        <span class="tool-cat cat-ops">ID verification</span>
+        <p class="tool-desc">Best-in-class ID + selfie match and age verification. Integrate into the pre-arrival flow, not at the front desk. Pay-per-verification keeps cost proportional to actual usage.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DOMAIN ── -->
+  <div id="domain" class="tab-pane">
+    <div class="callout callout-dark">
+      <p><strong>Domain philosophy:</strong> Buy defensively, pick one canonical URL, 301 redirect everything else. The goal is protecting the brand across the most likely search patterns — not collecting every TLD. Active brand-building happens at one URL only.</p>
+    </div>
+    <div class="section-label">Recommended domain portfolio</div>
+    <div class="domain-table">
+      <div class="domain-row"><span class="domain-name">ThisIsSoundbath.com</span><span class="tag tag-exp">Primary — you own this</span><span class="domain-note">Keep as canonical URL. All others 301 redirect here.</span></div>
+      <div class="domain-row"><span class="domain-name">soundbath.miami</span><span class="tag tag-warn">Acquire now</span><span class="domain-note">Highest priority — .miami TLD is powerful for local press and SEO.</span></div>
+      <div class="domain-row"><span class="domain-name">joinsoundbath.com</span><span class="tag tag-warn">Acquire now</span><span class="domain-note">Natural CTA domain for membership campaigns.</span></div>
+      <div class="domain-row"><span class="domain-name">soundbath.com</span><span class="tag tag-neutral">Check availability</span><span class="domain-note">Likely taken or expensive. Aftermarket if under $5k.</span></div>
+      <div class="domain-row"><span class="domain-name">soundbathmia.com</span><span class="tag tag-neutral">Optional</span><span class="domain-note">Cheap defensive registration for Miami-specific campaigns.</span></div>
+    </div>
+    <div class="two-col" style="margin-top:24px">
+      <div class="tool-card"><div class="tool-name" style="margin-bottom:8px">Registrar strategy</div><p class="tool-desc">Consolidate at Namecheap or Cloudflare Registrar (at-cost, no markup). Point all nameservers to Cloudflare DNS for centralized redirects and SSL.</p></div>
+      <div class="tool-card"><div class="tool-name" style="margin-bottom:8px">Email auth order</div><p class="tool-desc">SPF first, then DKIM — DMARC cannot be configured without at least one in place. All three records live in Cloudflare DNS. Never send outbound email before all three are active.</p></div>
+    </div>
+  </div>
+
+  <!-- ── ARCH ── -->
+  <div id="arch" class="tab-pane">
+    <div class="callout callout-blue">
+      <p><strong>Core principle:</strong> HubSpot is the relationship spine. Every tool that touches a customer syncs back here. Glofox holds billing during Phase 2 — add <code>glofox_member_id</code> to HubSpot contacts now so a future Stripe migration has a clean target.</p>
+    </div>
+    <div class="arch-box">
+      <div class="arch-box-label">Data flow — customer journey across all three phases</div>
+      <div class="arch-flow">
+        <span class="arch-node">Framer</span><span class="arch-arrow">→</span>
+        <span class="arch-node">Beehiiv</span><span class="arch-arrow">→</span>
+        <span class="arch-node arch-hub">HubSpot CRM</span><span class="arch-arrow">→</span>
+        <span class="arch-node">Glofox</span>
+      </div>
+      <div class="arch-flow">
+        <span class="arch-node">Circle.so</span><span class="arch-arrow">→</span>
+        <span class="arch-node">Zapier</span><span class="arch-arrow">→</span>
+        <span class="arch-node arch-hub">HubSpot CRM</span><span class="arch-arrow">→</span>
+        <span class="arch-node">Book4Time</span>
+      </div>
+      <div class="arch-flow">
+        <span class="arch-node">Luma (events)</span><span class="arch-arrow">→</span>
+        <span class="arch-node">Zapier</span><span class="arch-arrow">→</span>
+        <span class="arch-node arch-hub">HubSpot CRM</span><span class="arch-arrow">→</span>
+        <span class="arch-node">Looker Studio</span>
+      </div>
+    </div>
+    <div class="section-label">HubSpot contact schema — set up all fields from day one</div>
+    <div class="arch-box">
+      <div class="schema-grid">
+        <div class="schema-cell">email · phone · full name</div>
+        <div class="schema-cell">source (waitlist / event / referral)</div>
+        <div class="schema-cell">founding_member (boolean)</div>
+        <div class="schema-cell">programming_interest (array)</div>
+        <div class="schema-cell">vip_flag · press_flag · partner_flag</div>
+        <div class="schema-cell">beehiiv_subscriber_id</div>
+        <div class="schema-cell bold">glofox_member_id (add now, populate Phase 2)</div>
+        <div class="schema-cell bold">book4time_guest_id (add now, populate Phase 3)</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-brand">Soundbath · The Experience Stack</div>
+  <div class="footer-links">
+    <a class="footer-link" href="index.html">Overview</a>
+    <a class="footer-link" href="stack-architect.html">Architect Stack</a>
+    <a class="footer-link" href="comparison.html">Compare</a>
+  </div>
+  <div class="footer-copy" style="font-size:11px;color:var(--faint)">Caroline Godwin · 2025</div>
+</footer>
+
+<script>
+const PASS='MiamiFL';
+function checkPassword(){const v=document.getElementById('gate-input').value,e=document.getElementById('gate-error');if(v===PASS){sessionStorage.setItem('sb_auth','1');document.getElementById('gate').classList.add('hidden');e.textContent=''}else{e.textContent='Incorrect access code.';document.getElementById('gate-input').value='';document.getElementById('gate-input').focus()}}
+document.getElementById('gate-input').addEventListener('keydown',e=>{if(e.key==='Enter')checkPassword()});
+if(sessionStorage.getItem('sb_auth')==='1')document.getElementById('gate').classList.add('hidden');
+window.addEventListener('scroll',()=>document.getElementById('sitenav').classList.toggle('scrolled',window.scrollY>20));
+function toggleMenu(){document.getElementById('hamburger').classList.toggle('open');document.getElementById('mobilemenu').classList.toggle('open')}
+function showTab(id,btn){document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active')}
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

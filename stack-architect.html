@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOUNDBATH — The Architect Stack</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-grain"></div>
+  <div class="gate-rule"></div>
+  <div class="gate-wordmark">Soundbath</div>
+  <div class="gate-sub">Miami · Technology Strategy</div>
+  <label class="gate-label">Access code</label>
+  <div class="gate-field-wrap">
+    <input class="gate-input" type="password" id="gate-input" placeholder="Enter to access" autocomplete="off"/>
+    <button class="gate-btn" onclick="checkPassword()">Enter</button>
+  </div>
+  <div class="gate-error" id="gate-error"></div>
+  <div class="gate-footer">Confidential · Caroline Godwin · 2025</div>
+</div>
+
+<nav class="site-nav" id="sitenav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">Soundbath</a>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html">Overview</a>
+      <a class="nav-link exp-pill" href="stack-experience.html">The Experience Stack</a>
+      <a class="nav-link arch-pill active" href="stack-architect.html">The Architect Stack</a>
+      <a class="nav-link" href="comparison.html">Compare</a>
+    </div>
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile-menu" id="mobilemenu">
+    <a class="nav-link" href="index.html">Overview</a>
+    <a class="nav-link" href="stack-experience.html">The Experience Stack</a>
+    <a class="nav-link active" href="stack-architect.html">The Architect Stack</a>
+    <a class="nav-link" href="comparison.html">Compare Both</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="page-hero fade-up">
+    <div class="page-hero-eyebrow">Strategy 2 of 2 · Data-ownership approach</div>
+    <h1>The <em>Architect</em> Stack</h1>
+    <p class="page-hero-desc">A modular architecture where HubSpot owns the customer relationship, Stripe owns billing, and Zenoti owns operations — no single vendor controls the whole picture. More configuration upfront than the Experience Stack, but the data architecture survives any platform change.</p>
+    <div class="page-hero-tags">
+      <span class="tag tag-arch">Maximum data control</span>
+      <span class="tag tag-arch">Modular design</span>
+      <span class="tag tag-arch">Developer-led</span>
+      <span class="tag tag-neutral">Longer setup</span>
+      <span class="tag tag-gold">◷ 175 hrs total</span>
+    </div>
+  </div>
+
+  <div class="tab-bar fade-up">
+    <button class="tab-btn active" onclick="showTab('p1',this)">Phase 1 — Foundation</button>
+    <button class="tab-btn" onclick="showTab('p2',this)">Phase 2 — Membership</button>
+    <button class="tab-btn" onclick="showTab('p3',this)">Phase 3 — Operations</button>
+    <button class="tab-btn" onclick="showTab('domain',this)">Domain Strategy</button>
+    <button class="tab-btn" onclick="showTab('arch',this)">Architecture</button>
+  </div>
+
+  <!-- ── PHASE 1 ── -->
+  <div id="p1" class="tab-pane active">
+
+    <div class="cost-row">
+      <div class="cost-card"><div class="cost-card-label">Est. monthly cost</div><div class="cost-card-val">~$80</div><div class="cost-card-note">Phase 1 active</div></div>
+      <div class="cost-card"><div class="cost-card-label">Timeline to live</div><div class="cost-card-val">2–3 wks</div><div class="cost-card-note">to waitlist page</div></div>
+      <div class="cost-card"><div class="cost-card-label">Phase 1 hours</div><div class="cost-card-val" style="color:var(--arch-mid)">38 hrs</div><div class="cost-card-note">estimated implementation</div></div>
+    </div>
+
+    <div class="hours-box" style="border-color:var(--arch-mid);background:var(--arch-lt)">
+      <div class="hours-box-header">
+        <div class="hours-box-title" style="color:var(--arch)">Phase 1 implementation estimate · Caroline Godwin</div>
+        <div class="hours-total">38 hrs <span>estimated</span></div>
+      </div>
+      <div class="hours-grid">
+        <div class="hours-row"><div class="hours-task">Cloudflare DNS setup + all domain configurations</div><div class="hours-val">1.5 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Google Workspace setup + SPF / DKIM / DMARC authentication</div><div class="hours-val">2.5 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Google Shared Drive structure + team permissions</div><div class="hours-val">1 hr</div></div>
+        <div class="hours-row"><div class="hours-task">Webflow CMS landing page — design, CMS config, mobile, revisions</div><div class="hours-val">14 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">HubSpot CRM — full contact schema incl. Stripe + Zenoti ID fields</div><div class="hours-val">5 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">HubSpot Forms embed in Webflow + source tracking validation</div><div class="hours-val">2 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Zapier initial setup + core automation flows</div><div class="hours-val">2 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">GA4 + Search Console + conversion goals</div><div class="hours-val">2 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Cross-device + cross-browser QA testing</div><div class="hours-val">4 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Buffer — Webflow learning curve + client feedback rounds</div><div class="hours-val">4 hrs</div></div>
+      </div>
+      <div class="hours-note" style="border-top-color:rgba(124,90,46,.2)">Webflow is the primary time driver at 14 hrs — it has more CMS depth than Framer but requires more initial configuration. The HubSpot schema gets extra attention here because setting up the Stripe and Zenoti ID fields now is the entire point of this stack's data philosophy. Buffer is larger than the Experience Stack Phase 1 due to Webflow's steeper learning curve.</div>
+    </div>
+
+    <div class="callout callout-amber">
+      <p><strong>Core principle of this stack:</strong> Set up <code>stripe_customer_id</code> and <code>zenoti_guest_id</code> fields in HubSpot contacts immediately — even before those tools are connected. This ensures a clean, portable customer record that survives any future platform change. This is the Architect Stack's fundamental advantage.</p>
+    </div>
+
+    <div class="section-label">DNS &amp; infrastructure</div>
+    <div class="tool-grid">
+      <div class="tool-card rec-arch">
+        <div class="tool-header"><span class="tool-name">Cloudflare</span><span class="tool-cost">Free</span></div>
+        <span class="tool-cat cat-infra">DNS</span>&nbsp;<span class="tag tag-dark" style="font-size:10px;padding:2px 8px">Recommended</span>
+        <p class="tool-desc">Best DNS management available. Free CDN, DDoS protection, DNSSEC, and SSL. Supports full domain setup via nameserver change. Centralized management for all domains, redirects, and email authentication.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Google Workspace</span><span class="tool-cost">$12/user/mo</span></div>
+        <span class="tool-cat cat-email">Email</span>
+        <p class="tool-desc">Business Starter. Set SPF first, then DKIM — DMARC cannot be configured without one of these in place. Key aliases: hello@, members@, bookings@, press@. Never send outbound email before all three authentication records are active.</p>
+      </div>
+    </div>
+
+    <div class="section-label">Website &amp; waitlist capture</div>
+    <div class="tool-grid">
+      <div class="tool-card rec-arch">
+        <div class="tool-header"><span class="tool-name">Webflow</span><span class="tool-cost">$23/mo (CMS, annual)</span></div>
+        <span class="tool-cat cat-web">Landing page</span>&nbsp;<span class="tag tag-dark" style="font-size:10px;padding:2px 8px">Recommended</span>
+        <p class="tool-desc">Strong editorial design control and mature CMS — better than Framer for a site that will grow to many content pages over time. CMS plan at $23/mo (annual) handles a landing page and blog comfortably. Steeper initial learning curve than Framer. Note: Webflow pricing has two components — site plan and workspace plan; the $23/mo is the site plan only.</p>
+      </div>
+      <div class="tool-card rec-arch">
+        <div class="tool-header"><span class="tool-name">HubSpot Forms</span><span class="tool-cost">Free (included in CRM)</span></div>
+        <span class="tool-cat cat-crm">Waitlist capture</span>&nbsp;<span class="tag tag-dark" style="font-size:10px;padding:2px 8px">Recommended</span>
+        <p class="tool-desc">Embed native HubSpot forms directly in Webflow. Signups go straight into HubSpot contacts with source attribution — no Zapier needed for the core waitlist flow. Simpler than Beehiiv, but loses the referral mechanics and newsletter product unless built manually in HubSpot.</p>
+      </div>
+    </div>
+
+    <div class="section-label">CRM &amp; data foundation</div>
+    <div class="tool-grid">
+      <div class="tool-card rec-arch">
+        <div class="tool-header"><span class="tool-name">HubSpot CRM</span><span class="tool-cost">Free → $15/seat/mo</span></div>
+        <span class="tool-cat cat-crm">CRM spine</span>&nbsp;<span class="tag tag-dark" style="font-size:10px;padding:2px 8px">Recommended</span>
+        <p class="tool-desc">Relationship system of record for the entire stack. Handles waitlist, segmented lists, lifecycle stages, press, and investor contacts. Free CRM includes up to 1M contacts. Starter at $15/seat/mo removes branding and unlocks basic automation. The non-negotiable tool in this stack — everything else feeds here.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Google Shared Drives</span><span class="tool-cost">Included</span></div>
+        <span class="tool-cat cat-data">Cloud storage</span>
+        <p class="tool-desc">Use Shared Drives — business retains file ownership as team grows. Structure: /Brand /Operations /Legal /Finance /Real Estate /Marketing /Programming /Membership /Vendors /Buildout.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Airtable</span><span class="tool-cost">Free → $20/mo</span></div>
+        <span class="tool-cat cat-data">Ops database (optional)</span>
+        <p class="tool-desc">Useful internal workspace for vendor tracking, programming planning, and buildout timelines. Not the customer database — HubSpot owns that. Use Airtable only for internal ops tasks that don't fit HubSpot.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Zapier / Make</span><span class="tool-cost">~$20/mo</span></div>
+        <span class="tool-cat cat-infra">Integration</span>
+        <p class="tool-desc">Early integration glue. This stack uses fewer native integrations than the Experience Stack, so Zapier carries more connection work. Graduate to direct API webhooks when volume justifies it.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 2 ── -->
+  <div id="p2" class="tab-pane">
+
+    <div class="cost-row">
+      <div class="cost-card"><div class="cost-card-label">Est. monthly cost</div><div class="cost-card-val">~$200</div><div class="cost-card-note">Phase 2 + % of revenue</div></div>
+      <div class="cost-card"><div class="cost-card-label">Timeline</div><div class="cost-card-val">6–9 mo</div><div class="cost-card-note">before opening</div></div>
+      <div class="cost-card"><div class="cost-card-label">Phase 2 hours</div><div class="cost-card-val" style="color:var(--arch-mid)">52 hrs</div><div class="cost-card-note">estimated implementation</div></div>
+    </div>
+
+    <div class="hours-box" style="border-color:var(--arch-mid);background:var(--arch-lt)">
+      <div class="hours-box-header">
+        <div class="hours-box-title" style="color:var(--arch)">Phase 2 implementation estimate · Caroline Godwin</div>
+        <div class="hours-total">52 hrs <span>estimated</span></div>
+      </div>
+      <div class="hours-grid">
+        <div class="hours-row"><div class="hours-task">Stripe Billing — subscription products, pricing tiers, promo codes</div><div class="hours-val">10 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Stripe webhook configuration + HubSpot contact sync</div><div class="hours-val">6 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Stripe member portal styling and founding member UX</div><div class="hours-val">4 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">HubSpot automation sequences + lifecycle logic + email templates</div><div class="hours-val">8 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Eventbrite setup + API webhooks + HubSpot sync via Zapier</div><div class="hours-val">6 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Zapier flows — Stripe → HubSpot, Eventbrite → HubSpot</div><div class="hours-val">4 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">End-to-end billing flow testing (subscribe → webhook → CRM)</div><div class="hours-val">8 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Buffer — Stripe config complexity + client review rounds</div><div class="hours-val">6 hrs</div></div>
+      </div>
+      <div class="hours-note" style="border-top-color:rgba(124,90,46,.2)">Stripe is the core complexity driver in Phase 2. Webhook configuration and the HubSpot sync (16 hrs combined) is real developer work — not plug-and-play. The 8 hrs of end-to-end testing is non-negotiable: billing logic failures are invisible until a real customer hits an edge case. The 6-hr buffer specifically accounts for Stripe's documentation density and any client-requested changes to membership tier structure.</div>
+    </div>
+
+    <div class="callout callout-amber">
+      <p><strong>The billing advantage:</strong> Stripe is the most portable billing layer available. Founding member payment history, subscription logic, and customer IDs live independently of Zenoti or any future ops platform. If any other platform is replaced at Phase 3, billing continuity is fully protected.</p>
+    </div>
+
+    <div class="section-label">Membership billing</div>
+    <div class="tool-grid">
+      <div class="tool-card rec-arch">
+        <div class="tool-header"><span class="tool-name">Stripe Billing</span><span class="tool-cost">2.9% + 30¢ per transaction</span></div>
+        <span class="tool-cat cat-billing">Billing</span>&nbsp;<span class="tag tag-dark" style="font-size:10px;padding:2px 8px">Recommended</span>
+        <p class="tool-desc">Source of truth for recurring memberships, stored payment methods, promo codes, and founding offers. Stripe's subscription model scales from 1 to 100,000 members without architectural changes. Billing history stays with Stripe regardless of which ops platform is chosen at Phase 3. Requires real developer configuration — not a plug-and-play solution.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">HubSpot (member layer)</span><span class="tool-cost">Included</span></div>
+        <span class="tool-cat cat-crm">Member CRM</span>
+        <p class="tool-desc">Member lifecycle management, engagement segmentation, referral tracking, and all communications stay in HubSpot. Stripe feeds billing data here via webhook. The key architecture: billing in Stripe, relationships in HubSpot, neither depends on the other.</p>
+      </div>
+    </div>
+
+    <div class="section-label">Events &amp; programming</div>
+    <div class="tool-grid">
+      <div class="tool-card rec-arch">
+        <div class="tool-header"><span class="tool-name">Eventbrite</span><span class="tool-cost">Free for free events; ~6.4% blended on paid</span></div>
+        <span class="tool-cat cat-events">Event ticketing</span>&nbsp;<span class="tag tag-dark" style="font-size:10px;padding:2px 8px">Primary</span>
+        <p class="tool-desc">Mature API and webhook model with strong operational defaults. Eventbrite's marketplace exposes SOUNDBATH events to millions of potential attendees. Better long-term data infrastructure and HubSpot integration path. Right choice if operational maturity and API reliability matter more than social aesthetics.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Luma</span><span class="tool-cost">Free (5% fee) · Plus $59/mo</span></div>
+        <span class="tool-cat cat-events">Event ticketing (alt.)</span>
+        <p class="tool-desc">If Miami's creative scene and community aesthetics matter more than API depth, Luma is the better brand fit — and its fees are genuinely lower than Eventbrite at comparable volume (5% vs ~6.4% blended). This is a close call — see the comparison page.</p>
+      </div>
+    </div>
+
+    <div class="section-label">Community (HubSpot-led)</div>
+    <div class="tool-grid">
+      <div class="tool-card caution">
+        <div class="tool-header"><span class="tool-name">HubSpot email sequences</span><span class="tool-cost">Included in Starter</span></div>
+        <span class="tool-cat cat-crm">Community comms</span>
+        <p class="tool-desc">Automated email sequences, segmented lists, and lifecycle-based messaging form the community layer in this stack. Functional and cost-efficient — but one-directional. Members receive information, they don't participate in discussions.</p>
+        <p class="tool-warning">⚠ For a brand built on social immersion, the absence of Circle.so limits the pre-opening community story. Adding Circle.so at $89/mo doesn't break the Architect Stack's data model — it's an additive layer. Strongly consider including it for SOUNDBATH's specific audience.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Circle.so (optional add)</span><span class="tool-cost">$89/mo annual Pro</span></div>
+        <span class="tool-cat cat-events">Community (optional)</span>
+        <p class="tool-desc">Circle.so can sit alongside HubSpot and Stripe without architectural conflict — it's an additive layer, not a replacement. Sync Circle membership events to HubSpot via Zapier. The $89/mo + 2% transaction fee is worth evaluating given SOUNDBATH's social brand positioning.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 3 ── -->
+  <div id="p3" class="tab-pane">
+
+    <div class="cost-row">
+      <div class="cost-card"><div class="cost-card-label">Cost</div><div class="cost-card-val">Custom</div><div class="cost-card-note">enterprise pricing</div></div>
+      <div class="cost-card"><div class="cost-card-label">Start conversations</div><div class="cost-card-val">Now</div><div class="cost-card-note">3–4 mo procurement</div></div>
+      <div class="cost-card"><div class="cost-card-label">Phase 3 hours</div><div class="cost-card-val" style="color:var(--arch-mid)">85 hrs</div><div class="cost-card-note">estimated implementation</div></div>
+    </div>
+
+    <div class="hours-box" style="border-color:var(--arch-mid);background:var(--arch-lt)">
+      <div class="hours-box-header">
+        <div class="hours-box-title" style="color:var(--arch)">Phase 3 implementation estimate · Caroline Godwin</div>
+        <div class="hours-total">85 hrs <span>estimated</span></div>
+      </div>
+      <div class="hours-grid">
+        <div class="hours-row"><div class="hours-task">Zenoti onboarding + booking engine + staff / service configuration</div><div class="hours-val">20 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Stripe ↔ Zenoti payment rail mapping + POS compatibility testing</div><div class="hours-val">8 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">RFID vendor integration + locker programming + facility testing</div><div class="hours-val">16 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Smartwaiver / Persona pre-arrival flow integration</div><div class="hours-val">6 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Looker Studio dashboard — Zenoti + HubSpot + Stripe + GA4</div><div class="hours-val">10 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Full operational walkthrough testing (booking → check-in → POS)</div><div class="hours-val">15 hrs</div></div>
+        <div class="hours-row"><div class="hours-task">Buffer — Stripe/Zenoti POS mapping complexity + hardware variables</div><div class="hours-val">10 hrs</div></div>
+      </div>
+      <div class="hours-note" style="border-top-color:rgba(124,90,46,.2)">Zenoti's onboarding is more complex than Book4Time for a first-time implementation — 20 hrs accounts for the initial deep-dive and vendor-guided configuration sessions. The Stripe ↔ Zenoti POS mapping is the unique complexity of the Architect Stack at Phase 3 — this integration path needs to be confirmed early in the Zenoti procurement process. Testing at 15 hrs is genuinely rigorous: every guest touchpoint from digital waiver to POS checkout needs a full walkthrough before opening day.</div>
+    </div>
+
+    <div style="background:var(--cream2);border:.5px solid var(--border);border-radius:var(--r-md);padding:16px 20px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div>
+        <div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle);margin-bottom:4px">Architect Stack — total estimate</div>
+        <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--ink)">175 hrs <span style="font-size:13px;font-family:var(--sans);color:var(--muted)">Phase 1 + 2 + 3</span></div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle);margin-bottom:4px">At $100/hr (discounted rate)</div>
+        <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--arch-mid)">$17,500</div>
+      </div>
+    </div>
+
+    <div class="callout callout-warn">
+      <p><strong>RFID is a separate hardware workstream.</strong> Do not treat Zenoti as the RFID locker platform — evaluate RFID vendors independently once the physical site layout is confirmed. Hardware choices depend on building constraints that cannot be known before site selection.</p>
+    </div>
+
+    <div class="section-label">Booking &amp; operations</div>
+    <div class="tool-grid">
+      <div class="tool-card rec-arch">
+        <div class="tool-header"><span class="tool-name">Zenoti</span><span class="tool-cost">Enterprise (custom)</span></div>
+        <span class="tool-cat cat-ops">Booking + ops</span>&nbsp;<span class="tag tag-dark" style="font-size:10px;padding:2px 8px">Recommended</span>
+        <p class="tool-desc">Full operational layer for a luxury wellness business — memberships, online booking, POS, service and consent forms, guest profiles, and spa depth. More modern API than Book4Time with cleaner HubSpot and Stripe integration paths. Used by Waldorf Astoria Spa, Ritz-Carlton Spa. Confirm full data export capability before signing any contract.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Stripe (POS mapping)</span><span class="tool-cost">Included</span></div>
+        <span class="tool-cat cat-billing">Payments</span>
+        <p class="tool-desc">Evaluate Stripe payment rail and POS mapping to Zenoti during the implementation engagement. Confirm compatibility early in the Zenoti procurement process — this is the most complex integration in the Architect Stack.</p>
+      </div>
+    </div>
+
+    <div class="section-label">RFID, onboarding &amp; analytics</div>
+    <div class="tool-grid">
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">RFID vendor — TBD</span><span class="tool-cost">Hardware + SaaS</span></div>
+        <span class="tool-cat cat-rfid">RFID / lockers</span>
+        <p class="tool-desc">Evaluate Gantner and Ojmar once the physical site and locker layout are confirmed. Do not commit before site selection. Both require site walkthroughs before quoting. Get quotes from both.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Smartwaiver</span><span class="tool-cost">$39/mo</span></div>
+        <span class="tool-cat cat-ops">Waivers</span>
+        <p class="tool-desc">Digital waivers and health intake forms if Zenoti's native form workflows don't fully cover requirements. Evaluate Zenoti forms first — they may be sufficient without a separate tool.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Persona</span><span class="tool-cost">~$0.80/verify</span></div>
+        <span class="tool-cat cat-ops">ID verification</span>
+        <p class="tool-desc">Best-in-class identity verification for age confirmation. Integrate into the pre-arrival flow, not at the front desk. Pay-per-verification keeps cost proportional.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header"><span class="tool-name">Looker Studio</span><span class="tool-cost">Free</span></div>
+        <span class="tool-cat cat-data">Analytics</span>
+        <p class="tool-desc">Connect Zenoti, HubSpot, Stripe, and GA4 into one operations dashboard. The three-system ownership model gives richer analytics inputs than a bundled platform.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DOMAIN ── -->
+  <div id="domain" class="tab-pane">
+    <div class="callout callout-dark">
+      <p><strong>Domain philosophy:</strong> Buy defensively, pick one canonical URL, 301 redirect everything else. Fragmented brand strategy across multiple active domains reduces SEO authority. One URL, defended by redirects from all variants.</p>
+    </div>
+    <div class="section-label">Recommended domain portfolio</div>
+    <div class="domain-table">
+      <div class="domain-row"><span class="domain-name">ThisIsSoundbath.com</span><span class="tag tag-exp">Primary — you own this</span><span class="domain-note">Keep as canonical URL. All others 301 redirect here.</span></div>
+      <div class="domain-row"><span class="domain-name">soundbath.miami</span><span class="tag tag-warn">Acquire now</span><span class="domain-note">Highest priority — .miami TLD is strong for local press and SEO.</span></div>
+      <div class="domain-row"><span class="domain-name">soundbath.club</span><span class="tag tag-warn">Acquire now</span><span class="domain-note">Strong membership connotation. Good for member-facing comms.</span></div>
+      <div class="domain-row"><span class="domain-name">soundbath.com</span><span class="tag tag-neutral">Check availability</span><span class="domain-note">Likely taken. Aftermarket if priced under $5k.</span></div>
+      <div class="domain-row"><span class="domain-name">Typo variants</span><span class="tag tag-neutral">Optional</span><span class="domain-note">Cheap defensive registrations only. Never actively used.</span></div>
+    </div>
+    <div class="two-col" style="margin-top:24px">
+      <div class="tool-card"><div class="tool-name" style="margin-bottom:8px">Registrar strategy</div><p class="tool-desc">Consolidate at Cloudflare Registrar (at-cost pricing, no markup) or Namecheap. Point all nameservers to Cloudflare DNS for centralized management.</p></div>
+      <div class="tool-card"><div class="tool-name" style="margin-bottom:8px">Email auth order</div><p class="tool-desc">SPF first, then DKIM — DMARC depends on at least one. All records in Cloudflare DNS. Never send email before all three are active.</p></div>
+    </div>
+  </div>
+
+  <!-- ── ARCH ── -->
+  <div id="arch" class="tab-pane">
+    <div class="callout callout-amber">
+      <p><strong>The three-system ownership model:</strong> HubSpot owns the master relationship record. Stripe owns the billing relationship. Zenoti owns operational visit and service records. Changing any one platform doesn't compromise the customer relationship in the other two.</p>
+    </div>
+    <div class="arch-box">
+      <div class="arch-box-label">Data flow — customer journey across all three phases</div>
+      <div class="arch-flow">
+        <span class="arch-node">Webflow</span><span class="arch-arrow">→</span>
+        <span class="arch-node">HubSpot Forms</span><span class="arch-arrow">→</span>
+        <span class="arch-node arch-hub">HubSpot CRM</span><span class="arch-arrow">→</span>
+        <span class="arch-node arch-stripe">Stripe Billing</span>
+      </div>
+      <div class="arch-flow">
+        <span class="arch-node">Eventbrite / Luma</span><span class="arch-arrow">→</span>
+        <span class="arch-node">Zapier / Make</span><span class="arch-arrow">→</span>
+        <span class="arch-node arch-hub">HubSpot CRM</span><span class="arch-arrow">→</span>
+        <span class="arch-node arch-zenoti">Zenoti (ops)</span>
+      </div>
+      <div class="arch-flow">
+        <span class="arch-node">Zenoti + Stripe</span><span class="arch-arrow">→</span>
+        <span class="arch-node">Looker Studio</span><span class="arch-arrow">→</span>
+        <span class="arch-node">Revenue + guest analytics</span>
+      </div>
+    </div>
+    <div class="section-label">HubSpot contact schema — define all fields from day one</div>
+    <div class="arch-box">
+      <div class="schema-grid">
+        <div class="schema-cell">email · phone · full name</div>
+        <div class="schema-cell">source (waitlist / event / referral)</div>
+        <div class="schema-cell">founding_member (boolean)</div>
+        <div class="schema-cell">programming_interest (array)</div>
+        <div class="schema-cell">vip_flag · press_flag · partner_flag</div>
+        <div class="schema-cell">member_lifecycle_stage</div>
+        <div class="schema-cell bold">stripe_customer_id (add now, populate Phase 2)</div>
+        <div class="schema-cell bold">zenoti_guest_id (add now, populate Phase 3)</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-brand">Soundbath · The Architect Stack</div>
+  <div class="footer-links">
+    <a class="footer-link" href="index.html">Overview</a>
+    <a class="footer-link" href="stack-experience.html">Experience Stack</a>
+    <a class="footer-link" href="comparison.html">Compare</a>
+  </div>
+  <div class="footer-copy" style="font-size:11px;color:var(--faint)">Caroline Godwin · 2025</div>
+</footer>
+
+<script>
+const PASS='MiamiFL';
+function checkPassword(){const v=document.getElementById('gate-input').value,e=document.getElementById('gate-error');if(v===PASS){sessionStorage.setItem('sb_auth','1');document.getElementById('gate').classList.add('hidden');e.textContent=''}else{e.textContent='Incorrect access code.';document.getElementById('gate-input').value='';document.getElementById('gate-input').focus()}}
+document.getElementById('gate-input').addEventListener('keydown',e=>{if(e.key==='Enter')checkPassword()});
+if(sessionStorage.getItem('sb_auth')==='1')document.getElementById('gate').classList.add('hidden');
+window.addEventListener('scroll',()=>document.getElementById('sitenav').classList.toggle('scrolled',window.scrollY>20));
+function toggleMenu(){document.getElementById('hamburger').classList.toggle('open');document.getElementById('mobilemenu').classList.toggle('open')}
+function showTab(id,btn){document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active')}
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

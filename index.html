@@ -4,405 +4,202 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SOUNDBATH — Tech Stack Strategy</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500&display=swap');
-
-  :root { --serif: 'DM Serif Display', serif; --sans: 'DM Sans', sans-serif; }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: var(--sans);
-    background: #fff;
-    color: #1a1a1a;
-    font-size: 14px;
-    line-height: 1.5;
-    padding: 32px;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  --color-text-primary: #1a1a1a;
-  --color-text-secondary: #6b6b6b;
-  --color-text-tertiary: #9b9b9b;
-  --color-background-primary: #ffffff;
-  --color-background-secondary: #f5f5f3;
-  --color-border-tertiary: rgba(0,0,0,0.1);
-  --color-border-secondary: rgba(0,0,0,0.2);
-  --color-border-info: #378ADD;
-  --color-background-info: #E6F1FB;
-  --color-text-info: #185FA5;
-  --border-radius-md: 8px;
-  --border-radius-lg: 12px;
-
-  .header { padding-bottom: 1rem; margin-bottom: 1.25rem; border-bottom: 0.5px solid rgba(0,0,0,0.1); }
-  .header h1 { font-family: var(--serif); font-size: 22px; font-weight: 400; letter-spacing: 0.04em; }
-  .header p { font-size: 13px; color: #6b6b6b; margin-top: 4px; }
-
-  .phase-tabs { display: flex; gap: 8px; margin-bottom: 1.5rem; flex-wrap: wrap; }
-  .tab { padding: 6px 14px; border: 0.5px solid rgba(0,0,0,0.15); border-radius: 20px; background: transparent; cursor: pointer; font-size: 13px; font-family: var(--sans); color: #6b6b6b; transition: all 0.15s; }
-  .tab:hover { background: #f5f5f3; }
-  .tab.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
-
-  .phase-section { display: none; }
-  .phase-section.active { display: block; }
-
-  .section-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #9b9b9b; font-weight: 500; margin-bottom: 12px; }
-
-  .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
-
-  .tool-card { background: #ffffff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 14px 16px; cursor: pointer; transition: border-color 0.15s; }
-  .tool-card:hover { border-color: rgba(0,0,0,0.2); }
-  .tool-card.featured { border-color: #378ADD; border-width: 1px; }
-
-  .tool-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
-  .tool-name { font-size: 14px; font-weight: 500; }
-  .tool-cost { font-size: 11px; color: #6b6b6b; white-space: nowrap; }
-
-  .tool-cat { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-bottom: 8px; font-weight: 500; }
-  .cat-infra { background: #f5f5f3; color: #6b6b6b; }
-  .cat-email { background: #E6F1FB; color: #0C447C; }
-  .cat-crm { background: #E1F5EE; color: #085041; }
-  .cat-web { background: #FAEEDA; color: #633806; }
-  .cat-data { background: #EEEDFE; color: #3C3489; }
-  .cat-mem { background: #FAECE7; color: #712B13; }
-  .cat-events { background: #EAF3DE; color: #27500A; }
-  .cat-ops { background: #FBEAF0; color: #72243E; }
-  .cat-rfid { background: #F1EFE8; color: #444441; }
-
-  .rec-badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; background: #E6F1FB; color: #185FA5; font-weight: 500; display: inline-block; margin-bottom: 6px; }
-
-  .tool-desc { font-size: 12px; color: #6b6b6b; line-height: 1.5; }
-
-  .arch-box { background: #f5f5f3; border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem; }
-  .arch-box h3 { font-size: 14px; font-weight: 500; margin-bottom: 10px; }
-  .arch-flow { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-  .arch-node { background: #ffffff; border: 0.5px solid rgba(0,0,0,0.2); border-radius: 8px; padding: 5px 12px; font-size: 12px; font-weight: 500; white-space: nowrap; }
-  .arch-arrow { color: #9b9b9b; font-size: 14px; }
-  .arch-hub { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
-
-  .domain-section { margin-bottom: 1.5rem; }
-  .domain-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 0.5px solid rgba(0,0,0,0.08); gap: 12px; }
-  .domain-item:last-child { border-bottom: none; }
-  .domain-name { font-size: 13px; font-weight: 500; font-family: monospace; }
-  .domain-note { font-size: 12px; color: #6b6b6b; flex: 1; text-align: right; }
-
-  .callout { border-left: 2px solid #378ADD; padding: 10px 14px; margin-bottom: 1.25rem; border-radius: 0 8px 8px 0; background: #E6F1FB; }
-  .callout p { font-size: 13px; color: #1a1a1a; line-height: 1.6; }
-  .callout strong { font-weight: 500; }
-
-  .cost-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1.5rem; }
-  .cost-card { background: #f5f5f3; border-radius: 8px; padding: 12px; }
-  .cost-label { font-size: 11px; color: #6b6b6b; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 4px; }
-  .cost-val { font-size: 20px; font-weight: 500; }
-  .cost-note { font-size: 11px; color: #9b9b9b; margin-top: 2px; }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div style="font-family: var(--sans); color: #1a1a1a; padding: 0.5rem 0 2rem;">
-
-  <div class="header">
-    <h1>SOUNDBATH — Tech Stack Strategy</h1>
-    <p>Three-phase infrastructure roadmap · Miami bathhouse + cultural space · ThisIsSoundbath.com</p>
+<!-- PASSWORD GATE -->
+<div id="gate">
+  <div class="gate-grain"></div>
+  <div class="gate-rule"></div>
+  <div class="gate-wordmark">Soundbath</div>
+  <div class="gate-sub">Miami · Technology Strategy</div>
+  <label class="gate-label">Access code</label>
+  <div class="gate-field-wrap">
+    <input class="gate-input" type="password" id="gate-input" placeholder="Enter to access" autocomplete="off"/>
+    <button class="gate-btn" onclick="checkPassword()">Enter</button>
   </div>
+  <div class="gate-error" id="gate-error"></div>
+  <div class="gate-footer">Confidential · Caroline Godwin · 2025</div>
+</div>
 
-  <div class="phase-tabs">
-    <button class="tab active" onclick="showPhase('p1', this)">Phase 1 — Foundation</button>
-    <button class="tab" onclick="showPhase('p2', this)">Phase 2 — Membership</button>
-    <button class="tab" onclick="showPhase('p3', this)">Phase 3 — Operations</button>
-    <button class="tab" onclick="showPhase('domain', this)">Domain Strategy</button>
-    <button class="tab" onclick="showPhase('arch', this)">Architecture</button>
+<nav class="site-nav" id="sitenav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">Soundbath</a>
+    <div class="nav-links" id="navlinks">
+      <a class="nav-link active" href="index.html">Overview</a>
+      <a class="nav-link exp-pill" href="stack-experience.html">The Experience Stack</a>
+      <a class="nav-link arch-pill" href="stack-architect.html">The Architect Stack</a>
+      <a class="nav-link" href="comparison.html">Compare</a>
+    </div>
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+  <div class="nav-mobile-menu" id="mobilemenu">
+    <a class="nav-link active" href="index.html">Overview</a>
+    <a class="nav-link" href="stack-experience.html">The Experience Stack</a>
+    <a class="nav-link" href="stack-architect.html">The Architect Stack</a>
+    <a class="nav-link" href="comparison.html">Compare Both</a>
+  </div>
+</nav>
 
-  <!-- PHASE 1 -->
-  <div id="p1" class="phase-section active">
-    <div class="cost-summary">
-      <div class="cost-card"><div class="cost-label">Monthly cost</div><div class="cost-val">~$75</div><div class="cost-note">to start</div></div>
-      <div class="cost-card"><div class="cost-label">Priority</div><div class="cost-val">Now</div><div class="cost-note">pre-opening</div></div>
-      <div class="cost-card"><div class="cost-label">Outcome</div><div class="cost-val">Waitlist</div><div class="cost-note">clean data from day one</div></div>
-    </div>
+<div class="page-wrap">
 
-    <div class="section-label">DNS &amp; Infrastructure</div>
-    <div class="tool-grid">
-      <div class="tool-card featured">
-        <div class="tool-header"><span class="tool-name">Cloudflare</span><span class="tool-cost">Free</span></div>
-        <span class="tool-cat cat-infra">DNS</span>
-        <div class="rec-badge">Recommended</div>
-        <p class="tool-desc">Best DNS management available. Free CDN, DDoS protection, DNSSEC, and a clean dashboard to manage all domains. Point all domain registrars here.</p>
-      </div>
-      <div class="tool-card">
-        <div class="tool-header"><span class="tool-name">Google Workspace</span><span class="tool-cost">$12/user/mo</span></div>
-        <span class="tool-cat cat-email">Email</span>
-        <p class="tool-desc">Business Standard. Setup SPF, DKIM, DMARC via Cloudflare. Key aliases: hello@, members@, bookings@, press@. Treat email as a brand asset from day one.</p>
-      </div>
-    </div>
-
-    <div class="section-label">Website &amp; Waitlist</div>
-    <div class="tool-grid">
-      <div class="tool-card featured">
-        <div class="tool-header"><span class="tool-name">Framer</span><span class="tool-cost">$20/mo</span></div>
-        <span class="tool-cat cat-web">Landing Page</span>
-        <div class="rec-badge">Recommended</div>
-        <p class="tool-desc">Most design-forward no-code builder. React-based, fast to publish, built-in CMS. Ideal for a brand-first soft launch. Beats Webflow for speed to market.</p>
-      </div>
-      <div class="tool-card featured">
-        <div class="tool-header"><span class="tool-name">Beehiiv</span><span class="tool-cost">Free → $42/mo</span></div>
-        <span class="tool-cat cat-web">Waitlist + Email</span>
-        <div class="rec-badge">Recommended</div>
-        <p class="tool-desc">Built for audience-building. Has referral mechanics, a beautiful subscribe widget, and newsletter capabilities built in. Connect Framer form → Beehiiv → HubSpot.</p>
-      </div>
-    </div>
-
-    <div class="section-label">CRM &amp; Data</div>
-    <div class="tool-grid">
-      <div class="tool-card featured">
-        <div class="tool-header"><span class="tool-name">HubSpot</span><span class="tool-cost">Free → $15/mo</span></div>
-        <span class="tool-cat cat-crm">CRM</span>
-        <div class="rec-badge">Recommended</div>
-        <p class="tool-desc">The central spine. Generous free tier, scales to Marketing Hub, integrates with everything. All tools should sync contacts back here. This is your source of truth.</p>
-      </div>
-      <div class="tool-card">
-        <div class="tool-header"><span class="tool-name">Google Drive</span><span class="tool-cost">Included</span></div>
-        <span class="tool-cat cat-data">Cloud Storage</span>
-        <p class="tool-desc">Use Shared Drives, not personal drives. Key folders: /Operations /Marketing /Legal /Finance /Members /Content /Brand Assets.</p>
-      </div>
-      <div class="tool-card">
-        <div class="tool-header"><span class="tool-name">Google Analytics 4</span><span class="tool-cost">Free</span></div>
-        <span class="tool-cat cat-data">Analytics</span>
-        <p class="tool-desc">Install GA4 on Framer on day one. Track signups, source attribution, and page scroll depth. Connect to Google Search Console as soon as domain is live.</p>
-      </div>
-      <div class="tool-card">
-        <div class="tool-header"><span class="tool-name">Zapier</span><span class="tool-cost">$20/mo</span></div>
-        <span class="tool-cat cat-infra">Integration Layer</span>
-        <p class="tool-desc">The glue between tools. Core zap: Beehiiv sign-up → HubSpot contact creation with source tracking. Add zaps as tools grow.</p>
-      </div>
+  <div class="page-hero fade-up">
+    <div class="page-hero-eyebrow">Tech infrastructure strategy · Miami bathhouse + cultural space</div>
+    <h1>Building <em>SOUNDBATH</em><br>from the ground up.</h1>
+    <p class="page-hero-desc">Two architecture approaches for a membership-driven luxury bathhouse in Miami. Both share the same foundation — they diverge meaningfully in billing, community, and operations. Prepared by Caroline Godwin, full-stack developer.</p>
+    <div class="page-hero-tags">
+      <span class="tag tag-neutral">Three phases</span>
+      <span class="tag tag-gold">ThisIsSoundbath.com</span>
+      <span class="tag tag-neutral">Miami, FL · 2025</span>
     </div>
   </div>
 
-  <!-- PHASE 2 -->
-  <div id="p2" class="phase-section">
-    <div class="cost-summary">
-      <div class="cost-card"><div class="cost-label">Monthly cost</div><div class="cost-val">~$350</div><div class="cost-note">at launch</div></div>
-      <div class="cost-card"><div class="cost-label">Timeline</div><div class="cost-val">6–9 mo</div><div class="cost-note">pre-opening</div></div>
-      <div class="cost-card"><div class="cost-label">Outcome</div><div class="cost-val">Members</div><div class="cost-note">founding community live</div></div>
-    </div>
+  <!-- STRATEGY CARDS -->
+  <div class="section-label fade-up">Two approaches — explore each or read the comparison first</div>
 
-    <div class="callout">
-      <p><strong>Key decision point:</strong> Membership platform choice here affects Phase 3. Prioritize platforms with open APIs and Stripe billing so you own payment data. Avoid closed ecosystems that lock customer records.</p>
-    </div>
-
-    <div class="section-label">Membership Management</div>
-    <div class="tool-grid">
-      <div class="tool-card featured">
-        <div class="tool-header"><span class="tool-name">Glofox</span><span class="tool-cost">~$110/mo</span></div>
-        <span class="tool-cat cat-mem">Membership</span>
-        <div class="rec-badge">Recommended</div>
-        <p class="tool-desc">Modern, mobile-first membership management. Beautiful branded app, strong membership tier logic. Better UX than Mindbody for a premium wellness brand.</p>
+  <div class="strategy-cards fade-up d1">
+    <a class="strategy-card exp-card" href="stack-experience.html">
+      <div class="strategy-card-tag">The Experience Stack</div>
+      <h2>Built for speed, luxury feel, and community from day one.</h2>
+      <p>Purpose-built wellness tools, a polished member app, and a curated community platform. The fastest path from brief to live. Best if brand experience and pre-opening community are top priorities.</p>
+      <div class="strategy-card-tools">
+        <span class="strategy-card-tool">Framer</span>
+        <span class="strategy-card-tool">Beehiiv</span>
+        <span class="strategy-card-tool">Glofox</span>
+        <span class="strategy-card-tool">Circle.so</span>
+        <span class="strategy-card-tool">Luma</span>
+        <span class="strategy-card-tool">Book4Time</span>
       </div>
-      <div class="tool-card">
-        <div class="tool-header"><span class="tool-name">Stripe Billing + Memberstack</span><span class="tool-cost">% + $49/mo</span></div>
-        <span class="tool-cat cat-mem">Membership</span>
-        <p class="tool-desc">Custom control over billing and member portal. More dev work upfront but you own the entire data layer. Right choice if brand experience is paramount.</p>
+      <div class="strategy-card-hours">
+        <span>◷ 160 hrs total across all phases</span>
+        <span style="font-size:16px;">→</span>
       </div>
-    </div>
-
-    <div class="section-label">Community &amp; Events</div>
-    <div class="tool-grid">
-      <div class="tool-card featured">
-        <div class="tool-header"><span class="tool-name">Circle.so</span><span class="tool-cost">$89/mo</span></div>
-        <span class="tool-cat cat-events">Community</span>
-        <div class="rec-badge">Recommended</div>
-        <p class="tool-desc">Best-in-class community platform. Private spaces for founding members, event announcements, programming previews. Feels premium and exclusive — right for SOUNDBATH.</p>
+    </a>
+    <a class="strategy-card arch-card" href="stack-architect.html">
+      <div class="strategy-card-tag">The Architect Stack</div>
+      <h2>Built for data ownership, portability, and long-term flexibility.</h2>
+      <p>Separates billing, CRM, and operations so no single vendor controls the customer relationship. More configuration upfront — but the architecture survives any platform change.</p>
+      <div class="strategy-card-tools">
+        <span class="strategy-card-tool">Webflow</span>
+        <span class="strategy-card-tool">Stripe</span>
+        <span class="strategy-card-tool">HubSpot</span>
+        <span class="strategy-card-tool">Eventbrite</span>
+        <span class="strategy-card-tool">Zenoti</span>
       </div>
-      <div class="tool-card featured">
-        <div class="tool-header"><span class="tool-name">Luma</span><span class="tool-cost">Free + % for paid</span></div>
-        <span class="tool-cat cat-events">Event Ticketing</span>
-        <div class="rec-badge">Recommended</div>
-        <p class="tool-desc">Beautiful, modern ticketing built for cultural programming. Free for free events, small % for paid. The aesthetic aligns with a cultural space. Great Miami community fit.</p>
+      <div class="strategy-card-hours">
+        <span>◷ 175 hrs total across all phases</span>
+        <span style="font-size:16px;">→</span>
       </div>
-      <div class="tool-card">
-        <div class="tool-header"><span class="tool-name">ReferralHero</span><span class="tool-cost">$49/mo</span></div>
-        <span class="tool-cat cat-events">Referrals</span>
-        <p class="tool-desc">Waitlist referral mechanics and founding member referral tracking. Can use Beehiiv's built-in referral features first before upgrading to this.</p>
-      </div>
-    </div>
+    </a>
   </div>
 
-  <!-- PHASE 3 -->
-  <div id="p3" class="phase-section">
-    <div class="cost-summary">
-      <div class="cost-card"><div class="cost-label">Monthly cost</div><div class="cost-val">Custom</div><div class="cost-note">enterprise pricing</div></div>
-      <div class="cost-card"><div class="cost-label">Timeline</div><div class="cost-val">At opening</div><div class="cost-note">or 3 mo before</div></div>
-      <div class="cost-card"><div class="cost-label">Outcome</div><div class="cost-val">Full ops</div><div class="cost-note">end-to-end bathhouse stack</div></div>
-    </div>
-
-    <div class="callout">
-      <p><strong>Start conversations with Book4Time early.</strong> Enterprise wellness booking platforms require long procurement and onboarding cycles — 3 months minimum before opening. Same for RFID locker vendors.</p>
-    </div>
-
-    <div class="section-label">Booking &amp; Check-in</div>
-    <div class="tool-grid">
-      <div class="tool-card featured">
-        <div class="tool-header"><span class="tool-name">Book4Time</span><span class="tool-cost">Enterprise</span></div>
-        <span class="tool-cat cat-ops">Booking</span>
-        <div class="rec-badge">Recommended</div>
-        <p class="tool-desc">Industry standard for luxury hotel spas and wellness. Used by Four Seasons, Mandarin Oriental. Handles bookings, therapist scheduling, POS, and guest profiles. API-accessible.</p>
-      </div>
-      <div class="tool-card">
-        <div class="tool-header"><span class="tool-name">Agilysys</span><span class="tool-cost">Enterprise</span></div>
-        <span class="tool-cat cat-ops">Booking</span>
-        <p class="tool-desc">Strong hotel/resort integration. Consider if partnering with a hotel property or if F&B operations are very complex. More hospitality-oriented than wellness.</p>
-      </div>
-    </div>
-
-    <div class="section-label">RFID &amp; Lockers</div>
-    <div class="tool-grid">
-      <div class="tool-card featured">
-        <div class="tool-header"><span class="tool-name">Gantner</span><span class="tool-cost">Hardware + SaaS</span></div>
-        <span class="tool-cat cat-rfid">RFID / Lockers</span>
-        <div class="rec-badge">Recommended</div>
-        <p class="tool-desc">European spa and wellness RFID specialist. Wristband-based locker access, cashless spending throughout the facility, integrates with booking systems.</p>
-      </div>
-      <div class="tool-card">
-        <div class="tool-header"><span class="tool-name">Ojmar</span><span class="tool-cost">Hardware + SaaS</span></div>
-        <span class="tool-cat cat-rfid">RFID / Lockers</span>
-        <p class="tool-desc">Spanish locker hardware specialist. Strong in wellness and gym environments. More common in US installs than Gantner. Get quotes from both and compare integration capability.</p>
-      </div>
-    </div>
-
-    <div class="section-label">POS, Onboarding &amp; Analytics</div>
-    <div class="tool-grid">
-      <div class="tool-card">
-        <div class="tool-header"><span class="tool-name">Toast</span><span class="tool-cost">$69/mo+</span></div>
-        <span class="tool-cat cat-ops">POS</span>
-        <p class="tool-desc">Best if F&B is a major revenue driver. Handles menu management, kitchen display, and tip flows well.</p>
-      </div>
-      <div class="tool-card featured">
-        <div class="tool-header"><span class="tool-name">Smartwaiver</span><span class="tool-cost">$39/mo</span></div>
-        <span class="tool-cat cat-ops">Waivers</span>
-        <div class="rec-badge">Recommended</div>
-        <p class="tool-desc">Digital waivers, health forms, and consent docs. Auto-syncs signed waivers to guest profiles. Can embed in the pre-arrival flow via booking confirmation email.</p>
-      </div>
-      <div class="tool-card">
-        <div class="tool-header"><span class="tool-name">Persona</span><span class="tool-cost">~$0.80/verify</span></div>
-        <span class="tool-cat cat-ops">ID Verification</span>
-        <p class="tool-desc">Best-in-class identity verification. Handles ID + selfie match, age verification. Integrate into the pre-arrival digital onboarding flow, not at the front desk.</p>
-      </div>
-      <div class="tool-card">
-        <div class="tool-header"><span class="tool-name">Looker Studio</span><span class="tool-cost">Free</span></div>
-        <span class="tool-cat cat-data">Analytics</span>
-        <p class="tool-desc">Connect Book4Time, HubSpot, and GA4 into a single operations dashboard. Free and powerful enough for early-stage analytics.</p>
-      </div>
-    </div>
+  <!-- SHARED PRINCIPLES -->
+  <div class="section-head fade-up">
+    <div class="section-num">01</div>
+    <h2>What both stacks <em>agree on</em></h2>
+    <p>These decisions are non-negotiable regardless of which strategy is chosen.</p>
   </div>
 
-  <!-- DOMAIN STRATEGY -->
-  <div id="domain" class="phase-section">
-    <div class="callout">
-      <p><strong>POV on domains:</strong> Domains are brand infrastructure, not an afterthought. The goal is protecting your name across the most likely search patterns, not collecting every TLD. Redirect all variants to your primary.</p>
-    </div>
-
-    <div class="section-label">Domain portfolio recommendation</div>
-    <div class="domain-section">
-      <div class="domain-item">
-        <span class="domain-name">ThisIsSoundbath.com</span>
-        <span class="tool-cat cat-crm" style="font-size:11px;padding:2px 8px;border-radius:10px;">Primary</span>
-        <span class="domain-note">You own this — keep it as the canonical URL</span>
-      </div>
-      <div class="domain-item">
-        <span class="domain-name">soundbath.miami</span>
-        <span class="tool-cat cat-web" style="font-size:11px;padding:2px 8px;border-radius:10px;">Acquire now</span>
-        <span class="domain-note">Highest priority. .miami TLD is powerful for local positioning + press</span>
-      </div>
-      <div class="domain-item">
-        <span class="domain-name">soundbath.com</span>
-        <span class="tool-cat cat-rfid" style="font-size:11px;padding:2px 8px;border-radius:10px;">Check availability</span>
-        <span class="domain-note">Likely taken or expensive. Worth a WHOIS check — aftermarket if priced under $5k</span>
-      </div>
-      <div class="domain-item">
-        <span class="domain-name">joinsoundbath.com</span>
-        <span class="tool-cat cat-web" style="font-size:11px;padding:2px 8px;border-radius:10px;">Acquire now</span>
-        <span class="domain-note">Great for membership CTAs. "Join Soundbath" is a natural search pattern</span>
-      </div>
-      <div class="domain-item">
-        <span class="domain-name">soundbathmia.com</span>
-        <span class="tool-cat cat-rfid" style="font-size:11px;padding:2px 8px;border-radius:10px;">Optional</span>
-        <span class="domain-note">Cheap insurance. Good for Miami-specific campaigns</span>
-      </div>
-    </div>
-
-    <div class="section-label" style="margin-top:1.5rem;">DNS setup</div>
-    <div class="tool-grid" style="grid-template-columns: 1fr 1fr;">
-      <div class="tool-card">
-        <div class="tool-name" style="margin-bottom:8px;">Registrar strategy</div>
-        <p class="tool-desc">Keep all domains at one registrar (Namecheap or Cloudflare Registrar). Then point all nameservers to Cloudflare DNS. Cloudflare Registrar charges at-cost — no markup.</p>
-      </div>
-      <div class="tool-card">
-        <div class="tool-name" style="margin-bottom:8px;">Email authentication</div>
-        <p class="tool-desc">Set up SPF, DKIM, and DMARC records in Cloudflare on day one. This protects deliverability and prevents email spoofing. Google Workspace walks through this — don't skip it.</p>
-      </div>
-    </div>
+  <div class="shared-grid">
+    <div class="shared-item fade-up d1"><h4>Cloudflare for DNS</h4><p>Free CDN, DDoS protection, DNSSEC. All domains point here regardless of registrar.</p></div>
+    <div class="shared-item fade-up d2"><h4>Google Workspace</h4><p>$12/user/mo. Business email, MFA, Shared Drives. SPF + DKIM + DMARC before any outbound email.</p></div>
+    <div class="shared-item fade-up d3"><h4>HubSpot as CRM spine</h4><p>The master relationship record. Every customer-facing tool syncs back here. Free CRM is genuinely capable.</p></div>
+    <div class="shared-item fade-up d4"><h4>Zapier as early glue</h4><p>~$20/mo integration layer between tools. Graduate to direct API webhooks when volume justifies it.</p></div>
+    <div class="shared-item fade-up d1"><h4>Looker Studio</h4><p>Free analytics dashboard connecting all operational tools. Sufficient for early-stage reporting.</p></div>
+    <div class="shared-item fade-up d2"><h4>Data portability first</h4><p>Confirm full customer data export (CSV or API) before signing any vendor contract. Non-negotiable.</p></div>
+    <div class="shared-item fade-up d3"><h4>Domain strategy</h4><p>Buy defensively, pick one canonical URL, 301 redirect all others. Acquire soundbath.miami immediately.</p></div>
+    <div class="shared-item fade-up d4"><h4>Phase 3 — start now</h4><p>Book4Time and Zenoti both require 3–4 month procurement cycles. Begin conversations well before site selection.</p></div>
   </div>
 
-  <!-- ARCHITECTURE -->
-  <div id="arch" class="phase-section">
-    <div class="callout">
-      <p><strong>Core principle:</strong> HubSpot is the spine. Every tool that touches a customer should connect back to HubSpot. This ensures that when you switch any single tool, you don't lose customer history. Avoid any platform that doesn't export your contact data.</p>
-    </div>
+  <!-- PHASE OVERVIEW -->
+  <div class="section-head fade-up">
+    <div class="section-num">02</div>
+    <h2>Three phases, <em>clear milestones</em></h2>
+    <p>Both strategies follow the same phased structure — the tool choices within each phase differ.</p>
+  </div>
 
-    <div class="section-label">Data flow — customer journey</div>
-    <div class="arch-box">
-      <h3>Phase 1 → 3 data architecture</h3>
-      <div class="arch-flow">
-        <span class="arch-node">Framer (website)</span>
-        <span class="arch-arrow">→</span>
-        <span class="arch-node">Beehiiv (waitlist)</span>
-        <span class="arch-arrow">→</span>
-        <span class="arch-node arch-hub">HubSpot CRM</span>
-        <span class="arch-arrow">→</span>
-        <span class="arch-node">Glofox (membership)</span>
-      </div>
-      <div class="arch-flow">
-        <span class="arch-node">Luma (events)</span>
-        <span class="arch-arrow">→</span>
-        <span class="arch-node">Zapier</span>
-        <span class="arch-arrow">→</span>
-        <span class="arch-node arch-hub">HubSpot CRM</span>
-        <span class="arch-arrow">→</span>
-        <span class="arch-node">Book4Time (bookings)</span>
-      </div>
-      <div class="arch-flow">
-        <span class="arch-node">Book4Time + RFID</span>
-        <span class="arch-arrow">→</span>
-        <span class="arch-node">Looker Studio</span>
-        <span class="arch-arrow">→</span>
-        <span class="arch-node">Guest analytics</span>
-      </div>
-    </div>
+  <table class="swap-tbl fade-up" style="margin-bottom:40px">
+    <thead>
+      <tr>
+        <th>Phase</th><th>Goal</th><th>When</th><th>Key outputs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-weight:500">Phase 1 — Foundation</td>
+        <td class="cell-note">Establish digital backbone. Capture early demand. Launch waitlist.</td>
+        <td class="cell-note">Now</td>
+        <td class="cell-note">DNS, email, landing page, CRM, waitlist live</td>
+      </tr>
+      <tr>
+        <td style="font-weight:500">Phase 2 — Membership</td>
+        <td class="cell-note">Activate founding memberships and programming. Build pre-opening community.</td>
+        <td class="cell-note">6–9 months pre-opening</td>
+        <td class="cell-note">Memberships live, community active, events ticketed</td>
+      </tr>
+      <tr>
+        <td style="font-weight:500">Phase 3 — Operations</td>
+        <td class="cell-note">Full bathhouse operational layer — booking, check-in, POS, RFID, analytics.</td>
+        <td class="cell-note">3–4 months before opening</td>
+        <td class="cell-note">End-to-end ops stack live and integrated</td>
+      </tr>
+    </tbody>
+  </table>
 
-    <div class="section-label">Long-term data ownership</div>
-    <div class="tool-grid" style="grid-template-columns: 1fr 1fr;">
-      <div class="tool-card">
-        <div class="tool-name" style="margin-bottom:8px;">Segment (later)</div>
-        <p class="tool-desc">Once you have 3+ tools sending customer events, add Segment as a Customer Data Platform. All tools send events to Segment, which routes to HubSpot and any analytics tool.</p>
-      </div>
-      <div class="tool-card">
-        <div class="tool-name" style="margin-bottom:8px;">Data portability rule</div>
-        <p class="tool-desc">Before signing any contract: confirm you can export all customer data (name, email, visit history, spend) in CSV or via API. Any vendor who can't guarantee this is a risk.</p>
-      </div>
-    </div>
+  <div class="callout callout-dark fade-up">
+    <p><strong>Not sure which stack?</strong> The <a href="comparison.html" style="color:var(--ink);font-weight:500;text-decoration:underline;text-underline-offset:3px">comparison page</a> scores each across seven factors including pricing, luxury feel, ease of use, data ownership, and Miami market fit — with an honest hybrid recommendation.</p>
   </div>
 
 </div>
 
-<script>
-function showPhase(id, btn) {
-  document.querySelectorAll('.phase-section').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-}
-</script>
+<footer class="site-footer">
+  <div class="footer-brand">Soundbath Miami</div>
+  <div class="footer-links">
+    <a class="footer-link" href="stack-experience.html">Experience Stack</a>
+    <a class="footer-link" href="stack-architect.html">Architect Stack</a>
+    <a class="footer-link" href="comparison.html">Compare</a>
+  </div>
+  <div class="footer-copy" style="font-size:11px;color:var(--faint)">Prepared by Caroline Godwin · 2025</div>
+</footer>
 
+<script>
+const PASS = 'MiamiFL';
+function checkPassword() {
+  const val = document.getElementById('gate-input').value;
+  const err = document.getElementById('gate-error');
+  if (val === PASS) {
+    sessionStorage.setItem('sb_auth', '1');
+    document.getElementById('gate').classList.add('hidden');
+    err.textContent = '';
+  } else {
+    err.textContent = 'Incorrect access code.';
+    document.getElementById('gate-input').value = '';
+    document.getElementById('gate-input').focus();
+  }
+}
+document.getElementById('gate-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
+if (sessionStorage.getItem('sb_auth') === '1') {
+  document.getElementById('gate').classList.add('hidden');
+}
+
+window.addEventListener('scroll', () => {
+  document.getElementById('sitenav').classList.toggle('scrolled', window.scrollY > 20);
+});
+
+function toggleMenu() {
+  const hb = document.getElementById('hamburger');
+  const mm = document.getElementById('mobilemenu');
+  hb.classList.toggle('open');
+  mm.classList.toggle('open');
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
