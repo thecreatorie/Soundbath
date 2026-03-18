@@ -217,6 +217,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--ink);font-size:15p
 .arch-box-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--subtle);margin-bottom:18px;font-weight:400}
 .arch-flow{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:11px}
 .arch-flow:last-child{margin-bottom:0}
+.arch-flow-label{display:none;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle);width:100%}
 .arch-node{background:var(--bg);border:.5px solid var(--bdr2);border-radius:7px;padding:7px 15px;font-size:13px;font-weight:400;white-space:nowrap;color:var(--ink)}
 .arch-arrow{color:var(--faint);font-size:13px}
 .arch-hub{background:var(--ink);color:var(--bg);border-color:var(--ink)}
@@ -365,11 +366,128 @@ body{font-family:var(--sans);background:var(--bg);color:var(--ink);font-size:15p
   .sc-header-cell.label-cell{display:none}
   .sc-factor{border-right:none;background:var(--bg3);padding:14px 18px}
   .swap-tbl th:first-child,.swap-tbl td:first-child{display:none}
+
+  /* Tool comparison table — convert to cards on mobile */
+  .swap-tbl,.swap-tbl thead,.swap-tbl tbody,.swap-tbl tr,.swap-tbl th,.swap-tbl td{display:block;width:100%}
+  .swap-tbl thead{display:none}
+  .swap-tbl tr{
+    background:var(--bg);
+    border:.5px solid var(--bdr2);
+    border-radius:var(--r-md);
+    margin-bottom:12px;
+    padding:16px;
+    overflow:hidden;
+  }
+  .swap-tbl tr:hover td{background:transparent}
+  .swap-tbl td{
+    padding:6px 0;
+    border:none;
+    font-size:13px;
+    border-top:none;
+  }
+  /* Category label — first td becomes the card title */
+  .swap-tbl td:first-child{
+    display:block;
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--subtle);
+    margin-bottom:10px;
+    padding-bottom:10px;
+    border-bottom:.5px solid var(--bdr);
+  }
+  /* Experience Stack cell */
+  .swap-tbl td:nth-child(2)::before{
+    content:'Experience Stack';
+    display:block;
+    font-size:10px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--exp);
+    margin-bottom:3px;
+    font-weight:500;
+  }
+  /* Architect Stack cell */
+  .swap-tbl td:nth-child(3)::before{
+    content:'Architect Stack';
+    display:block;
+    font-size:10px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--arch);
+    margin-top:8px;
+    margin-bottom:3px;
+    font-weight:500;
+  }
+  /* Why it matters cell */
+  .swap-tbl td:nth-child(4){
+    margin-top:10px;
+    padding-top:10px;
+    border-top:.5px solid var(--bdr);
+    font-size:13px;
+    color:var(--muted);
+    line-height:1.7;
+  }
   .verdict-strip{padding:30px 26px}
   .site-footer{padding:20px;flex-direction:column;align-items:flex-start;gap:14px}
   .footer-links{flex-wrap:wrap;gap:14px}
-  .tab-btn{padding:10px 14px;font-size:12px}
   .page-hero h1{font-size:clamp(32px,9vw,48px)}
+
+  /* Hours grid: stack task + hours vertically on mobile */
+  .hours-grid{display:block}
+  .hours-row{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-bottom:.5px solid rgba(181,136,60,.18);gap:12px}
+  .hours-row:last-child{border-bottom:none}
+  .hours-row>div{padding:0;border:none;font-size:13px}
+  .hours-task{flex:1;line-height:1.5}
+  .hours-val{flex-shrink:0;font-weight:500}
+
+  /* Tabs: vertical list on mobile */
+  .tab-bar{flex-direction:column;border-bottom:none;border-left:1.5px solid var(--bdr2);padding-bottom:0;gap:0;margin-bottom:28px}
+  .tab-btn{border-bottom:none;border-left:3px solid transparent;margin-bottom:0;margin-left:-1.5px;padding:11px 18px;text-align:left;font-size:13px}
+  .tab-btn.active{border-bottom:none;border-left-color:var(--ink)}
+  .tab-btn:hover{background:var(--bg2)}
+
+  /* Data flows: each flow becomes its own card on mobile */
+  .arch-flow{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:0;
+    background:var(--bg);
+    border:.5px solid var(--bdr2);
+    border-radius:var(--r-sm);
+    padding:14px 16px;
+    margin-bottom:10px;
+  }
+  .arch-flow:last-child{margin-bottom:0}
+  .arch-flow-label{
+    display:block;
+    margin-bottom:10px;
+    padding-bottom:8px;
+    border-bottom:.5px solid var(--bdr);
+    color:var(--ink);
+  }
+  .arch-node{
+    width:100%;
+    white-space:normal;
+    border:none;
+    background:transparent;
+    padding:4px 0;
+    font-size:13px;
+    border-radius:0;
+  }
+  .arch-arrow{
+    font-size:11px;
+    color:var(--faint);
+    padding:1px 0;
+    transform:rotate(90deg);
+    display:block;
+    line-height:1;
+  }
+  /* Highlight hub/special nodes on mobile too */
+  .arch-hub{background:var(--ink);color:var(--bg);border-radius:6px;padding:5px 12px;display:inline-block;width:auto}
+  .arch-stripe{background:#4F46E5;color:#fff;border-radius:6px;padding:5px 12px;display:inline-block;width:auto}
+  .arch-zenoti{background:var(--exp2);color:#fff;border-radius:6px;padding:5px 12px;display:inline-block;width:auto}
 }
 @media(max-width:480px){
   .shared-grid,.tool-grid{grid-template-columns:1fr}
