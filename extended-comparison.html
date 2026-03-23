@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extended Comparison — SOUNDBATH Strategy</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── PAGE-SPECIFIC ── */
+.ec-hero-tag{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--subtle);font-weight:400;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.ec-hero-tag::before{content:'';width:24px;height:.5px;background:var(--subtle)}
+
+/* ── PROFILE CARDS ── */
+.profile-block{margin-bottom:56px;scroll-margin-top:80px}
+.profile-header{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding-bottom:20px;margin-bottom:24px;border-bottom:.5px solid var(--bdr)}
+.profile-title-wrap{}
+.profile-name{font-family:var(--serif);font-size:30px;font-weight:400;line-height:1.1;margin-bottom:4px}
+.profile-location{font-size:13px;color:var(--muted);font-weight:300}
+.profile-meta{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
+.profile-pill{font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:20px;border:.5px solid;white-space:nowrap}
+.pill-luxury{background:rgba(122,73,26,.08);color:var(--arch2);border-color:rgba(122,73,26,.2)}
+.pill-social{background:var(--exp-lt);color:var(--exp2);border-color:var(--exp-lt2)}
+.pill-boutique{background:var(--bg2);color:var(--muted);border-color:var(--bdr2)}
+.pill-scale{background:var(--gold-lt);color:var(--gold2);border-color:var(--gold-lt2)}
+
+.profile-desc{font-size:14px;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:20px;max-width:720px}
+
+/* ── TECH ROW ── */
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.tech-item{background:var(--bg2);border:.5px solid var(--bdr);border-radius:var(--r-md);padding:16px 18px}
+.tech-item-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle);margin-bottom:5px;font-weight:400}
+.tech-item-val{font-size:14px;font-weight:500;color:var(--ink);line-height:1.35;margin-bottom:4px}
+.tech-item-note{font-size:12px;color:var(--muted);font-weight:300;line-height:1.5}
+
+.confidence-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:2px 9px;border-radius:4px;margin-top:4px}
+.conf-confirmed{background:var(--exp-lt2);color:var(--exp2)}
+.conf-inferred{background:var(--gold-lt2);color:var(--gold2)}
+.conf-unknown{background:var(--bg3);color:var(--subtle)}
+
+/* ── GAP BOX ── */
+.gap-box{background:rgba(180,60,60,.04);border:.5px solid rgba(180,60,60,.13);border-radius:var(--r-md);padding:16px 20px;margin-bottom:8px}
+.gap-box-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8b2a2a;margin-bottom:8px;font-weight:500}
+.gap-list{list-style:none;padding:0;margin:0}
+.gap-list li{font-size:13px;color:var(--muted);padding:4px 0 4px 16px;position:relative;font-weight:300;line-height:1.6}
+.gap-list li::before{content:'—';position:absolute;left:0;color:rgba(180,60,60,.5);font-size:11px;top:6px}
+
+/* ── DIVIDER ── */
+.ec-divider{height:.5px;background:var(--bdr);margin:48px 0}
+
+/* ── METHODOLOGY ── */
+.methodology-banner{background:var(--bg2);border:.5px solid var(--bdr);border-radius:var(--r-md);padding:18px 22px;margin-bottom:48px;display:flex;gap:20px;align-items:flex-start}
+.methodology-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.methodology-text{font-size:13px;color:var(--muted);line-height:1.75;font-weight:300}
+.methodology-text strong{color:var(--ink);font-weight:500}
+
+/* ── QUICK NAV ── */
+.ec-nav{display:flex;gap:8px;margin-bottom:48px;flex-wrap:wrap}
+.ec-nav-btn{padding:8px 18px;border:.5px solid var(--bdr2);border-radius:100px;background:transparent;font-family:var(--sans);font-size:12px;font-weight:400;color:var(--muted);cursor:pointer;text-decoration:none;transition:all .15s}
+.ec-nav-btn:hover{background:var(--bg2);color:var(--ink);border-color:var(--ink)}
+
+/* ── SECTION HEADING ── */
+.section-heading{display:flex;align-items:baseline;gap:14px;margin-bottom:32px}
+.section-heading h2{font-family:var(--serif);font-size:26px;font-weight:400}
+.section-heading-rule{flex:1;height:.5px;background:var(--bdr)}
+
+/* ── COMPARISON TABLE ── */
+.ext-table-wrap{overflow-x:auto;margin-bottom:16px;border:.5px solid var(--bdr);border-radius:var(--r-md)}
+.ext-table{width:100%;border-collapse:collapse;font-size:13px;min-width:900px}
+.ext-table thead tr{background:var(--bg2)}
+.ext-table th{padding:11px 15px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle);text-align:left;font-weight:400;border-bottom:.5px solid var(--bdr2);white-space:nowrap}
+.ext-table th:first-child{min-width:160px;position:sticky;left:0;background:var(--bg2);z-index:1}
+.ext-table td{padding:13px 15px;border-top:.5px solid var(--bdr);vertical-align:top;color:var(--muted);line-height:1.55}
+.ext-table td:first-child{font-weight:500;color:var(--ink);white-space:nowrap;position:sticky;left:0;background:var(--bg);z-index:1}
+.ext-table tr:hover td{background:var(--bg2)}
+.ext-table tr:hover td:first-child{background:var(--bg2)}
+.ext-table .cat-row td{background:var(--ink2);color:rgba(243,243,241,.5);font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:400;padding:8px 15px;border-top:none}
+.ext-table .cat-row td:first-child{background:var(--ink2)}
+
+.t-confirmed{color:var(--exp);font-weight:500}
+.t-inferred{color:var(--gold2)}
+.t-none{color:var(--subtle);font-style:italic}
+.t-note{font-size:11px;color:var(--subtle);display:block;margin-top:2px;font-weight:300}
+
+/* ── PATTERN CALLOUTS ── */
+.pattern-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:32px}
+.pattern-card{background:var(--bg2);border:.5px solid var(--bdr);border-radius:var(--r-md);padding:18px 20px}
+.pattern-num{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--faint);line-height:1;margin-bottom:8px}
+.pattern-text{font-size:13px;color:var(--muted);line-height:1.7;font-weight:300}
+.pattern-text strong{color:var(--ink);font-weight:500}
+
+/* ── VERDICT ── */
+.verdict-block{background:var(--ink2);border-radius:var(--r-lg);padding:40px 44px;margin-bottom:48px;position:relative;overflow:hidden}
+.verdict-bg-rule{position:absolute;top:0;left:44px;width:.5px;height:100%;background:rgba(181,136,60,.15)}
+.verdict-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;font-weight:400}
+.verdict-headline{font-family:var(--serif);font-size:38px;font-weight:300;color:rgba(243,243,241,.92);line-height:1.2;margin-bottom:8px}
+.verdict-sub{font-size:14px;color:rgba(243,243,241,.45);font-weight:300;margin-bottom:32px}
+.verdict-reason-list{list-style:none;padding:0;margin:0 0 32px}
+.verdict-reason-list li{display:flex;gap:16px;padding:14px 0;border-bottom:.5px solid rgba(243,243,241,.07);align-items:flex-start}
+.verdict-reason-list li:last-child{border-bottom:none}
+.verdict-reason-num{font-family:var(--serif);font-size:18px;color:var(--gold);font-weight:400;flex-shrink:0;width:24px;line-height:1.4}
+.verdict-reason-text{font-size:13px;color:rgba(243,243,241,.65);line-height:1.75;font-weight:300}
+.verdict-reason-text strong{color:rgba(243,243,241,.88);font-weight:500}
+.verdict-caveats{background:rgba(243,243,241,.04);border:.5px solid rgba(243,243,241,.1);border-radius:var(--r-md);padding:18px 22px}
+.verdict-caveats-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(243,243,241,.3);margin-bottom:10px;font-weight:400}
+.verdict-caveats p{font-size:13px;color:rgba(243,243,241,.45);line-height:1.75;font-weight:300;margin-bottom:6px}
+.verdict-caveats p:last-child{margin-bottom:0}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .tech-grid{grid-template-columns:1fr 1fr}
+  .pattern-grid{grid-template-columns:1fr}
+  .profile-header{flex-direction:column}
+  .profile-meta{flex-direction:row;flex-wrap:wrap;align-items:flex-start}
+  .profile-name{font-size:24px}
+  .verdict-block{padding:28px 24px}
+  .verdict-headline{font-size:28px}
+  .ext-table-wrap{border-radius:var(--r-sm)}
+}
+@media(max-width:480px){
+  .tech-grid{grid-template-columns:1fr}
+  .verdict-bg-rule{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="gate">
+  <div class="gate-grain"></div>
+  <div class="gate-rule"></div>
+  <p class="gate-label">SOUNDBATH — Strategy Document</p>
+  <div class="gate-field-wrap">
+    <input class="gate-input" id="pw" type="password" placeholder="Password" autocomplete="off">
+    <button class="gate-btn" onclick="checkPw()">Enter</button>
+  </div>
+  <p class="gate-error" id="gate-err"></p>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">SOUNDBATH</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Overview</a>
+      <a href="stack-experience.html" class="nav-link">Experience Stack</a>
+      <a href="stack-architect.html" class="nav-link">Architect Stack</a>
+      <a href="comparison.html" class="nav-link">Comparison</a>
+      <a href="competitors.html" class="nav-link">Competitors</a>
+      <a href="extended-comparison.html" class="nav-link" style="color:var(--ink);font-weight:500">Extended Comparison</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile-menu" id="mobile-menu">
+    <a href="index.html" class="nav-mobile-link">Overview</a>
+    <a href="stack-experience.html" class="nav-mobile-link">Experience Stack</a>
+    <a href="stack-architect.html" class="nav-mobile-link">Architect Stack</a>
+    <a href="comparison.html" class="nav-mobile-link">Comparison</a>
+    <a href="competitors.html" class="nav-mobile-link">Competitors</a>
+    <a href="extended-comparison.html" class="nav-mobile-link">Extended Comparison</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- HERO -->
+  <div class="page-hero fade-up">
+    <div class="ec-hero-tag">US Bathhouse Benchmark Study</div>
+    <h1 class="page-hero-h1">Extended Comparison</h1>
+    <p class="page-hero-desc">Tech stack analysis of five popular US bathhouses — what they built, what they bought, and what gaps they've left open. Findings are used to identify the right stack for SOUNDBATH.</p>
+  </div>
+
+  <!-- METHODOLOGY -->
+  <div class="methodology-banner fade-up">
+    <div class="methodology-icon">🔍</div>
+    <div class="methodology-text">
+      <strong>Method.</strong> Each property's website was fetched directly. Booking subdomains, CDN fingerprints, script tags, and URL patterns were inspected to identify platforms. Findings carry one of three labels: <strong style="color:var(--exp)">Confirmed</strong> — directly visible in source or URL; <strong style="color:var(--gold2)">Inferred</strong> — strongly implied by observable signals; <strong style="color:var(--subtle)">Unknown</strong> — not determinable from public data. This page focuses exclusively on tech stack. No speculation is presented as fact.
+    </div>
+  </div>
+
+  <!-- QUICK NAV -->
+  <div class="ec-nav fade-up">
+    <a href="#aire" class="ec-nav-btn">↓ AIRE Ancient Baths</a>
+    <a href="#remedy" class="ec-nav-btn">↓ Remedy Place</a>
+    <a href="#watershed" class="ec-nav-btn">↓ Watershed Spa</a>
+    <a href="#onsen" class="ec-nav-btn">↓ Onsen SF</a>
+    <a href="#qcny" class="ec-nav-btn">↓ QC NY</a>
+    <a href="#table" class="ec-nav-btn">↓ Comparison table</a>
+    <a href="#verdict" class="ec-nav-btn" style="color:var(--exp);border-color:var(--exp-lt2);background:var(--exp-lt)">↓ Stack verdict</a>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       1. AIRE ANCIENT BATHS
+  ══════════════════════════════════════ -->
+  <div class="profile-block fade-up" id="aire">
+    <div class="profile-header">
+      <div class="profile-title-wrap">
+        <div class="profile-name">AIRE Ancient Baths</div>
+        <div class="profile-location">New York (Tribeca + Upper East Side) · Chicago · Toronto · London · Copenhagen</div>
+      </div>
+      <div class="profile-meta">
+        <span class="profile-pill pill-luxury">Luxury · Immersive</span>
+        <span class="profile-pill pill-scale">Multi-location</span>
+      </div>
+    </div>
+
+    <p class="profile-desc">Spanish brand, first US location opened 2012 in NYC Tribeca. Three US locations now (Tribeca, UES, Chicago), plus international. Timed thermal bath circuits in restored historic buildings — candlelit, phone-free, no classes. Pure immersive luxury positioning. Closes to SOUNDBATH on atmosphere and market tier.</p>
+
+    <div class="tech-grid">
+      <div class="tech-item">
+        <div class="tech-item-label">Website CMS</div>
+        <div class="tech-item-val">Custom-built web app</div>
+        <div class="tech-item-note">Angular-style template syntax (&#x5B;&#x5B; &#x5D;&#x5D; bindings) visible in booking page source. Not a commodity CMS.</div>
+        <span class="confidence-tag conf-confirmed">Confirmed</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Booking System</div>
+        <div class="tech-item-val">Proprietary in-house</div>
+        <div class="tech-item-note">All reservations flow through beaire.com/en/booking — no third-party booking subdomain detected.</div>
+        <span class="confidence-tag conf-confirmed">Confirmed</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Membership / Passes</div>
+        <div class="tech-item-val">Not visible</div>
+        <div class="tech-item-note">No public membership program detected. Gift box product sold through own platform.</div>
+        <span class="confidence-tag conf-unknown">Unknown</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">CRM / Marketing</div>
+        <div class="tech-item-val">Unknown</div>
+        <div class="tech-item-note">Newsletter signup present but backend tooling not determinable from public data.</div>
+        <span class="confidence-tag conf-unknown">Unknown</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Community Platform</div>
+        <div class="tech-item-val">None</div>
+        <div class="tech-item-note">No social or community layer. Guests interact at the property, not online.</div>
+        <span class="confidence-tag conf-confirmed">Confirmed</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Analytics / Tracking</div>
+        <div class="tech-item-val">Adform (EU DSP)</div>
+        <div class="tech-item-note">Adform tracking pixel observed in source — European parent company uses EU-native ad tech.</div>
+        <span class="confidence-tag conf-confirmed">Confirmed</span>
+      </div>
+    </div>
+
+    <div class="gap-box">
+      <div class="gap-box-label">Gaps SOUNDBATH can exploit</div>
+      <ul class="gap-list">
+        <li>No founding member program or pre-opening pipeline — SOUNDBATH can own this moment</li>
+        <li>No community layer; digital relationship with guests ends at the booking confirmation</li>
+        <li>Custom stack limits agility — any change requires dev resources; SOUNDBATH moves faster with no-code</li>
+        <li>No email marketing infrastructure visible; SOUNDBATH's Beehiiv pipeline is a structural advantage from day one</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ec-divider"></div>
+
+  <!-- ══════════════════════════════════════
+       2. REMEDY PLACE
+  ══════════════════════════════════════ -->
+  <div class="profile-block fade-up" id="remedy">
+    <div class="profile-header">
+      <div class="profile-title-wrap">
+        <div class="profile-name">Remedy Place</div>
+        <div class="profile-location">New York (West Village + Flatiron) · Los Angeles (West Hollywood)</div>
+      </div>
+      <div class="profile-meta">
+        <span class="profile-pill pill-social">Social Wellness Club</span>
+        <span class="profile-pill pill-luxury">Luxury · Tech-forward</span>
+      </div>
+    </div>
+
+    <p class="profile-desc">World's first social wellness club (founded 2019). Positions around "Tech-Remedies" — cryotherapy, infrared sauna, contrast suites, red light, HBOT, AI massage, IV therapy. Strong membership model with tiered Residency plans. Closest US analog to SOUNDBATH's social wellness club positioning.</p>
+
+    <div class="tech-grid">
+      <div class="tech-item">
+        <div class="tech-item-label">Website CMS</div>
+        <div class="tech-item-val">Unknown (custom-styled)</div>
+        <div class="tech-item-note">No CMS fingerprint determinable from public signals. Appears to be a custom or headless build.</div>
+        <span class="confidence-tag conf-unknown">Unknown</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Booking System</div>
+        <div class="tech-item-val">Mindbody</div>
+        <div class="tech-item-note">reserve.remedyplace.com/webstoreNew/ — this URL path is the Mindbody booking interface pattern, confirmed.</div>
+        <span class="confidence-tag conf-confirmed">Confirmed</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Membership / Passes</div>
+        <div class="tech-item-val">Custom tiered Residency</div>
+        <div class="tech-item-note">Annual and quarterly billing. Tiers: Resident, Resident Preferred, All Access. Managed through Mindbody + proprietary terms.</div>
+        <span class="confidence-tag conf-confirmed">Confirmed</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">CRM / Marketing</div>
+        <div class="tech-item-val">Facebook Pixel + unknown CRM</div>
+        <div class="tech-item-note">FB Pixel (ID: 355227422893860) confirmed in booking page source. CRM backend not determinable.</div>
+        <span class="confidence-tag conf-inferred">Inferred</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Community Platform</div>
+        <div class="tech-item-val">None</div>
+        <div class="tech-item-note">No community platform detected. Social connection happens in-person; no digital community layer.</div>
+        <span class="confidence-tag conf-confirmed">Confirmed</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Referral Program</div>
+        <div class="tech-item-val">Remedy Insiders</div>
+        <div class="tech-item-note">Professional discount program (25% off). Not a guest-to-guest referral system — requires application and proof of profession.</div>
+        <span class="confidence-tag conf-confirmed">Confirmed</span>
+      </div>
+    </div>
+
+    <div class="gap-box">
+      <div class="gap-box-label">Gaps SOUNDBATH can exploit</div>
+      <ul class="gap-list">
+        <li>Mindbody is optimized for class scheduling, not open-circuit bathhouse capacity management — Glofox or try.be is a better fit</li>
+        <li>No community platform — Remedy Place members have no digital gathering space between visits</li>
+        <li>No guest-referral pipeline; Insiders program is professional-only, not social virality</li>
+        <li>No CRM spine visible — no evidence of contact-level attribution or lifecycle marketing</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ec-divider"></div>
+
+  <!-- ══════════════════════════════════════
+       3. WATERSHED SPA
+  ══════════════════════════════════════ -->
+  <div class="profile-block fade-up" id="watershed">
+    <div class="profile-header">
+      <div class="profile-title-wrap">
+        <div class="profile-name">Watershed Spa</div>
+        <div class="profile-location">Minneapolis, MN (Marcy-Holmes · North Loop expansion 2027)</div>
+      </div>
+      <div class="profile-meta">
+        <span class="profile-pill pill-social">Community-driven</span>
+        <span class="profile-pill pill-boutique">Boutique · Indie</span>
+      </div>
+    </div>
+
+    <p class="profile-desc">Opened 2022. First communal bathhouse in the Twin Cities — steam, sauna, cold plunge, hot pool. Full-service spa layered on top (massage, acupuncture, energy work, hydrotherapy). Booked out weeks to months in advance; strong local membership. Indie single-location operator now expanding to a second. Strong community ethos.</p>
+
+    <div class="tech-grid">
+      <div class="tech-item">
+        <div class="tech-item-label">Website CMS</div>
+        <div class="tech-item-val">Squarespace</div>
+        <div class="tech-item-note">squarespace-cdn.com image URLs confirmed in page source at watershedspa.com.</div>
+        <span class="confidence-tag conf-confirmed">Confirmed</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Booking System</div>
+        <div class="tech-item-val">Meevo</div>
+        <div class="tech-item-note">login.meevo.com/WatershedSpa/ob?locationId=501980 — direct booking URL confirmed in nav.</div>
+        <span class="confidence-tag conf-confirmed">Confirmed</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Membership / Passes</div>
+        <div class="tech-item-val">Squarespace store + Meevo</div>
+        <div class="tech-item-note">Memberships and seasonal passes listed. Gift card purchase through Squarespace native store.</div>
+        <span class="confidence-tag conf-inferred">Inferred</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">CRM / Marketing</div>
+        <div class="tech-item-val">None visible</div>
+        <div class="tech-item-note">Squarespace email list signup present. No CRM platform or marketing automation detected.</div>
+        <span class="confidence-tag conf-unknown">Unknown</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Community Platform</div>
+        <div class="tech-item-val">None</div>
+        <div class="tech-item-note">No community platform. Email list is the only digital connection channel beyond social media.</div>
+        <span class="confidence-tag conf-confirmed">Confirmed</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Analytics / Tracking</div>
+        <div class="tech-item-val">Squarespace native</div>
+        <div class="tech-item-note">Basic Squarespace analytics likely. No third-party tracking pixels detected.</div>
+        <span class="confidence-tag conf-inferred">Inferred</span>
+      </div>
+    </div>
+
+    <div class="gap-box">
+      <div class="gap-box-label">Gaps SOUNDBATH can exploit</div>
+      <ul class="gap-list">
+        <li>Squarespace creates a CMS ceiling — no custom logic, no API integrations, no data portability</li>
+        <li>Meevo is a solid spa platform but lacks sophisticated membership marketing and CRM connectivity</li>
+        <li>No referral system; growth is entirely word-of-mouth with no infrastructure behind it</li>
+        <li>Despite strong community ethos, no digital community space — the connection stops at the door</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ec-divider"></div>
+
+  <!-- ══════════════════════════════════════
+       4. ONSEN SF
+  ══════════════════════════════════════ -->
+  <div class="profile-block fade-up" id="onsen">
+    <div class="profile-header">
+      <div class="profile-title-wrap">
+        <div class="profile-name">Onsen SF</div>
+        <div class="profile-location">San Francisco, CA · Single location (466 Eddy St)</div>
+      </div>
+      <div class="profile-meta">
+        <span class="profile-pill pill-boutique">Boutique · Japanese-inspired</span>
+        <span class="profile-pill pill-social">F&amp;B + Bathing</span>
+      </div>
+    </div>
+
+    <p class="profile-desc">Opened 2016. Japanese-inspired communal bathhouse with co-ed and single-gender sessions. Timed 2-hour reservations. Notable for its combination of bathing and a Japanese-inspired restaurant (seasonal menu, sake, tea). Single-location boutique. Relevant as a direct F&amp;B + bathhouse combination case — similar to what SOUNDBATH's F&amp;B integration will need to support.</p>
+
+    <div class="tech-grid">
+      <div class="tech-item">
+        <div class="tech-item-label">Website CMS</div>
+        <div class="tech-item-val">Squarespace</div>
+        <div class="tech-item-note">"Your Custom Text Here" Squarespace placeholder text visible in contact page source. onsensf.com builds on Squarespace.</div>
+        <span class="confidence-tag conf-confirmed">Confirmed</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Booking System</div>
+        <div class="tech-item-val">Tock</div>
+        <div class="tech-item-note">exploretock.com/onsenurbanbathandrestaurant — both bathhouse and dining reservations run through Tock.</div>
+        <span class="confidence-tag conf-confirmed">Confirmed</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Membership / Passes</div>
+        <div class="tech-item-val">None</div>
+        <div class="tech-item-note">No membership or pass system. Per-session booking only. Gift certificates sold through Squarespace.</div>
+        <span class="confidence-tag conf-confirmed">Confirmed</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">CRM / Marketing</div>
+        <div class="tech-item-val">None visible</div>
+        <div class="tech-item-note">Email list signup on contact page. No CRM or marketing automation platform detected.</div>
+        <span class="confidence-tag conf-unknown">Unknown</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Community Platform</div>
+        <div class="tech-item-val">None</div>
+        <div class="tech-item-note">No community layer. Social presence on Instagram only.</div>
+        <span class="confidence-tag conf-confirmed">Confirmed</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Tock Insight</div>
+        <div class="tech-item-val">Worth noting for SOUNDBATH</div>
+        <div class="tech-item-note">Tock handles timed-entry capacity scheduling well — relevant for SOUNDBATH's open-circuit model. No membership or CRM integration.</div>
+        <span class="confidence-tag conf-inferred">Inferred</span>
+      </div>
+    </div>
+
+    <div class="gap-box">
+      <div class="gap-box-label">Gaps SOUNDBATH can exploit</div>
+      <ul class="gap-list">
+        <li>No membership program at all — no recurring revenue, no loyalty infrastructure</li>
+        <li>Tock handles reservations well but has no CRM data pipeline — every guest relationship starts cold</li>
+        <li>Squarespace limits the brand experience online; Onsen's physical design exceeds its digital presence</li>
+        <li>No community, no referral, no email marketing — entirely dependent on Yelp/Instagram for discovery</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ec-divider"></div>
+
+  <!-- ══════════════════════════════════════
+       5. QC NY
+  ══════════════════════════════════════ -->
+  <div class="profile-block fade-up" id="qcny">
+    <div class="profile-header">
+      <div class="profile-title-wrap">
+        <div class="profile-name">QC NY (QC Terme)</div>
+        <div class="profile-location">New York (Governors Island) · Italian parent with 12 locations across Europe</div>
+      </div>
+      <div class="profile-meta">
+        <span class="profile-pill pill-luxury">Luxury · European scale</span>
+        <span class="profile-pill pill-scale">Enterprise · Multi-location</span>
+      </div>
+    </div>
+
+    <p class="profile-desc">Italian luxury thermal spa brand founded 1982, first US location opened 2022 on Governors Island. 40+ wellness experiences, outdoor heated pools, hammams, saunas, sauna suites, ice room, salt room, bistro. Backed by private equity (White Bridge Investments). Strongest scale and luxury benchmark in this set. Relevant as a ceiling-of-ambition comparator for SOUNDBATH.</p>
+
+    <div class="tech-grid">
+      <div class="tech-item">
+        <div class="tech-item-label">Website CMS</div>
+        <div class="tech-item-val">Proprietary / Custom</div>
+        <div class="tech-item-note">qcny.com uses a custom system — likely QC Terme's European enterprise CMS adapted for US. Returns 403 to automated tools (bot protection active).</div>
+        <span class="confidence-tag conf-inferred">Inferred</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Booking System</div>
+        <div class="tech-item-val">Proprietary + OTA distribution</div>
+        <div class="tech-item-note">Direct booking through qcny.com (proprietary). Also distributed via Viator, GetYourGuide, and Tiqets for tourism-channel capture.</div>
+        <span class="confidence-tag conf-confirmed">Confirmed</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Membership / Passes</div>
+        <div class="tech-item-val">Not visible (US location)</div>
+        <div class="tech-item-note">European QC locations have membership models. No evidence of a membership program at QC NY specifically.</div>
+        <span class="confidence-tag conf-unknown">Unknown</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">CRM / Marketing</div>
+        <div class="tech-item-val">Unknown (enterprise-scale)</div>
+        <div class="tech-item-note">PE-backed at 12-location scale — almost certainly has enterprise CRM. Platform not determinable from public signals.</div>
+        <span class="confidence-tag conf-unknown">Unknown</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Community Platform</div>
+        <div class="tech-item-val">None</div>
+        <div class="tech-item-note">No digital community layer. 247K Instagram followers but no community platform. Social capital is not leveraged into a digital gathering space.</div>
+        <span class="confidence-tag conf-confirmed">Confirmed</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">OTA Lesson for SOUNDBATH</div>
+        <div class="tech-item-val">OTA dependency = margin cost</div>
+        <div class="tech-item-note">Viator/GetYourGuide take 20–30% commissions. QC NY uses OTAs for tourist volume — SOUNDBATH should build direct channels first to protect margins.</div>
+        <span class="confidence-tag conf-inferred">Inferred</span>
+      </div>
+    </div>
+
+    <div class="gap-box">
+      <div class="gap-box-label">Gaps SOUNDBATH can exploit</div>
+      <ul class="gap-list">
+        <li>No community layer despite 247K followers — social capital is being left on the table</li>
+        <li>OTA dependency costs 20–30% per booking; SOUNDBATH's direct Beehiiv + HubSpot pipeline protects margins from day one</li>
+        <li>Custom/proprietary stack means QC NY cannot rapidly iterate on digital experience — SOUNDBATH's no-code stack is more agile</li>
+        <li>No founding member program for local community — SOUNDBATH is launching into a city with no local QC NY community infrastructure to compete with</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ec-divider"></div>
+
+  <!-- ══════════════════════════════════════
+       COMPARISON TABLE
+  ══════════════════════════════════════ -->
+  <div class="section-heading fade-up" id="table">
+    <h2>Tech Stack Comparison</h2>
+    <div class="section-heading-rule"></div>
+  </div>
+
+  <div class="ext-table-wrap fade-up">
+    <table class="ext-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Website CMS</th>
+          <th>Booking Platform</th>
+          <th>Membership System</th>
+          <th>CRM / Marketing</th>
+          <th>Email Pipeline</th>
+          <th>Community Platform</th>
+          <th>Analytics</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- CMS CATEGORY -->
+        <tr class="cat-row"><td colspan="8">Luxury / Multi-Location</td></tr>
+
+        <tr>
+          <td>AIRE Ancient Baths<br><span style="font-size:11px;font-weight:300;color:var(--subtle)">NYC · Chicago · Toronto</span></td>
+          <td><span class="t-confirmed">Custom (Angular)</span><span class="t-note">Confirmed via source</span></td>
+          <td><span class="t-confirmed">Proprietary</span><span class="t-note">beaire.com/en/booking</span></td>
+          <td><span class="t-none">Not visible</span></td>
+          <td><span class="t-none">Unknown</span></td>
+          <td><span class="t-inferred">Own newsletter system</span></td>
+          <td><span class="t-none">None</span></td>
+          <td><span class="t-inferred">Adform (EU DSP)</span></td>
+        </tr>
+
+        <tr>
+          <td>QC NY<br><span style="font-size:11px;font-weight:300;color:var(--subtle)">Governors Island, NYC</span></td>
+          <td><span class="t-inferred">Proprietary (QC Terme)</span><span class="t-note">Bot protection; custom build</span></td>
+          <td><span class="t-confirmed">Proprietary + Viator / GetYourGuide / Tiqets</span><span class="t-note">OTA distribution confirmed</span></td>
+          <td><span class="t-none">Unknown (US location)</span></td>
+          <td><span class="t-none">Unknown</span></td>
+          <td><span class="t-none">Unknown</span></td>
+          <td><span class="t-none">None confirmed</span></td>
+          <td><span class="t-none">Unknown</span></td>
+        </tr>
+
+        <!-- SOCIAL WELLNESS CATEGORY -->
+        <tr class="cat-row"><td colspan="8">Social Wellness Clubs</td></tr>
+
+        <tr>
+          <td>Remedy Place<br><span style="font-size:11px;font-weight:300;color:var(--subtle)">NYC · LA</span></td>
+          <td><span class="t-none">Unknown</span><span class="t-note">Custom or headless build</span></td>
+          <td><span class="t-confirmed">Mindbody</span><span class="t-note">reserve.remedyplace.com/webstoreNew/</span></td>
+          <td><span class="t-confirmed">Custom Residency tiers</span><span class="t-note">Annual + quarterly billing</span></td>
+          <td><span class="t-inferred">Facebook Pixel + unknown CRM</span></td>
+          <td><span class="t-inferred">Mindbody email + own list</span></td>
+          <td><span class="t-none">None</span></td>
+          <td><span class="t-confirmed">Facebook Pixel</span></td>
+        </tr>
+
+        <!-- BOUTIQUE INDIE CATEGORY -->
+        <tr class="cat-row"><td colspan="8">Boutique / Independent</td></tr>
+
+        <tr>
+          <td>Watershed Spa<br><span style="font-size:11px;font-weight:300;color:var(--subtle)">Minneapolis, MN</span></td>
+          <td><span class="t-confirmed">Squarespace</span><span class="t-note">squarespace-cdn.com confirmed</span></td>
+          <td><span class="t-confirmed">Meevo</span><span class="t-note">login.meevo.com confirmed</span></td>
+          <td><span class="t-inferred">Squarespace store + Meevo passes</span></td>
+          <td><span class="t-none">None visible</span></td>
+          <td><span class="t-inferred">Squarespace email list</span></td>
+          <td><span class="t-none">None</span></td>
+          <td><span class="t-inferred">Squarespace native</span></td>
+        </tr>
+
+        <tr>
+          <td>Onsen SF<br><span style="font-size:11px;font-weight:300;color:var(--subtle)">San Francisco, CA</span></td>
+          <td><span class="t-confirmed">Squarespace</span><span class="t-note">Placeholder text confirmed</span></td>
+          <td><span class="t-confirmed">Tock</span><span class="t-note">exploretock.com/onsen confirmed</span></td>
+          <td><span class="t-none">None</span></td>
+          <td><span class="t-none">None visible</span></td>
+          <td><span class="t-inferred">Squarespace email list only</span></td>
+          <td><span class="t-none">None</span></td>
+          <td><span class="t-none">Unknown</span></td>
+        </tr>
+
+        <!-- SOUNDBATH COMPARISON ROW -->
+        <tr class="cat-row"><td colspan="8">SOUNDBATH — Proposed (Experience Stack)</td></tr>
+
+        <tr style="background:var(--exp-lt)">
+          <td style="background:var(--exp-lt);color:var(--exp2);font-weight:600">SOUNDBATH Miami<br><span style="font-size:11px;font-weight:400;color:var(--exp-mid)">Experience Stack</span></td>
+          <td><span style="color:var(--exp);font-weight:500">Framer</span><span class="t-note" style="color:var(--exp-mid)">Brand-first; React output</span></td>
+          <td><span style="color:var(--exp);font-weight:500">Glofox + Luma</span><span class="t-note" style="color:var(--exp-mid)">Wellness membership + events</span></td>
+          <td><span style="color:var(--exp);font-weight:500">Circle.so + Glofox tiers</span><span class="t-note" style="color:var(--exp-mid)">Community-gated membership</span></td>
+          <td><span style="color:var(--exp);font-weight:500">HubSpot CRM</span><span class="t-note" style="color:var(--exp-mid)">Full contact lifecycle spine</span></td>
+          <td><span style="color:var(--exp);font-weight:500">Beehiiv</span><span class="t-note" style="color:var(--exp-mid)">Founding member pipeline</span></td>
+          <td><span style="color:var(--exp);font-weight:500">Circle.so</span><span class="t-note" style="color:var(--exp-mid)">Unoccupied in entire peer set</span></td>
+          <td><span style="color:var(--exp);font-weight:500">GA4 + HubSpot</span></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <p style="font-size:12px;color:var(--subtle);margin-bottom:48px;font-weight:300"><strong style="color:var(--ink);font-weight:500">Confidence key:</strong> &nbsp;<span class="t-confirmed">Green = Confirmed</span> (directly visible) &nbsp;&nbsp;<span class="t-inferred">Amber = Inferred</span> (strongly implied) &nbsp;&nbsp;<span class="t-none">Italic grey = Unknown or None</span></p>
+
+  <!-- ══════════════════════════════════════
+       PATTERNS
+  ══════════════════════════════════════ -->
+  <div class="section-heading fade-up">
+    <h2>Patterns Across All Five</h2>
+    <div class="section-heading-rule"></div>
+  </div>
+
+  <div class="pattern-grid fade-up">
+    <div class="pattern-card">
+      <div class="pattern-num">0/5</div>
+      <div class="pattern-text"><strong>None have a community platform.</strong> Not one of the five bathhouses — luxury or boutique — has a digital community layer. No Circle.so, no Discord, no member portal. Guests interact at the property and disconnect digitally. This is unoccupied whitespace across the entire US market.</div>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-num">0/5</div>
+      <div class="pattern-text"><strong>None have a structured CRM spine.</strong> Mindbody, Meevo, and Tock track transactions, not relationships. No operator has confirmed HubSpot-level contact lifecycle tracking — source attribution, journey stage, referral origination. SOUNDBATH would be the first in its class with this infrastructure.</div>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-num">0/5</div>
+      <div class="pattern-text"><strong>None have a pre-launch founding member email pipeline.</strong> Every operator in this set was building an audience after opening, not before. Beehiiv gives SOUNDBATH a tool none of these businesses used — a newsletter-first founding member cultiviation strategy before doors open.</div>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-num">2/5</div>
+      <div class="pattern-text"><strong>Two rely on Squarespace — the small operators.</strong> Watershed and Onsen both use Squarespace. Both are single-location boutiques. Every operator at SOUNDBATH's target scale and luxury tier (AIRE, QC NY) uses custom or proprietary systems. Framer positions SOUNDBATH at that tier without the custom build cost.</div>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-num">1/5</div>
+      <div class="pattern-text"><strong>Only one has a meaningful membership program.</strong> Remedy Place's Residency tiers are the strongest membership model in the peer set. But even that runs through Mindbody with no CRM integration. SOUNDBATH's Glofox + HubSpot pipeline gives the membership model a data backbone Remedy Place doesn't have.</div>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-num">0/5</div>
+      <div class="pattern-text"><strong>None have a referral-to-booking pipeline.</strong> Remedy Place has an Insiders discount program for professionals — not guest-to-guest social referral. No competitor has built infrastructure that turns existing guests into a direct acquisition channel. SOUNDBATH's Beehiiv referral loop can own this entirely.</div>
+    </div>
+  </div>
+
+  <div class="ec-divider"></div>
+
+  <!-- ══════════════════════════════════════
+       VERDICT
+  ══════════════════════════════════════ -->
+  <div class="verdict-block fade-up" id="verdict">
+    <div class="verdict-bg-rule"></div>
+    <div class="verdict-label">Stack Recommendation · Based on Extended Benchmark Analysis</div>
+    <div class="verdict-headline">The Experience Stack.</div>
+    <div class="verdict-sub">Five properties. Three patterns. One clear answer for a social-forward Miami launch.</div>
+
+    <ul class="verdict-reason-list">
+      <li>
+        <div class="verdict-reason-num">1</div>
+        <div class="verdict-reason-text"><strong>Community is the biggest gap in the entire market — and it's the core of SOUNDBATH's brief.</strong> Zero out of five competitors have a digital community layer. Circle.so is in the Experience Stack. The Architect Stack doesn't include it by default. For a brand whose brief explicitly calls for "social-forward," deploying the only community platform in the US bathhouse market is the single clearest competitive move available.</div>
+      </li>
+      <li>
+        <div class="verdict-reason-num">2</div>
+        <div class="verdict-reason-text"><strong>No competitor has a pre-launch pipeline. Beehiiv gives SOUNDBATH a window that doesn't exist twice.</strong> The founding member moment is a one-time event. Every operator in this analysis had to build their audience after opening. Beehiiv (Experience Stack) is purpose-built for the pre-launch phase — referral mechanics, subscriber growth, founding member sequencing. The Architect Stack replaces this with HubSpot email sequences, which are powerful post-launch but less optimized for the viral, newsletter-native founding member playbook.</div>
+      </li>
+      <li>
+        <div class="verdict-reason-num">3</div>
+        <div class="verdict-reason-text"><strong>Framer matches the brand tier of AIRE and QC NY — without the custom build cost or timeline.</strong> Squarespace is for Watershed and Onsen. AIRE and QC NY built custom. Framer sits between them: a premium, React-output brand site that can launch in weeks, not quarters. The Architect Stack's Webflow is capable but leans CMS-first — better for content-heavy sites than brand-immersive launch experiences.</div>
+      </li>
+      <li>
+        <div class="verdict-reason-num">4</div>
+        <div class="verdict-reason-text"><strong>HubSpot CRM is in both stacks — SOUNDBATH gets the data advantage either way.</strong> Both stacks close the CRM gap that every competitor has. This isn't a differentiator between the two stacks; it's a differentiator against the market. The Experience Stack gets there faster because Glofox and Beehiiv have tighter native HubSpot integration paths than Zenoti and Webflow.</div>
+      </li>
+      <li>
+        <div class="verdict-reason-num">5</div>
+        <div class="verdict-reason-text"><strong>Glofox is the right booking tool for SOUNDBATH's model — not Mindbody, not Squarespace, not Tock.</strong> Remedy Place uses Mindbody (class-scheduling-first). Watershed uses Meevo (full-service spa). Onsen uses Tock (restaurant-native timed entry). None of those are optimal for a social membership bathhouse with open-circuit access. Glofox is built for wellness membership businesses with branded app access and member tiers. It's the closest category fit in this peer set.</div>
+      </li>
+    </ul>
+
+    <div class="verdict-caveats">
+      <div class="verdict-caveats-label">Where the Architect Stack still has merit</div>
+      <p>If SOUNDBATH's owners are certain they will expand to multiple locations within 3 years, the Architect Stack's Stripe billing ownership and Webflow CMS portability become more valuable over time. Every operator that scaled to 10+ locations (AIRE, QC Terme) eventually built proprietary systems — the Architect Stack builds those foundations earlier.</p>
+      <p>The Experience Stack is the right choice for winning the Miami launch. If multi-city expansion is on the roadmap within 24 months, revisit the Architect Stack's billing architecture in Phase 2 before locking into long-term Glofox contracts. The two stacks are not incompatible — you can evolve from one to the other.</p>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+// ── PASSWORD GATE ──
+(function(){
+  if(sessionStorage.getItem('sb_auth')==='1'){document.getElementById('gate').classList.add('hidden')}
+})();
+function checkPw(){
+  if(document.getElementById('pw').value==='MiamiFL'){
+    sessionStorage.setItem('sb_auth','1');
+    document.getElementById('gate').classList.add('hidden');
+    document.getElementById('gate-err').textContent='';
+  } else {
+    document.getElementById('gate-err').textContent='Incorrect password';
+    document.getElementById('pw').value='';
+  }
+}
+document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')checkPw()});
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll',function(){
+  document.querySelector('.nav').classList.toggle('scrolled',window.scrollY>10);
+});
+
+// ── HAMBURGER ──
+function toggleMenu(){
+  document.querySelector('.nav-hamburger').classList.toggle('open');
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+
+// ── FADE UP ──
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
+},{threshold:0.06});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
