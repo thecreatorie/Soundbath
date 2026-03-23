@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Implementation Guide — SOUNDBATH · Internal</title>
+<link rel="stylesheet" href="style.css">
+<style>
+
+/* ── PAGE OVERRIDE ── */
+.impl-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--subtle);display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.impl-eyebrow::before{content:'';width:24px;height:.5px;background:var(--gold)}
+
+/* ── NEXT STEPS BRIEF ── */
+.brief-block{background:var(--ink2);border-radius:var(--r-lg);padding:40px 44px;margin-bottom:64px;position:relative;overflow:hidden}
+.brief-block::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.brief-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-weight:400}
+.brief-h2{font-family:var(--serif);font-size:36px;font-weight:300;color:rgba(243,243,241,.92);line-height:1.15;margin-bottom:6px}
+.brief-sub{font-size:14px;color:rgba(243,243,241,.38);font-weight:300;margin-bottom:36px}
+
+.brief-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:32px}
+.brief-card{background:rgba(243,243,241,.04);border:.5px solid rgba(243,243,241,.09);border-radius:var(--r-md);padding:20px 22px}
+.brief-card-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(243,243,241,.28);margin-bottom:12px;font-weight:400}
+.brief-list{list-style:none;padding:0;margin:0}
+.brief-list li{font-size:13px;color:rgba(243,243,241,.58);padding:6px 0 6px 20px;position:relative;border-bottom:.5px solid rgba(243,243,241,.06);line-height:1.6;font-weight:300}
+.brief-list li:last-child{border-bottom:none}
+.brief-list li::before{content:'—';position:absolute;left:0;color:var(--gold);font-size:11px;top:8px}
+.brief-list li strong{color:rgba(243,243,241,.82);font-weight:500}
+.brief-urgent{background:rgba(181,136,60,.08);border:.5px solid rgba(181,136,60,.2);border-radius:var(--r-md);padding:16px 20px;display:flex;gap:14px;align-items:flex-start}
+.brief-urgent-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.brief-urgent-text{font-size:13px;color:rgba(243,243,241,.52);line-height:1.75;font-weight:300}
+.brief-urgent-text strong{color:var(--gold);font-weight:500}
+
+/* ── PHASE HEADER ── */
+.phase-header{margin:64px 0 32px;padding-bottom:20px;border-bottom:.5px solid var(--bdr)}
+.phase-label{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--subtle);font-weight:400;margin-bottom:10px;display:flex;align-items:center;gap:12px}
+.phase-label::after{content:'';flex:1;height:.5px;background:var(--bdr)}
+.phase-h2{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--ink);line-height:1.1;margin-bottom:6px}
+.phase-desc{font-size:14px;color:var(--muted);font-weight:300;max-width:640px;line-height:1.75}
+
+/* ── TOOL BLOCK ── */
+.tool-block{border:.5px solid var(--bdr);border-radius:var(--r-lg);overflow:hidden;margin-bottom:28px;scroll-margin-top:80px}
+.tool-block-header{background:var(--bg2);padding:24px 28px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;border-bottom:.5px solid var(--bdr)}
+.tool-block-left{}
+.tool-block-num{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--subtle);margin-bottom:6px;font-weight:400}
+.tool-block-name{font-size:22px;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.1}
+.tool-block-tagline{font-size:13px;color:var(--muted);font-weight:300}
+.tool-block-meta{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
+.impl-pill{font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:20px;border:.5px solid;white-space:nowrap;font-weight:400}
+.pill-phase1{background:var(--exp-lt);color:var(--exp2);border-color:var(--exp-lt2)}
+.pill-phase2{background:var(--gold-lt);color:var(--gold2);border-color:var(--gold-lt2)}
+.pill-phase3{background:var(--arch-lt);color:var(--arch2);border-color:var(--arch-lt2)}
+.pill-week{background:var(--bg);color:var(--muted);border-color:var(--bdr2)}
+
+.tool-block-body{padding:28px}
+
+/* ── TOOL BODY SECTIONS ── */
+.impl-section{margin-bottom:28px}
+.impl-section:last-child{margin-bottom:0}
+.impl-section-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle);font-weight:500;margin-bottom:12px;padding-bottom:8px;border-bottom:.5px solid var(--bdr)}
+.impl-section p{font-size:14px;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:8px}
+.impl-section p:last-child{margin-bottom:0}
+.impl-section p strong{color:var(--ink);font-weight:500}
+
+/* ── STEP LIST ── */
+.step-list{list-style:none;padding:0;margin:0}
+.step-list li{display:flex;gap:14px;padding:12px 0;border-bottom:.5px solid var(--bdr);align-items:flex-start}
+.step-list li:last-child{border-bottom:none}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--exp-lt2);color:var(--exp2);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;line-height:1}
+.step-text{font-size:13px;color:var(--muted);line-height:1.7;font-weight:300;flex:1}
+.step-text strong{color:var(--ink);font-weight:500}
+.step-text code{font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:3px;font-family:monospace;color:var(--ink2)}
+
+/* ── CAPABILITIES CHIPS ── */
+.cap-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.cap-chip{font-size:12px;padding:5px 12px;border-radius:6px;border:.5px solid var(--bdr2);background:var(--bg);color:var(--muted);font-weight:300}
+.cap-chip.using{background:var(--exp-lt2);border-color:var(--exp-lt2);color:var(--exp2);font-weight:400}
+
+/* ── WARN / GOTCHA BOX ── */
+.gotcha-box{background:rgba(180,60,60,.04);border:.5px solid rgba(180,60,60,.18);border-radius:var(--r-md);padding:16px 20px;margin-top:16px}
+.gotcha-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#922828;margin-bottom:8px;font-weight:500}
+.gotcha-box p{font-size:13px;color:var(--muted);line-height:1.7;font-weight:300;margin-bottom:6px}
+.gotcha-box p:last-child{margin-bottom:0}
+.gotcha-box strong{color:#7a1a1a;font-weight:500}
+
+/* ── CONNECT BOX (integration flows) ── */
+.connect-box{background:var(--bg2);border:.5px solid var(--bdr);border-radius:var(--r-md);padding:18px 22px;margin-top:16px}
+.connect-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle);margin-bottom:12px;font-weight:400}
+.connect-flow{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.connect-flow:last-child{margin-bottom:0}
+.cn{background:var(--bg);border:.5px solid var(--bdr2);border-radius:6px;padding:5px 12px;font-size:12px;font-weight:500;color:var(--ink);white-space:nowrap}
+.cn-arrow{color:var(--faint);font-size:12px}
+.cn-note{font-size:12px;color:var(--subtle);margin-top:4px;font-weight:300}
+
+/* ── QUICK NAV ── */
+.impl-nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:52px}
+.impl-nav-btn{padding:7px 16px;border:.5px solid var(--bdr2);border-radius:100px;background:transparent;font-family:var(--sans);font-size:11px;font-weight:400;color:var(--muted);cursor:pointer;text-decoration:none;transition:all .15s;white-space:nowrap}
+.impl-nav-btn:hover{background:var(--bg2);color:var(--ink);border-color:var(--bdr2)}
+.impl-nav-btn.p1{border-color:var(--exp-lt2);color:var(--exp);background:var(--exp-lt)}
+.impl-nav-btn.p2{border-color:var(--gold-lt2);color:var(--gold2);background:var(--gold-lt)}
+.impl-nav-btn.p3{border-color:var(--arch-lt2);color:var(--arch);background:var(--arch-lt)}
+
+/* ── INTERNAL BADGE ── */
+.internal-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:20px;background:rgba(180,60,60,.07);border:.5px solid rgba(180,60,60,.2);color:#922828;font-weight:400;margin-bottom:28px}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .brief-grid{grid-template-columns:1fr}
+  .tool-block-header{flex-direction:column}
+  .tool-block-meta{flex-direction:row;flex-wrap:wrap;align-items:flex-start}
+  .brief-block{padding:28px 24px}
+  .brief-h2{font-size:26px}
+  .tool-block-body{padding:20px}
+}
+@media(max-width:480px){
+  .impl-nav{gap:4px}
+  .impl-nav-btn{font-size:10px;padding:6px 12px}
+}
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="gate">
+  <div class="gate-grain"></div>
+  <div class="gate-rule"></div>
+  <p class="gate-label">SOUNDBATH — Strategy Document</p>
+  <div class="gate-field-wrap">
+    <input class="gate-input" id="pw" type="password" placeholder="Password" autocomplete="off">
+    <button class="gate-btn" onclick="checkPw()">Enter</button>
+  </div>
+  <p class="gate-error" id="gate-err"></p>
+</div>
+
+<!-- NAV — no active link, hidden from main menu -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">SOUNDBATH</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Overview</a>
+      <a href="stack-experience.html" class="nav-link">Experience Stack</a>
+      <a href="stack-architect.html" class="nav-link">Architect Stack</a>
+      <a href="comparison.html" class="nav-link">Comparison</a>
+      <a href="competitors.html" class="nav-link">Competitors</a>
+      <a href="extended-comparison.html" class="nav-link">Extended Comparison</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile-menu" id="mobile-menu">
+    <a href="index.html" class="nav-mobile-link">Overview</a>
+    <a href="stack-experience.html" class="nav-mobile-link">Experience Stack</a>
+    <a href="stack-architect.html" class="nav-mobile-link">Architect Stack</a>
+    <a href="comparison.html" class="nav-mobile-link">Comparison</a>
+    <a href="competitors.html" class="nav-mobile-link">Competitors</a>
+    <a href="extended-comparison.html" class="nav-mobile-link">Extended Comparison</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- HERO -->
+  <div class="page-hero fade-up">
+    <div class="impl-eyebrow">Internal · For developer use</div>
+    <div class="internal-badge">🔒 Not linked in nav — share URL directly</div>
+    <h1 class="page-hero h1" style="font-family:var(--serif);font-size:clamp(36px,5vw,58px);font-weight:300;line-height:1.08;margin-bottom:18px">Implementation Guide<br><em style="font-style:italic;color:var(--gold2)">Experience Stack</em></h1>
+    <p class="page-hero-desc">Next steps brief for the Vishal call, followed by a full tool-by-tool setup guide in exact implementation order. Each tool covers what it is, what we're using it for, its full capabilities, why it's the right choice, and step-by-step setup instructions.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       NEXT STEPS BRIEF
+  ══════════════════════════════════════ -->
+  <div class="brief-block fade-up" id="brief">
+    <div class="brief-label">Pre-Call Brief · What you need before any work starts</div>
+    <div class="brief-h2">What to get from Vishal</div>
+    <div class="brief-sub">Four categories. Nothing moves until these are resolved.</div>
+
+    <div class="brief-grid">
+
+      <div class="brief-card">
+        <div class="brief-card-label">Decisions — can't proceed without these</div>
+        <ul class="brief-list">
+          <li><strong>Green light on Experience Stack</strong> — confirm this is the direction before any accounts are created</li>
+          <li><strong>Primary domain</strong> — does work start on ThisIsSoundbath.com or does he want soundbath.miami acquired first? DNS setup depends on this answer</li>
+          <li><strong>Founding member offer</strong> — what does a founding member actually get? Priority access? Locked rate? Community early access? This is the entire pre-launch campaign. Without it, Beehiiv is just a mailing list</li>
+          <li><strong>Membership tier structure</strong> — how many tiers, rough price ranges, what each unlocks. Needed before Glofox is configured</li>
+          <li><strong>Opening timeline</strong> — even rough ("Q4 2026," "early 2027"). Changes the urgency of the pre-launch Beehiiv sequence and Phase 3 procurement kickoff</li>
+        </ul>
+      </div>
+
+      <div class="brief-card">
+        <div class="brief-card-label">Access — technical, needed in Week 1</div>
+        <ul class="brief-list">
+          <li><strong>Domain registrar login</strong> for ThisIsSoundbath.com — or give you transfer rights so you can point DNS to Cloudflare</li>
+          <li><strong>Google account decision</strong> — which email becomes the Google Workspace admin? Or have him purchase Workspace directly and add you as admin</li>
+          <li><strong>Business name + address</strong> — needed for HubSpot, Beehiiv, and Glofox account creation. Must be the registered legal entity, not a personal address</li>
+          <li><strong>Preferred "from" address</strong> for the founding member newsletter — e.g. hello@thisIssoundbath.com. Must be live before Beehiiv sends anything</li>
+        </ul>
+      </div>
+
+      <div class="brief-card">
+        <div class="brief-card-label">Brand Assets — needed for Framer build</div>
+        <ul class="brief-list">
+          <li><strong>Logo file</strong> — SVG preferred, high-res PNG minimum. Framer build cannot start without this</li>
+          <li><strong>Brand guide or mood board</strong> — colors, fonts, photo direction, reference brands. Even a Pinterest board is useful</li>
+          <li><strong>Photography</strong> — any space photos, construction progress shots, or inspiration imagery. Authenticity in a founding member launch; empty renders feel cold</li>
+          <li><strong>Brand voice in his words</strong> — ask him to write one paragraph: what is SOUNDBATH and why Miami, right now? You can refine it, but the voice needs to come from him</li>
+        </ul>
+      </div>
+
+      <div class="brief-card">
+        <div class="brief-card-label">Contract + Deposit</div>
+        <ul class="brief-list">
+          <li><strong>Signed agreement</strong> before any accounts are created or any work begins</li>
+          <li><strong>50% deposit on Phase 1</strong> (~$16,000 based on ~160 hrs at $100/hr billed in three phases)</li>
+          <li><strong>Phase billing structure</strong> — confirm he understands: deposit kicks off each phase, remainder billed on phase completion</li>
+          <li><strong>Preferred billing method</strong> — invoice via email, ACH, wire, or Stripe payment link</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="brief-urgent">
+      <div class="brief-urgent-icon">⚡</div>
+      <div class="brief-urgent-text"><strong>The single most important thing to nail on the call:</strong> The founding member offer. Everything else can be resolved async. But the founding member offer is the entire pre-launch strategy — it's what goes in Beehiiv, what Framer's landing page is built around, what the referral incentive is, and what differentiates SOUNDBATH from Grotto Baths before either location opens. If Vishal leaves the call without a clear answer to "what does a founding member get?", the Beehiiv pre-launch phase cannot start. Push until there's a concrete answer, even a rough one that can be refined.</div>
+    </div>
+  </div>
+
+  <!-- QUICK NAV -->
+  <div class="impl-nav fade-up">
+    <a href="#cloudflare" class="impl-nav-btn p1">01 · Cloudflare</a>
+    <a href="#workspace" class="impl-nav-btn p1">02 · Google Workspace</a>
+    <a href="#hubspot" class="impl-nav-btn p1">03 · HubSpot CRM</a>
+    <a href="#beehiiv" class="impl-nav-btn p1">04 · Beehiiv</a>
+    <a href="#framer" class="impl-nav-btn p1">05 · Framer</a>
+    <a href="#zapier" class="impl-nav-btn p1">06 · Zapier</a>
+    <a href="#ga4" class="impl-nav-btn p1">07 · GA4</a>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PHASE 1
+  ══════════════════════════════════════ -->
+  <div class="phase-header fade-up">
+    <div class="phase-label">Phase 1 · ~30 hours</div>
+    <div class="phase-h2">Foundation + Pre-Launch Pipeline</div>
+    <div class="phase-desc">DNS, email infrastructure, CRM schema, founding member newsletter, brand site, automation, and analytics. Everything in Phase 1 must be set up in this exact order — each layer depends on the one before it.</div>
+  </div>
+
+  <!-- 1. CLOUDFLARE -->
+  <div class="tool-block fade-up" id="cloudflare">
+    <div class="tool-block-header">
+      <div class="tool-block-left">
+        <div class="tool-block-num">Tool 01 · First thing, Week 1</div>
+        <div class="tool-block-name">Cloudflare</div>
+        <div class="tool-block-tagline">DNS, CDN, security, and domain routing — the foundation everything else points through</div>
+      </div>
+      <div class="tool-block-meta">
+        <span class="impl-pill pill-phase1">Phase 1</span>
+        <span class="impl-pill pill-week">Week 1 · Day 1</span>
+        <span class="impl-pill" style="background:var(--bg);color:var(--muted);border-color:var(--bdr2)">Free plan</span>
+      </div>
+    </div>
+    <div class="tool-block-body">
+
+      <div class="impl-section">
+        <div class="impl-section-label">What it is</div>
+        <p>Cloudflare is a DNS provider, CDN, and web security platform. When you move a domain to Cloudflare, all traffic to that domain routes through their global network — giving you fast DNS propagation, DDoS protection, SSL certificate management, and the ability to add page rules, redirects, and caching with no server required.</p>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">What we're using it for</div>
+        <p>Managing the DNS records for ThisIsSoundbath.com (and any acquired domains). Cloudflare sits in front of everything — it points the root domain to Framer, routes email subdomains to Google Workspace, and ensures all web traffic is HTTPS with auto-renewing SSL. Every other tool in this stack that needs a DNS record (HubSpot email verification, Beehiiv custom domain, Framer publish) gets configured here.</p>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">Other capabilities (not using now)</div>
+        <div class="cap-grid">
+          <span class="cap-chip using">DNS management</span>
+          <span class="cap-chip using">SSL / HTTPS</span>
+          <span class="cap-chip using">Domain routing to Framer</span>
+          <span class="cap-chip using">Email MX records</span>
+          <span class="cap-chip">DDoS protection</span>
+          <span class="cap-chip">Page caching rules</span>
+          <span class="cap-chip">Cloudflare Workers (serverless)</span>
+          <span class="cap-chip">Access (zero-trust auth)</span>
+          <span class="cap-chip">R2 storage</span>
+          <span class="cap-chip">Web Analytics (free, cookieless)</span>
+        </div>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">Why it's the right choice</div>
+        <p>Free tier covers everything SOUNDBATH needs. DNS propagation is near-instant (vs. 24–72 hours with most registrars). The Framer ↔ Cloudflare integration is one DNS record and done. Every major tool in this stack (Google Workspace, HubSpot, Beehiiv) has documented Cloudflare setup guides. It's also the only DNS provider where you can add page rules, redirects, and sub-domain routing without touching a server.</p>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">How to implement</div>
+        <ol class="step-list">
+          <li><div class="step-num">1</div><div class="step-text"><strong>Create a Cloudflare account</strong> at cloudflare.com using the SOUNDBATH business email (create this first in Google Workspace — see Tool 02). Add the site by entering <code>thisIssoundbath.com</code>.</div></li>
+          <li><div class="step-num">2</div><div class="step-text"><strong>Select the Free plan.</strong> Cloudflare will scan existing DNS records from the current registrar and import them automatically. Review the list — keep any existing records, mark anything unknown for follow-up.</div></li>
+          <li><div class="step-num">3</div><div class="step-text"><strong>Update nameservers at the registrar</strong> (GoDaddy / Namecheap / wherever Vishal registered the domain). Cloudflare will give you two nameserver addresses like <code>elsa.ns.cloudflare.com</code>. Log into the registrar, find DNS / Nameserver settings, replace existing nameservers with Cloudflare's two. Save. Propagation takes 5 minutes to 24 hours — usually under 30 minutes.</div></li>
+          <li><div class="step-num">4</div><div class="step-text"><strong>Enable "Always Use HTTPS"</strong> under SSL/TLS → Edge Certificates. Turn on "Automatic HTTPS Rewrites" too. This ensures every page is served securely with no mixed-content warnings.</div></li>
+          <li><div class="step-num">5</div><div class="step-text"><strong>Add a CNAME record for Framer</strong> (do this when Framer is set up — see Tool 05). Framer will give you a CNAME target. Add it here under DNS → Add record → Type: CNAME, Name: <code>@</code> or <code>www</code>, Target: Framer's provided URL.</div></li>
+          <li><div class="step-num">6</div><div class="step-text"><strong>Add email records for Google Workspace</strong> (do this when Workspace is provisioned — see Tool 02). Google will give you 5 MX records and a TXT record for domain verification. Add them all to Cloudflare DNS.</div></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2. GOOGLE WORKSPACE -->
+  <div class="tool-block fade-up" id="workspace">
+    <div class="tool-block-header">
+      <div class="tool-block-left">
+        <div class="tool-block-num">Tool 02 · Week 1, Day 1–2</div>
+        <div class="tool-block-name">Google Workspace</div>
+        <div class="tool-block-tagline">Business email, shared calendar, Drive, and the account foundation every other tool logs into</div>
+      </div>
+      <div class="tool-block-meta">
+        <span class="impl-pill pill-phase1">Phase 1</span>
+        <span class="impl-pill pill-week">Week 1 · Before all other accounts</span>
+        <span class="impl-pill" style="background:var(--bg);color:var(--muted);border-color:var(--bdr2)">$7/user/mo Starter</span>
+      </div>
+    </div>
+    <div class="tool-block-body">
+
+      <div class="impl-section">
+        <div class="impl-section-label">What it is</div>
+        <p>Google Workspace is Google's business productivity suite — Gmail, Calendar, Drive, Docs, Meet, and admin controls — running on a custom domain. It's how <code>hello@thisIssoundbath.com</code> becomes a real business email rather than a Gmail alias.</p>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">What we're using it for</div>
+        <p>Creating the business email infrastructure that everything else depends on. Every tool in this stack — HubSpot, Beehiiv, Framer, Glofox, Circle.so — requires a valid business email for account creation and email sending. <strong>No other accounts should be created until Workspace is live.</strong> Also used for shared project Drive folder between you and Vishal, and Shared Calendar for project milestones and launch dates.</p>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">Other capabilities (not using now)</div>
+        <div class="cap-grid">
+          <span class="cap-chip using">hello@thisIssoundbath.com</span>
+          <span class="cap-chip using">Admin account + team aliases</span>
+          <span class="cap-chip using">Shared Drive folder</span>
+          <span class="cap-chip using">Shared calendar</span>
+          <span class="cap-chip">Google Meet</span>
+          <span class="cap-chip">Docs / Sheets / Forms</span>
+          <span class="cap-chip">Vault (email archiving)</span>
+          <span class="cap-chip">AppSheet (no-code apps)</span>
+        </div>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">Why it's the right choice</div>
+        <p>Google Workspace is the default business email infrastructure for a reason — every tool in this stack has a native Google login option, which means Vishal and the team can SSO into most platforms without creating new passwords. Gmail's spam reputation means transactional emails from HubSpot and Beehiiv verified on this domain will land in inboxes. At $7/user/month for the Starter tier, it's the cheapest professional email option available.</p>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">How to implement</div>
+        <ol class="step-list">
+          <li><div class="step-num">1</div><div class="step-text"><strong>Go to workspace.google.com</strong> and click "Get started." Enter the business name (SOUNDBATH), number of employees, and country. At the domain step, select "I have a domain" and enter <code>thisIssoundbath.com</code>.</div></li>
+          <li><div class="step-num">2</div><div class="step-text"><strong>Create the admin account:</strong> <code>hello@thisIssoundbath.com</code>. This is the master account — Vishal should own the billing, but you need admin access during setup. Use a strong password and store it in a shared 1Password or Bitwarden vault with Vishal.</div></li>
+          <li><div class="step-num">3</div><div class="step-text"><strong>Verify domain ownership.</strong> Google will give you a TXT record to add to DNS. In Cloudflare, go to DNS → Add Record → Type: TXT, Name: <code>@</code>, Value: paste Google's string. Google verifies within minutes.</div></li>
+          <li><div class="step-num">4</div><div class="step-text"><strong>Add MX records.</strong> Google gives you 5 MX records — add all of them to Cloudflare DNS. This routes incoming email to Gmail. Priority order matters: add them exactly as Google specifies.</div></li>
+          <li><div class="step-num">5</div><div class="step-text"><strong>Create team aliases:</strong> <code>info@</code>, <code>members@</code>, <code>bookings@</code>. These forward to the admin account. Aliases cost nothing — only user seats cost $7/mo. Vishal only needs one seat initially; add more as staff are hired.</div></li>
+          <li><div class="step-num">6</div><div class="step-text"><strong>Add you as a secondary admin.</strong> In the Admin Console → Users → Add new user, create <code>dev@thisIssoundbath.com</code> or similar. This gives you a working login for all setup work without using Vishal's master credentials.</div></li>
+          <li><div class="step-num">7</div><div class="step-text"><strong>Create a shared Drive folder</strong> called "SOUNDBATH Project" and share it with both accounts. All brand assets, contracts, strategy docs, and Loom walkthroughs go here.</div></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3. HUBSPOT CRM -->
+  <div class="tool-block fade-up" id="hubspot">
+    <div class="tool-block-header">
+      <div class="tool-block-left">
+        <div class="tool-block-num">Tool 03 · Week 2 — Set up BEFORE any traffic</div>
+        <div class="tool-block-name">HubSpot CRM</div>
+        <div class="tool-block-tagline">The central contact record. Every guest, member, and lead — one source of truth from day one</div>
+      </div>
+      <div class="tool-block-meta">
+        <span class="impl-pill pill-phase1">Phase 1</span>
+        <span class="impl-pill pill-week">Week 2 · Before Beehiiv goes live</span>
+        <span class="impl-pill" style="background:var(--bg);color:var(--muted);border-color:var(--bdr2)">Free CRM · $15/seat Starter</span>
+      </div>
+    </div>
+    <div class="tool-block-body">
+
+      <div class="impl-section">
+        <div class="impl-section-label">What it is</div>
+        <p>HubSpot is a CRM (Customer Relationship Management) platform. At its core it's a database of contacts — every person who has interacted with SOUNDBATH, their history, where they came from, and what they've done. It also includes email marketing, forms, pipeline management, and automation. The free tier is genuinely powerful; Starter unlocks custom properties and removes HubSpot branding from emails.</p>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">What we're using it for</div>
+        <p><strong>Source of truth for every contact.</strong> When someone subscribes to Beehiiv, books through Glofox, attends a Luma event, or fills in a Framer form — HubSpot is where that person's full record lives. The critical setup work is building the custom contact properties schema before any traffic comes in. If you add HubSpot after Beehiiv is live, you lose source attribution on early subscribers and can never recover it.</p>
+        <div class="connect-box" style="margin-top:12px">
+          <div class="connect-label">Data flows into HubSpot from</div>
+          <div class="connect-flow"><span class="cn">Beehiiv subscriber</span><span class="cn-arrow">→</span><span class="cn">Zapier webhook</span><span class="cn-arrow">→</span><span class="cn" style="background:var(--exp-lt2);color:var(--exp2)">HubSpot contact</span></div>
+          <div class="connect-flow"><span class="cn">Framer form</span><span class="cn-arrow">→</span><span class="cn">HubSpot native form embed</span><span class="cn-arrow">→</span><span class="cn" style="background:var(--exp-lt2);color:var(--exp2)">HubSpot contact</span></div>
+          <div class="connect-flow"><span class="cn">Glofox new member</span><span class="cn-arrow">→</span><span class="cn">Zapier</span><span class="cn-arrow">→</span><span class="cn" style="background:var(--exp-lt2);color:var(--exp2)">HubSpot contact · glofox_member_id</span></div>
+          <div class="connect-flow"><span class="cn">Luma attendee</span><span class="cn-arrow">→</span><span class="cn">Zapier</span><span class="cn-arrow">→</span><span class="cn" style="background:var(--exp-lt2);color:var(--exp2)">HubSpot contact · event source</span></div>
+        </div>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">Other capabilities (not using now)</div>
+        <div class="cap-grid">
+          <span class="cap-chip using">Contact database + properties</span>
+          <span class="cap-chip using">Source attribution</span>
+          <span class="cap-chip using">Lifecycle stage tracking</span>
+          <span class="cap-chip using">Form embeds for Framer</span>
+          <span class="cap-chip using">Zapier integration</span>
+          <span class="cap-chip">Email sequences</span>
+          <span class="cap-chip">Deal pipelines (sales CRM)</span>
+          <span class="cap-chip">Landing pages</span>
+          <span class="cap-chip">Chatbot</span>
+          <span class="cap-chip">SMS (Starter+)</span>
+          <span class="cap-chip">Reporting dashboards</span>
+        </div>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">Why it's the right choice</div>
+        <p>Free tier is the most capable free CRM on the market — no contact limits, no time limit. The native Zapier and Beehiiv integrations mean almost no custom code. Every competitor in the peer set has fragmented contact data; HubSpot gives SOUNDBATH a unified record from subscriber zero. When it's time to do lifecycle email marketing (post-launch), HubSpot Starter email sequences are already set up and the contact data is clean. No migration cost later.</p>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">How to implement</div>
+        <ol class="step-list">
+          <li><div class="step-num">1</div><div class="step-text"><strong>Create HubSpot account</strong> at hubspot.com using <code>hello@thisIssoundbath.com</code>. Select "Marketing" as the primary use case. Free tier is fine to start.</div></li>
+          <li><div class="step-num">2</div><div class="step-text"><strong>Build the custom contact properties schema.</strong> Go to Settings → Properties → Create property for each of these fields: <code>source</code> (dropdown: Beehiiv / Framer form / Luma / Glofox / Referral / Direct), <code>founding_member</code> (checkbox: true/false), <code>glofox_member_id</code> (single-line text), <code>membership_tier</code> (dropdown: Founding / Standard / Premium — adjust to match Vishal's tier names), <code>referral_code</code> (single-line text), <code>referral_source</code> (single-line text — tracks who referred them).</div></li>
+          <li><div class="step-num">3</div><div class="step-text"><strong>Set up lifecycle stages.</strong> In the default lifecycle stage field, rename or map stages to: Subscriber → Waitlisted → Founding Member → Active Member → Lapsed. This becomes the backbone of every HubSpot list and automation.</div></li>
+          <li><div class="step-num">4</div><div class="step-text"><strong>Create a HubSpot form</strong> for the Framer site. Go to Marketing → Forms → Create form. Fields: First name, Last name, Email, "How did you hear about SOUNDBATH?" (maps to <code>source</code>). Copy the embed code — you'll paste it into Framer's custom code block.</div></li>
+          <li><div class="step-num">5</div><div class="step-text"><strong>Connect your domain for email sending.</strong> Go to Settings → Email → Connect Domain. HubSpot will give you SPF and DKIM DNS records. Add them to Cloudflare. This ensures HubSpot emails sent from <code>hello@thisIssoundbath.com</code> pass spam filters.</div></li>
+          <li><div class="step-num">6</div><div class="step-text"><strong>Create a "Founding Members" smart list.</strong> Go to Contacts → Lists → Create list → Active list. Filter: <code>founding_member</code> is true. This list auto-updates as new founding members are added from any source — Beehiiv, Framer form, Glofox, Zapier. It becomes the audience for every founding member email campaign.</div></li>
+          <li><div class="step-num">7</div><div class="step-text"><strong>Upgrade to Starter ($15/seat/mo) when ready to send email sequences.</strong> Free tier handles all contact management and forms. Starter is only needed when you want to send automated email sequences from HubSpot directly (post-launch retention campaigns). Hold off until the list has 500+ contacts.</div></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 4. BEEHIIV -->
+  <div class="tool-block fade-up" id="beehiiv">
+    <div class="tool-block-header">
+      <div class="tool-block-left">
+        <div class="tool-block-num">Tool 04 · Week 2–3 — The founding member engine</div>
+        <div class="tool-block-name">Beehiiv</div>
+        <div class="tool-block-tagline">Newsletter platform built for growth — referrals, subscriber analytics, and a publication-quality send experience</div>
+      </div>
+      <div class="tool-block-meta">
+        <span class="impl-pill pill-phase1">Phase 1</span>
+        <span class="impl-pill pill-week">Week 2–3</span>
+        <span class="impl-pill" style="background:var(--bg);color:var(--muted);border-color:var(--bdr2)">Free to 2,500 · $43/mo Scale (annual)</span>
+      </div>
+    </div>
+    <div class="tool-block-body">
+
+      <div class="impl-section">
+        <div class="impl-section-label">What it is</div>
+        <p>Beehiiv is a newsletter platform built specifically for audience growth — not just email sending. It has native referral mechanics (readers get a personal referral link; you set a reward threshold), subscriber analytics at the individual level, a publication-style post editor, and a custom domain for the web view. Think of it as Substack with better growth tools and no revenue sharing.</p>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">What we're using it for</div>
+        <p><strong>The pre-launch founding member pipeline.</strong> Beehiiv is live before the Framer site is fully built. It's the first thing that goes public — a signup page where interested people can join the SOUNDBATH founding member list and get a referral link. Every subscriber can share their link; when 3 friends subscribe (the threshold you set), they unlock the founding member offer. This creates a viral loop before a single brick is laid. Zapier connects each new subscriber to HubSpot with <code>source: Beehiiv</code> and <code>founding_member: true</code> (if referral threshold met).</p>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">The welcome sequence — 4 emails, set up before launch</div>
+        <p><strong>Email 1 (immediate):</strong> "You're on the list." Confirm the subscription, introduce SOUNDBATH in 3 sentences, share the referral link, explain the founding member offer. Keep it short. First impression.</p>
+        <p><strong>Email 2 (Day 3):</strong> "Why Miami, why now." The story of SOUNDBATH — what gap it fills, why the social wellness moment is here, what it will feel like to be a member. This is Vishal's voice. Pull directly from his one-paragraph brief.</p>
+        <p><strong>Email 3 (Day 7):</strong> "What founding members get." Concrete and specific — the tier, the price lock, the early access, the community. This is the email that converts curious subscribers into committed founding members. Don't send this until the founding member offer is fully defined.</p>
+        <p><strong>Email 4 (Day 14):</strong> "Refer a friend." Push on the referral mechanic specifically. Show them how many referrals they've made. Remind them of the reward. Make it easy with a pre-written social caption they can copy.</p>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">Other capabilities (not using now)</div>
+        <div class="cap-grid">
+          <span class="cap-chip using">Newsletter publication</span>
+          <span class="cap-chip using">Referral program (native)</span>
+          <span class="cap-chip using">Welcome sequence automation</span>
+          <span class="cap-chip using">Custom domain</span>
+          <span class="cap-chip using">Subscriber analytics</span>
+          <span class="cap-chip using">Zapier / HubSpot integration</span>
+          <span class="cap-chip">Paid subscriptions (monetize newsletter)</span>
+          <span class="cap-chip">Boosts (pay to grow subscriber list)</span>
+          <span class="cap-chip">Ad network</span>
+          <span class="cap-chip">Web archive of past issues</span>
+          <span class="cap-chip">Audience segments</span>
+        </div>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">How to implement</div>
+        <ol class="step-list">
+          <li><div class="step-num">1</div><div class="step-text"><strong>Create Beehiiv account</strong> at beehiiv.com using <code>hello@thisIssoundbath.com</code>. Publication name: SOUNDBATH. Start on the free plan — you'll upgrade to Scale when the list hits ~2,000 or when you want to activate the referral program (referrals are a Scale feature).</div></li>
+          <li><div class="step-num">2</div><div class="step-text"><strong>Connect the custom domain.</strong> In Beehiiv Settings → Domain, set the web publication to <code>letters.thisIssoundbath.com</code> or <code>founding.thisIssoundbath.com</code>. Beehiiv gives you a CNAME record — add it to Cloudflare DNS. The subscribe page will live at this URL.</div></li>
+          <li><div class="step-num">3</div><div class="step-text"><strong>Set up sender authentication.</strong> Beehiiv will ask you to add SPF and DKIM records so emails send from <code>hello@thisIssoundbath.com</code>. Add these to Cloudflare. Without this step, emails may land in spam.</div></li>
+          <li><div class="step-num">4</div><div class="step-text"><strong>Build the subscribe page.</strong> Under Grow → Subscribe Page, upload the SOUNDBATH logo, write a 2-sentence description, and set the headline. This page goes live before the Framer site is built — it's the first thing you send traffic to. Keep it simple: what is SOUNDBATH, why join, what founding members get.</div></li>
+          <li><div class="step-num">5</div><div class="step-text"><strong>Build the 4-email welcome sequence.</strong> Under Automations → Create Automation → Trigger: New subscriber. Add 4 email steps with the delays described above. Write Email 1 immediately. Hold Emails 2–4 until Vishal has approved the founding member offer copy.</div></li>
+          <li><div class="step-num">6</div><div class="step-text"><strong>Configure the referral program</strong> (after upgrading to Scale). Under Grow → Referral Program → Enable. Set reward threshold: 3 referrals = founding member status. Set the reward: a custom message confirming their founding member status, linked to a HubSpot form to capture their details. Beehiiv generates a unique referral link for every subscriber automatically.</div></li>
+          <li><div class="step-num">7</div><div class="step-text"><strong>Connect Beehiiv to HubSpot via Zapier.</strong> Trigger: New subscriber in Beehiiv. Action: Create or update contact in HubSpot with <code>source: Beehiiv</code>, <code>lifecycle_stage: Subscriber</code>, <code>referral_code</code> (from Beehiiv's subscriber data). Test with a real email subscription before going live.</div></li>
+        </ol>
+      </div>
+
+      <div class="gotcha-box">
+        <div class="gotcha-label">Critical timing note</div>
+        <p><strong>Don't launch Beehiiv before HubSpot is set up and the Zapier connection is tested.</strong> Early subscribers are the most valuable contacts — if HubSpot isn't live and properly receiving source data, you lose attribution on everyone who signed up before the connection was established. You cannot retroactively assign source data in HubSpot.</p>
+        <p>Also: the referral program is a Scale-only feature. Free tier has a 2,500 subscriber limit and no referral mechanics. Budget for the upgrade to Scale ($43/mo annual) from Day 1 — the referral program is worth it.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 5. FRAMER -->
+  <div class="tool-block fade-up" id="framer">
+    <div class="tool-block-header">
+      <div class="tool-block-left">
+        <div class="tool-block-num">Tool 05 · Week 3–4 — Brand site and soft launch page</div>
+        <div class="tool-block-name">Framer</div>
+        <div class="tool-block-tagline">React-output no-code site builder with CMS — brand-first, fast to publish, and genuinely premium</div>
+      </div>
+      <div class="tool-block-meta">
+        <span class="impl-pill pill-phase1">Phase 1</span>
+        <span class="impl-pill pill-week">Week 3–4</span>
+        <span class="impl-pill" style="background:var(--bg);color:var(--muted);border-color:var(--bdr2)">$30/mo Pro (annual) — verify current</span>
+      </div>
+    </div>
+    <div class="tool-block-body">
+
+      <div class="impl-section">
+        <div class="impl-section-label">What it is</div>
+        <p>Framer is a no-code website builder that outputs clean React — meaning the published site is fast, SEO-friendly, and not tied to template constraints. It has a visual canvas editor, built-in CMS for dynamic content (blog posts, event listings, team bios), custom code blocks for embedding third-party tools, and one-click publishing to a custom domain via Cloudflare.</p>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">What we're using it for</div>
+        <p><strong>The SOUNDBATH brand site.</strong> Phase 1 delivery is a single-page soft-launch site: brand identity, what SOUNDBATH is, the founding member CTA, and a HubSpot form embed. This goes live in Week 4 and sits at <code>thisIssoundbath.com</code>. Phase 1 also includes building the full multi-page site in the same Framer project — About, Membership, Events, Community — which goes live when content and photography are ready.</p>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">Build order inside Framer</div>
+        <p><strong>First publish — the soft launch page (Week 4):</strong> Logo, hero statement, 2–3 sentence brand description, founding member CTA, HubSpot form embed, Beehiiv subscribe link. This is what Beehiiv referral links point to. No nav, no footer, just the hook.</p>
+        <p><strong>Second publish — full site (Phase 1 complete):</strong> Full navigation with About, Membership, Events, Book Now (Glofox embed in Phase 2), Community (Circle link in Phase 2). CMS for blog/journal posts configured so Vishal can add content without you.</p>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">Other capabilities (not using now)</div>
+        <div class="cap-grid">
+          <span class="cap-chip using">Custom domain publish (Cloudflare)</span>
+          <span class="cap-chip using">HubSpot form embed</span>
+          <span class="cap-chip using">CMS for blog/journal</span>
+          <span class="cap-chip using">Animations + scroll effects</span>
+          <span class="cap-chip using">Mobile-responsive by default</span>
+          <span class="cap-chip">Framer AI (layout generation)</span>
+          <span class="cap-chip">E-commerce (Stripe native)</span>
+          <span class="cap-chip">Localization (multi-language)</span>
+          <span class="cap-chip">Framer Sites marketplace (templates)</span>
+          <span class="cap-chip">Password protection (built-in)</span>
+        </div>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">How to implement</div>
+        <ol class="step-list">
+          <li><div class="step-num">1</div><div class="step-text"><strong>Create Framer account</strong> at framer.com using <code>hello@thisIssoundbath.com</code>. Start a new blank project — don't use a template, the brand design needs to start from scratch to match the SOUNDBATH identity.</div></li>
+          <li><div class="step-num">2</div><div class="step-text"><strong>Set up the design system first.</strong> Before building a single page, define: color variables (cream background, dark ink, gold accent — pull from Vishal's brand guide), typography (import Google Fonts or upload custom fonts), spacing scale, and button styles. This takes 2–3 hours but saves time on every page built after it.</div></li>
+          <li><div class="step-num">3</div><div class="step-text"><strong>Build and publish the soft launch page.</strong> Single canvas page: full-bleed brand imagery, one strong headline, 2-sentence description, founding member CTA button that opens/scrolls to the HubSpot form. Embed the HubSpot form using Framer's Custom Code block — paste HubSpot's embed script. Test form submission before publishing.</div></li>
+          <li><div class="step-num">4</div><div class="step-text"><strong>Connect to custom domain.</strong> In Framer → Project Settings → Custom Domain, enter <code>thisIssoundbath.com</code>. Framer gives you a CNAME record — add it in Cloudflare. Takes 5–10 minutes to propagate. Enable "Redirect www to root" in Framer settings.</div></li>
+          <li><div class="step-num">5</div><div class="step-text"><strong>Build out full site pages.</strong> After soft launch is live: create a Framer CMS collection for "Journal" (blog posts) and "Events." Build pages for About, Membership (with pricing tiers), Events listing, and a placeholder for Book Now (Glofox embed will be added in Phase 2). Use Framer's component system — build the nav and footer as reusable components so changing them once updates everywhere.</div></li>
+          <li><div class="step-num">6</div><div class="step-text"><strong>Add GA4 tracking code.</strong> When GA4 is set up (Tool 07), paste the GA4 measurement ID tracking script into Framer → Project Settings → Custom Code → Head. This fires on every page automatically.</div></li>
+          <li><div class="step-num">7</div><div class="step-text"><strong>Test on mobile before every publish.</strong> Framer's desktop canvas doesn't always reflect mobile layout accurately. Use the mobile preview mode AND a real device before publishing any update. Priority pages to test: homepage, membership page, and any page with an embedded form.</div></li>
+        </ol>
+      </div>
+
+      <div class="gotcha-box">
+        <div class="gotcha-label">Important: verify Framer pricing before billing Vishal</div>
+        <p><strong>Framer's pricing has changed.</strong> Current Pro plan is approximately $30/mo (annual), up from $20/mo previously. Confirm the current price at framer.com/pricing before quoting. Also check whether the domain connection is included in the plan tier you're presenting — some features require mini or Pro.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 6. ZAPIER -->
+  <div class="tool-block fade-up" id="zapier">
+    <div class="tool-block-header">
+      <div class="tool-block-left">
+        <div class="tool-block-num">Tool 06 · Phase 1 ongoing — The automation glue</div>
+        <div class="tool-block-name">Zapier</div>
+        <div class="tool-block-tagline">No-code automation connecting every tool in the stack — events in one platform trigger actions in another</div>
+      </div>
+      <div class="tool-block-meta">
+        <span class="impl-pill pill-phase1">Phase 1</span>
+        <span class="impl-pill pill-week">Week 2 onward</span>
+        <span class="impl-pill" style="background:var(--bg);color:var(--muted);border-color:var(--bdr2)">~$20/mo Starter</span>
+      </div>
+    </div>
+    <div class="tool-block-body">
+
+      <div class="impl-section">
+        <div class="impl-section-label">What it is</div>
+        <p>Zapier is a no-code integration platform. You create "Zaps" — automated workflows where a trigger event in one app causes an action in another. No API coding required. It connects 6,000+ apps and handles the data routing that would otherwise require custom backend development.</p>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">The Zaps to build, in priority order</div>
+        <p><strong>Zap 1 — Beehiiv → HubSpot (build Week 2, before Beehiiv goes live):</strong> Trigger: New subscriber in Beehiiv. Action: Create or update contact in HubSpot. Map fields: email, first name, source = "Beehiiv," founding_member = true (if referral threshold met), referral_code = subscriber's Beehiiv referral ID.</p>
+        <p><strong>Zap 2 — Framer form → HubSpot (build Week 3, when soft launch goes live):</strong> Framer's native HubSpot embed handles this without Zapier — use the embed where possible. Only use Zapier if you need to cross-post to a second system (e.g., also add the contact to a Beehiiv list).</p>
+        <p><strong>Zap 3 — Glofox → HubSpot (build Phase 2, when Glofox is live):</strong> Trigger: New member in Glofox. Action: Update HubSpot contact — set <code>lifecycle_stage: Active Member</code>, <code>glofox_member_id</code>, <code>membership_tier</code>.</p>
+        <p><strong>Zap 4 — Luma → HubSpot (build Phase 2, when events start):</strong> Trigger: New event registrant in Luma. Action: Create/update HubSpot contact, set <code>source: Luma event</code>, tag with the event name.</p>
+        <p><strong>Zap 5 — HubSpot lifecycle change → Notification (optional):</strong> Trigger: Contact lifecycle changes to "Founding Member." Action: Send a Slack or email notification to Vishal. Good for early momentum visibility.</p>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">How to implement</div>
+        <ol class="step-list">
+          <li><div class="step-num">1</div><div class="step-text"><strong>Create Zapier account</strong> at zapier.com using <code>hello@thisIssoundbath.com</code>. Free tier allows 5 Zaps (single-step). Starter plan (~$20/mo) allows multi-step Zaps and filters — needed for the Beehiiv → HubSpot flow with conditional logic.</div></li>
+          <li><div class="step-num">2</div><div class="step-text"><strong>Build Zap 1 first</strong> (Beehiiv → HubSpot), before Beehiiv is made public. Connect Beehiiv account, select trigger "New Subscriber." Connect HubSpot, select action "Create or Update Contact." Map all fields carefully — email must be the matching key. Run a test with a real email address to confirm the HubSpot contact is created with all properties populated.</div></li>
+          <li><div class="step-num">3</div><div class="step-text"><strong>Add a filter step</strong> to Zap 1 to tag founding members separately. After the trigger, add a Filter step: only continue if Beehiiv subscriber's referral count is ≥ 3 (or whatever the founding member threshold is). Then add two branches: one that sets <code>founding_member: true</code>, one that sets it to <code>false</code>. Multi-step Zaps require the Starter plan.</div></li>
+          <li><div class="step-num">4</div><div class="step-text"><strong>Document every Zap.</strong> In Zapier, rename each Zap clearly: "Beehiiv → HubSpot New Subscriber" not "Zap 1." Add a description in the Zap settings. When something breaks in six months, clear naming saves hours of debugging.</div></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 7. GA4 -->
+  <div class="tool-block fade-up" id="ga4">
+    <div class="tool-block-header">
+      <div class="tool-block-left">
+        <div class="tool-block-num">Tool 07 · Install when Framer goes live</div>
+        <div class="tool-block-name">Google Analytics 4</div>
+        <div class="tool-block-tagline">Website and conversion analytics — who's visiting, where they come from, and what they do</div>
+      </div>
+      <div class="tool-block-meta">
+        <span class="impl-pill pill-phase1">Phase 1</span>
+        <span class="impl-pill pill-week">Week 4 (with Framer launch)</span>
+        <span class="impl-pill" style="background:var(--bg);color:var(--muted);border-color:var(--bdr2)">Free</span>
+      </div>
+    </div>
+    <div class="tool-block-body">
+
+      <div class="impl-section">
+        <div class="impl-section-label">What we're using it for</div>
+        <p>Tracking site traffic sources, page performance, form conversion rates, and referral link performance. Critical for understanding which Beehiiv referral links are driving actual site visits, which pages are losing people before they fill the form, and where founding member signups are coming from.</p>
+      </div>
+
+      <div class="impl-section">
+        <div class="impl-section-label">How to implement</div>
+        <ol class="step-list">
+          <li><div class="step-num">1</div><div class="step-text"><strong>Create a GA4 property</strong> at analytics.google.com using the SOUNDBATH Google Workspace account. Create a new property, select Web, enter <code>thisIssoundbath.com</code>.</div></li>
+          <li><div class="step-num">2</div><div class="step-text"><strong>Copy the Measurement ID</strong> (format: <code>G-XXXXXXXXXX</code>). Paste it into Framer → Project Settings → Integrations → Google Analytics. Framer handles the rest — no manual script embed needed.</div></li>
+          <li><div class="step-num">3</div><div class="step-text"><strong>Set up conversion events.</strong> In GA4 → Admin → Events, mark "form_submit" and "page_view" on the founding member page as conversions. This makes it easy to see how many visitors are converting to subscribers.</div></li>
+          <li><div class="step-num">4</div><div class="step-text"><strong>Connect to HubSpot</strong> (optional, Phase 2). HubSpot can pull GA4 data into the CRM. Useful when you want to see website behavior alongside contact records.</div></li>
+          <li><div class="step-num">5</div><div class="step-text"><strong>Use UTM parameters on all Beehiiv referral links.</strong> When someone clicks a referral link, the URL should include <code>?utm_source=beehiiv&utm_medium=referral&utm_campaign=founding_member</code>. GA4 will attribute those site visits correctly. Beehiiv allows custom referral link parameters in Settings.</div></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+
+</div><!-- /page-wrap -->
+<footer class="site-footer">
+  <span class="footer-brand">SOUNDBATH · Implementation Guide · Internal</span>
+  <div class="footer-links">
+    <a href="index.html" class="footer-link">Overview</a>
+    <a href="stack-experience.html" class="footer-link">Experience Stack</a>
+    <a href="comparison.html" class="footer-link">Comparison</a>
+    <a href="extended-comparison.html" class="footer-link">Extended Comparison</a>
+  </div>
+  <span class="footer-brand" style="opacity:.4">thecreatorie.com</span>
+</footer>
+
+<script>
+(function(){if(sessionStorage.getItem('sb_auth')==='1')document.getElementById('gate').classList.add('hidden')})();
+function checkPw(){
+  if(document.getElementById('pw').value==='MiamiFL'){
+    sessionStorage.setItem('sb_auth','1');
+    document.getElementById('gate').classList.add('hidden');
+  } else {
+    document.getElementById('gate-err').textContent='Incorrect password';
+    document.getElementById('pw').value='';
+  }
+}
+document.getElementById('pw').addEventListener('keydown',e=>{if(e.key==='Enter')checkPw()});
+
+window.addEventListener('scroll',()=>{
+  document.querySelector('.nav').classList.toggle('scrolled',window.scrollY>10);
+});
+
+function toggleMenu(){
+  document.querySelector('.nav-hamburger').classList.toggle('open');
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
+},{threshold:0.04});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
