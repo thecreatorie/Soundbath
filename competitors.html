@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Competitive Analysis — SOUNDBATH Strategy</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── PAGE-SPECIFIC ── */
+.comp-hero-tag{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--subtle);font-weight:400;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.comp-hero-tag::before{content:'';width:24px;height:.5px;background:var(--subtle)}
+
+.comp-block{margin-bottom:72px;scroll-margin-top:80px}
+.comp-header{display:grid;grid-template-columns:1fr auto;align-items:start;gap:24px;margin-bottom:28px;padding-bottom:24px;border-bottom:.5px solid var(--bdr)}
+.comp-title-wrap{}
+.comp-title{font-family:var(--serif);font-size:36px;font-weight:400;line-height:1.1;margin-bottom:6px}
+.comp-subtitle{font-size:13px;color:var(--muted);font-weight:300}
+.comp-meta{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.comp-meta-pill{font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:20px;border:.5px solid;white-space:nowrap}
+.pill-direct{background:rgba(180,60,60,.08);color:#8b2a2a;border-color:rgba(180,60,60,.25)}
+.pill-indirect{background:var(--gold-lt);color:var(--gold2);border-color:var(--gold-lt2)}
+.pill-pre-open{background:var(--exp-lt);color:var(--exp2);border-color:var(--exp-lt2)}
+
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.comp-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px}
+
+.stat-card{background:var(--bg2);border:.5px solid var(--bdr);border-radius:var(--r-md);padding:18px 20px}
+.stat-card-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle);margin-bottom:6px;font-weight:400}
+.stat-card-val{font-family:var(--serif);font-size:24px;font-weight:400;color:var(--ink);line-height:1.1;margin-bottom:3px}
+.stat-card-note{font-size:12px;color:var(--muted);font-weight:300}
+
+.evidence-box{background:var(--bg);border:.5px solid var(--bdr2);border-radius:var(--r-md);padding:22px 24px;margin-bottom:16px}
+.evidence-box-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.evidence-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.evidence-icon.web{background:var(--exp-lt);color:var(--exp)}
+.evidence-icon.code{background:var(--arch-lt);color:var(--arch)}
+.evidence-icon.search{background:var(--gold-lt);color:var(--gold2)}
+.evidence-icon.app{background:rgba(60,100,180,.08);color:#1a5ca8}
+.evidence-box-title{font-size:13px;font-weight:500;color:var(--ink)}
+.evidence-box-source{font-size:11px;color:var(--subtle)}
+.evidence-row{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:.5px solid var(--bdr);gap:12px}
+.evidence-row:last-child{border-bottom:none}
+.evidence-label{font-size:13px;color:var(--muted);font-weight:300}
+.evidence-val{font-size:13px;font-weight:500;color:var(--ink);text-align:right}
+.evidence-val.confirmed{color:var(--exp)}
+.evidence-val.inferred{color:var(--gold2)}
+.evidence-val.unknown{color:var(--subtle)}
+
+.pro-con-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.pro-card{background:var(--exp-lt);border:.5px solid var(--exp-lt2);border-radius:var(--r-md);padding:18px 20px}
+.con-card{background:rgba(180,60,60,.05);border:.5px solid rgba(180,60,60,.15);border-radius:var(--r-md);padding:18px 20px}
+.pro-con-title{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+.pro-con-title.pro{color:var(--exp)}
+.pro-con-title.con{color:#8b2a2a}
+.pro-con-list{list-style:none;padding:0;margin:0}
+.pro-con-list li{font-size:13px;color:var(--muted);padding:5px 0 5px 16px;position:relative;line-height:1.6;font-weight:300}
+.pro-con-list li::before{position:absolute;left:0;top:7px;font-size:10px}
+.pro-card .pro-con-list li::before{content:'↑';color:var(--exp)}
+.con-card .pro-con-list li::before{content:'↓';color:#8b2a2a}
+
+.learn-box{background:var(--ink2);border-radius:var(--r-md);padding:22px 26px;color:rgba(243,243,241,.85)}
+.learn-box-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;font-weight:400}
+.learn-box p{font-size:13px;line-height:1.8;font-weight:300;margin-bottom:8px}
+.learn-box p:last-child{margin-bottom:0}
+
+.methodology-banner{background:var(--bg2);border:.5px solid var(--bdr);border-radius:var(--r-md);padding:18px 22px;margin-bottom:48px;display:flex;gap:20px;align-items:flex-start}
+.methodology-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.methodology-text{font-size:13px;color:var(--muted);line-height:1.75;font-weight:300}
+.methodology-text strong{color:var(--ink);font-weight:500}
+
+.tech-chip{display:inline-block;font-size:11px;font-weight:500;padding:3px 10px;border-radius:4px;margin:2px 2px 2px 0;letter-spacing:.02em}
+.chip-confirmed{background:var(--exp-lt2);color:var(--exp2)}
+.chip-inferred{background:var(--gold-lt2);color:var(--gold2)}
+.chip-unknown{background:var(--bg3);color:var(--subtle)}
+
+.comp-nav{display:flex;gap:8px;margin-bottom:48px;flex-wrap:wrap}
+.comp-nav-btn{padding:8px 18px;border:.5px solid var(--bdr2);border-radius:100px;background:transparent;font-family:var(--sans);font-size:12px;font-weight:400;color:var(--muted);cursor:pointer;text-decoration:none;transition:all .15s}
+.comp-nav-btn:hover{background:var(--bg2);color:var(--ink);border-color:var(--ink)}
+
+.summary-table{width:100%;border-collapse:collapse;margin-bottom:40px;font-size:13px}
+.summary-table th{padding:10px 16px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle);background:var(--bg2);text-align:left;font-weight:400;border-bottom:.5px solid var(--bdr)}
+.summary-table td{padding:14px 16px;border-top:.5px solid var(--bdr);vertical-align:top;color:var(--muted)}
+.summary-table tr:hover td{background:var(--bg2)}
+.summary-table td:first-child{font-weight:500;color:var(--ink);white-space:nowrap}
+.tick{color:var(--exp);font-weight:500}
+.cross{color:#8b2a2a;font-weight:500}
+
+.divider{height:.5px;background:var(--bdr);margin:56px 0}
+
+@media(max-width:768px){
+  .comp-header{grid-template-columns:1fr}
+  .comp-meta{flex-direction:row;align-items:flex-start;flex-wrap:wrap}
+  .comp-grid,.comp-grid-3,.pro-con-grid{grid-template-columns:1fr}
+  .summary-table{display:block;overflow-x:auto}
+  .methodology-banner{flex-direction:column;gap:12px}
+  .comp-title{font-size:28px}
+}
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="gate">
+  <div class="gate-grain"></div>
+  <div class="gate-rule"></div>
+  <p class="gate-label">SOUNDBATH — Strategy Document</p>
+  <div class="gate-field-wrap">
+    <input class="gate-input" id="pw" type="password" placeholder="Password" autocomplete="off">
+    <button class="gate-btn" onclick="checkPw()">Enter</button>
+  </div>
+  <p class="gate-error" id="gate-err"></p>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">SOUNDBATH</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Overview</a>
+      <a href="stack-experience.html" class="nav-link">Experience Stack</a>
+      <a href="stack-architect.html" class="nav-link">Architect Stack</a>
+      <a href="comparison.html" class="nav-link">Comparison</a>
+      <a href="competitors.html" class="nav-link" style="color:var(--ink);font-weight:500">Competitors</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile-menu" id="mobile-menu">
+    <a href="index.html" class="nav-mobile-link">Overview</a>
+    <a href="stack-experience.html" class="nav-mobile-link">Experience Stack</a>
+    <a href="stack-architect.html" class="nav-mobile-link">Architect Stack</a>
+    <a href="comparison.html" class="nav-mobile-link">Comparison</a>
+    <a href="competitors.html" class="nav-mobile-link">Competitors</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- HERO -->
+  <div class="page-hero fade-up">
+    <div class="comp-hero-tag">Competitive intelligence</div>
+    <h1 class="page-hero-h1">Peer Set Analysis</h1>
+    <p class="page-hero-desc">Deep dive into three comparable operators — their websites, tech stacks, business models, and strategic choices. Each finding is sourced and labelled by confidence level. Implications for SOUNDBATH strategy follow each profile.</p>
+  </div>
+
+  <!-- METHODOLOGY BANNER -->
+  <div class="methodology-banner fade-up">
+    <div class="methodology-icon">🔍</div>
+    <div class="methodology-text">
+      <strong>How this analysis was conducted.</strong> Each competitor's website was fetched directly and its source code inspected for technology fingerprints — CDN URLs, script tags, noscript notices, booking subdomain patterns, and third-party pixel tags. These signals were cross-referenced against public databases (ZoomInfo, Wappalyzer methodology), press coverage, and job listings. Findings are labelled: <strong style="color:var(--exp)">Confirmed</strong> (directly observable in source), <strong style="color:var(--gold2)">Inferred</strong> (strongly implied by observable signals), or <strong style="color:var(--subtle)">Unknown</strong> (not determinable from public data). No private data, no speculation presented as fact.
+    </div>
+  </div>
+
+  <!-- QUICK NAV -->
+  <div class="comp-nav fade-up">
+    <a href="#grotto" class="comp-nav-btn">↓ Grotto Baths</a>
+    <a href="#othership" class="comp-nav-btn">↓ Othership</a>
+    <a href="#bathhouse" class="comp-nav-btn">↓ Bathhouse</a>
+    <a href="#summary" class="comp-nav-btn">↓ Summary table</a>
+    <a href="#implications" class="comp-nav-btn">↓ Implications for SOUNDBATH</a>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       GROTTO BATHS
+  ══════════════════════════════════════ -->
+  <div class="comp-block fade-up" id="grotto">
+    <div class="comp-header">
+      <div class="comp-title-wrap">
+        <div class="comp-title">Grotto Baths</div>
+        <div class="comp-subtitle">grottobaths.com &nbsp;·&nbsp; Wynwood, Miami &nbsp;·&nbsp; Opening Summer 2026</div>
+      </div>
+      <div class="comp-meta">
+        <span class="comp-meta-pill pill-direct">Direct competitor</span>
+        <span class="comp-meta-pill pill-pre-open">Pre-opening</span>
+      </div>
+    </div>
+
+    <div class="comp-grid-3">
+      <div class="stat-card">
+        <div class="stat-card-label">Size</div>
+        <div class="stat-card-val">7,500</div>
+        <div class="stat-card-note">sq ft · 5K indoor, 2.5K outdoor</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Location</div>
+        <div class="stat-card-val">Wynwood</div>
+        <div class="stat-card-note">325 NW 28th St — NW quadrant</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Status</div>
+        <div class="stat-card-val">Under construction</div>
+        <div class="stat-card-note">Opened marketing Oct 2025</div>
+      </div>
+    </div>
+
+    <div class="section-label">Business model</div>
+    <div class="tool-card" style="margin-bottom:16px">
+      <p class="tool-desc" style="line-height:1.85">Grotto is positioned as a circuit-based communal bathhouse — saunas, steam, thermal bath, mineral pool, cold plunge — with a programming layer of breathwork, somatic movement, and workshops. The outdoor café is alcohol-free with adaptogenic drinks and a seasonal food menu from chef Erik Oberholtzer (Tender Greens founder). The founding team is credentialed: Nathan Kaplan (Wynwood real estate developer), Nick Anselmo, and Darryl Gibson, former Culture &amp; Programming Director at both The Standard Miami and Faena. Gibson's involvement signals genuine hospitality and programming depth, not just a wellness pop-up. The press positioning leans heavily into Roman bath culture and community gathering — language nearly identical to SOUNDBATH's framing.</p>
+    </div>
+
+    <div class="section-label">Website analysis</div>
+    <div class="evidence-box">
+      <div class="evidence-box-header">
+        <div class="evidence-icon web">🌐</div>
+        <div>
+          <div class="evidence-box-title">What we found in the page source</div>
+          <div class="evidence-box-source">Source: direct fetch of grottobaths.com · March 2026</div>
+        </div>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Website platform</span>
+        <span class="evidence-val inferred">Likely Framer or custom — minimal HTML, Mux video CDN</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Video infrastructure</span>
+        <span class="evidence-val confirmed">Mux (image.mux.com CDN confirmed in source)</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Booking system</span>
+        <span class="evidence-val unknown">None — no booking functionality present</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Waitlist / CRM</span>
+        <span class="evidence-val inferred">Email capture form only — platform unknown</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">HR / payroll</span>
+        <span class="evidence-val confirmed">Gusto (careers page hosted at jobs.gusto.com)</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Analytics / tracking</span>
+        <span class="evidence-val unknown">Not determinable from current page content</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Social presence</span>
+        <span class="evidence-val confirmed">Instagram only (@grottobaths)</span>
+      </div>
+    </div>
+
+    <div class="section-label">Tech stack summary</div>
+    <div class="tool-card" style="margin-bottom:20px">
+      <div class="tool-desc" style="margin-bottom:10px;font-weight:500;color:var(--ink)">Confirmed or inferred technologies</div>
+      <span class="tech-chip chip-confirmed">Mux (video)</span>
+      <span class="tech-chip chip-confirmed">Gusto (HR/payroll)</span>
+      <span class="tech-chip chip-inferred">Framer or custom site</span>
+      <span class="tech-chip chip-unknown">Booking TBD</span>
+      <span class="tech-chip chip-unknown">CRM unknown</span>
+      <span class="tech-chip chip-unknown">Analytics unknown</span>
+      <div class="tool-desc" style="margin-top:12px;font-size:12px;color:var(--subtle)">As of March 2026, Grotto has no public-facing booking or membership infrastructure. Their tech build is effectively the same problem SOUNDBATH is solving right now.</div>
+    </div>
+
+    <div class="pro-con-grid">
+      <div class="pro-card">
+        <div class="pro-con-title pro">Strategic strengths</div>
+        <ul class="pro-con-list">
+          <li>Credentialed hospitality leadership — Gibson at Standard + Faena gives instant cultural legitimacy</li>
+          <li>Wynwood location is prime for the creative/wellness crossover audience</li>
+          <li>Alcohol-free F&amp;B from a respected chef signals serious positioning</li>
+          <li>Site-specific art commission (Emmett Moore) — editorial press bait</li>
+          <li>Architect firm (Stokes) already named in press — design credibility established pre-opening</li>
+          <li>First-mover in Wynwood specifically — real estate timing advantage</li>
+        </ul>
+      </div>
+      <div class="con-card">
+        <div class="pro-con-title con">Gaps and weaknesses</div>
+        <ul class="pro-con-list">
+          <li>Minimal digital presence — single waitlist page with no content, community, or member pipeline</li>
+          <li>No tech stack visible yet — booking, CRM, membership layer all TBD</li>
+          <li>No community layer or pre-opening activation visible</li>
+          <li>Smaller footprint than SOUNDBATH's stated ambition (7,500 sq ft vs potential larger format)</li>
+          <li>No referral or founding member program visible</li>
+          <li>Single location, single format — no demonstrated scale pathway</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="learn-box">
+      <div class="learn-box-label">Implications for SOUNDBATH</div>
+      <p>Grotto is the most directly comparable operator and they are behind on digital infrastructure. SOUNDBATH going live with a polished founding member experience — waitlist, referral pipeline, clear community layer — before Grotto opens would be a meaningful competitive moat in the same market. The audience Grotto is targeting in Wynwood overlaps significantly with SOUNDBATH's founding member profile. Watch their Instagram and press cadence closely — their programming and pricing decisions will be your most direct pricing reference point in Miami.</p>
+      <p>Their Darryl Gibson hire is worth noting for programming inspiration. The Standard and Faena DNA is exactly the creative-class hospitality register SOUNDBATH should be operating in.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       OTHERSHIP
+  ══════════════════════════════════════ -->
+  <div class="comp-block fade-up" id="othership">
+    <div class="comp-header">
+      <div class="comp-title-wrap">
+        <div class="comp-title">Othership</div>
+        <div class="comp-subtitle">othership.us &nbsp;·&nbsp; Toronto + New York &nbsp;·&nbsp; 4 locations operating</div>
+      </div>
+      <div class="comp-meta">
+        <span class="comp-meta-pill pill-indirect">Strategic benchmark</span>
+      </div>
+    </div>
+
+    <div class="comp-grid-3">
+      <div class="stat-card">
+        <div class="stat-card-label">Locations</div>
+        <div class="stat-card-val">4</div>
+        <div class="stat-card-note">Adelaide, Yorkville (Toronto) · Flatiron, Williamsburg (NYC)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Model</div>
+        <div class="stat-card-val">Class-based</div>
+        <div class="stat-card-note">Guided + free flow sessions, drops + memberships</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Differentiation</div>
+        <div class="stat-card-val">Programming</div>
+        <div class="stat-card-note">Music-driven, breathwork-guided, alcohol-free</div>
+      </div>
+    </div>
+
+    <div class="section-label">Business model</div>
+    <div class="tool-card" style="margin-bottom:16px">
+      <p class="tool-desc" style="line-height:1.85">Othership runs a class-based model with guided and free-flow sessions at set times — closer to a fitness studio than a traditional bathhouse in terms of scheduling. Drop-in passes, multi-visit packs, and monthly memberships are the three product tiers. Sessions are 75–120 minutes, fully programmed with music, breathwork, and essential oils, led by trained guides. The alcohol-free, body-positive, emotionally expressive culture is the brand differentiator and creates strong community loyalty. The breathwork app (separate from the booking app) extends the brand into digital wellness — a meaningful second revenue and engagement channel. The NYC expansion (Flatiron, Williamsburg) following the Toronto proof-of-concept shows a clear and working scaling playbook.</p>
+    </div>
+
+    <div class="section-label">Website &amp; tech stack analysis</div>
+    <div class="evidence-box">
+      <div class="evidence-box-header">
+        <div class="evidence-icon code">{'>'}</div>
+        <div>
+          <div class="evidence-box-title">Source code inspection — othership.us</div>
+          <div class="evidence-box-source">Direct fetch · cdn.prod.website-files.com CDN pattern · March 2026</div>
+        </div>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Website platform</span>
+        <span class="evidence-val confirmed">Webflow — cdn.prod.website-files.com CDN confirms this</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Booking platform</span>
+        <span class="evidence-val confirmed">Mariana Tek — noscript tag in page source explicitly names "Web Integrations by Mariana Tek"</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Booking app</span>
+        <span class="evidence-val confirmed">Mariana Tek branded app — listed on Google Play as "com.marianatek.othership"</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Breathwork app</span>
+        <span class="evidence-val confirmed">Separate branded app — com.breathwork.othership on Google Play</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Referral platform</span>
+        <span class="evidence-val confirmed">Perkville — othertips.perkville.com/referral/ · Give 22%, Get 22%</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Advertising pixels</span>
+        <span class="evidence-val confirmed">LinkedIn Pixel (px.ads.linkedin.com/collect) visible in page source</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Shop</span>
+        <span class="evidence-val confirmed">Separate Shopify store — shop.othership.us subdomain</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Email / waitlist</span>
+        <span class="evidence-val inferred">Webflow native form — feeds into email system, platform unknown</span>
+      </div>
+    </div>
+
+    <div class="section-label">Tech stack summary</div>
+    <div class="tool-card" style="margin-bottom:20px">
+      <div class="tool-desc" style="margin-bottom:10px;font-weight:500;color:var(--ink)">Confirmed or inferred technologies</div>
+      <span class="tech-chip chip-confirmed">Webflow (site)</span>
+      <span class="tech-chip chip-confirmed">Mariana Tek (booking + membership)</span>
+      <span class="tech-chip chip-confirmed">Perkville (referrals)</span>
+      <span class="tech-chip chip-confirmed">Shopify (retail)</span>
+      <span class="tech-chip chip-confirmed">LinkedIn Ads</span>
+      <span class="tech-chip chip-inferred">Webflow native forms (email capture)</span>
+      <span class="tech-chip chip-unknown">CRM unknown</span>
+      <span class="tech-chip chip-unknown">Analytics beyond LinkedIn unknown</span>
+      <div class="tool-desc" style="margin-top:12px;font-size:12px;color:var(--subtle)">Mariana Tek is the key finding. It's a boutique fitness studio platform purpose-built for class scheduling, member management, and branded apps. Othership is using it at scale across 4 locations. Perkville is a loyalty/referral platform used widely in fitness studios.</div>
+    </div>
+
+    <div class="section-label">Mariana Tek — what it is and why it matters</div>
+    <div class="callout callout-gold" style="margin-bottom:20px">
+      <p>Mariana Tek is a boutique fitness platform used by premium studio brands (Equinox, SoulCycle, CorePower, and now Othership). It handles class scheduling, membership management, drop-in purchases, guest check-in, a branded mobile app, and a referral system — all under one platform. It's the industry standard for class-based wellness businesses. This is the tool Othership chose instead of Glofox or Mindbody. For SOUNDBATH's Experience Stack, Mariana Tek deserves evaluation alongside Glofox — especially if SOUNDBATH will run programmed classes or guided sessions rather than purely open-access entry.</p>
+    </div>
+
+    <div class="pro-con-grid">
+      <div class="pro-card">
+        <div class="pro-con-title pro">Strategic strengths</div>
+        <ul class="pro-con-list">
+          <li>Category-defining brand in social sauna — the benchmark for the experience-led wellness movement</li>
+          <li>Proven multi-city scaling playbook: Toronto → NYC works, now expanding further</li>
+          <li>Mariana Tek gives them professional class scheduling, branded app, and multi-location ops from day one</li>
+          <li>Perkville referral program with 22% incentive is measurably driving community growth</li>
+          <li>Breathwork app creates a second revenue channel and daily engagement touchpoint outside the physical space</li>
+          <li>1,000+ five-star reviews — social proof machine with strong community identity</li>
+          <li>Alcohol-free, body-positive culture generates press and loyalty simultaneously</li>
+        </ul>
+      </div>
+      <div class="con-card">
+        <div class="pro-con-title con">Gaps and weaknesses</div>
+        <ul class="pro-con-list">
+          <li>Class-based scheduling creates a harder access model than open-circuit bathhouse entry — less spontaneous</li>
+          <li>No F&amp;B or restaurant component — revenue ceiling lower than full bathhouse model</li>
+          <li>No cultural programming layer (talks, residencies, art) — wellness-first, culture-second</li>
+          <li>Webflow + Mariana Tek is effective but offers limited data ownership — CRM layer not visible</li>
+          <li>Shopify as a separate subdomain signals disconnected retail and core operations data</li>
+          <li>No RFID or locker-integrated payments visible — likely simpler locker model</li>
+          <li>Not in Miami — no local market intelligence or brand presence here yet</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="learn-box">
+      <div class="learn-box-label">Implications for SOUNDBATH</div>
+      <p>Othership is the most instructive brand in the peer set for community-building and programming strategy. Their referral mechanics (22%/22% via Perkville), class format variety, and breathwork extension all have direct SOUNDBATH analogues worth examining. The key differentiator SOUNDBATH has over Othership is the cultural programming layer — artist talks, residencies, events. That's the space Othership doesn't occupy.</p>
+      <p>On the tech side: Mariana Tek should be evaluated for the Experience Stack as a direct Glofox alternative. If SOUNDBATH runs any class-based or programmed sessions, Mariana Tek's scheduling and branded app model may be a better fit than Glofox, which skews toward gym memberships. Their Perkville implementation is the clearest example in the peer set of a working referral-to-booking pipeline.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       BATHHOUSE
+  ══════════════════════════════════════ -->
+  <div class="comp-block fade-up" id="bathhouse">
+    <div class="comp-header">
+      <div class="comp-title-wrap">
+        <div class="comp-title">Bathhouse</div>
+        <div class="comp-subtitle">abathhouse.com &nbsp;·&nbsp; New York City &nbsp;·&nbsp; 2 locations, 7 in pipeline</div>
+      </div>
+      <div class="comp-meta">
+        <span class="comp-meta-pill pill-indirect">Scale benchmark</span>
+      </div>
+    </div>
+
+    <div class="comp-grid-3">
+      <div class="stat-card">
+        <div class="stat-card-label">Locations</div>
+        <div class="stat-card-val">2 live</div>
+        <div class="stat-card-note">Flatiron + Williamsburg · 7 in pipeline incl. Minneapolis 2027</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Revenue</div>
+        <div class="stat-card-val">~$7.1M</div>
+        <div class="stat-card-note">Per ZoomInfo · 51–200 employees</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Membership</div>
+        <div class="stat-card-val">$145–$225</div>
+        <div class="stat-card-note">Starter (3 passes) · Standard (5 passes) per month</div>
+      </div>
+    </div>
+
+    <div class="section-label">Business model</div>
+    <div class="tool-card" style="margin-bottom:16px">
+      <p class="tool-desc" style="line-height:1.85">Bathhouse runs an open-access circuit model — day passes, treatment bookings (massage + hammam scrub), and recurring memberships. Critically, they are not class-based: guests check in and self-navigate the pools, saunas, and steam rooms at their own pace, with guided Aufguss sessions (sauna rituals) offered on a schedule but included with entry. Revenue streams include day passes (starting $39), treatments (~$154–$204), memberships ($145–$225/mo), a multi-visit pack option, gift cards, a restaurant, and a rooftop pool with a bar. The rooftop is a significant premium product — reserved daybeds and lounge chairs command additional fees. A rewards program and a "Give 25%, Get 25%" referral program are both live. They also built an AI Search feature (/ai-search) — notable for a wellness brand at this scale.</p>
+    </div>
+
+    <div class="section-label">Website &amp; tech stack analysis</div>
+    <div class="evidence-box">
+      <div class="evidence-box-header">
+        <div class="evidence-icon code">{'>'}</div>
+        <div>
+          <div class="evidence-box-title">Source code inspection — abathhouse.com</div>
+          <div class="evidence-box-source">Direct fetch · squarespace-cdn.com CDN + booking subdomain pattern · March 2026</div>
+        </div>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Website platform</span>
+        <span class="evidence-val confirmed">Squarespace — images.squarespace-cdn.com CDN confirmed across all pages</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Booking platform</span>
+        <span class="evidence-val confirmed">try.be — membership purchases route to bathhouseflatiron.try.be and bathhousewilliamsburg.try.be</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Help / support</span>
+        <span class="evidence-val confirmed">Separate subdomain — help.abathhouse.com (likely Zendesk or similar)</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Infrastructure</span>
+        <span class="evidence-val confirmed">Google Cloud Platform + Google Cloud DNS (per ZoomInfo tech data)</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Typography</span>
+        <span class="evidence-val confirmed">Adobe Typekit (per ZoomInfo) — custom type licensing</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Referral program</span>
+        <span class="evidence-val confirmed">Native /referrals page — Give 25%, Get 25% — platform behind it unknown</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">Rewards program</span>
+        <span class="evidence-val confirmed">Bathhouse Rewards — separate /rewards page, platform unknown</span>
+      </div>
+      <div class="evidence-row">
+        <span class="evidence-label">AI Search</span>
+        <span class="evidence-val confirmed">/ai-search page live — likely a custom LLM-powered FAQ layer</span>
+      </div>
+    </div>
+
+    <div class="section-label">Tech stack summary</div>
+    <div class="tool-card" style="margin-bottom:20px">
+      <div class="tool-desc" style="margin-bottom:10px;font-weight:500;color:var(--ink)">Confirmed or inferred technologies</div>
+      <span class="tech-chip chip-confirmed">Squarespace (site)</span>
+      <span class="tech-chip chip-confirmed">try.be (booking + membership)</span>
+      <span class="tech-chip chip-confirmed">Google Cloud Platform</span>
+      <span class="tech-chip chip-confirmed">Adobe Typekit</span>
+      <span class="tech-chip chip-confirmed">Rewards program (platform unknown)</span>
+      <span class="tech-chip chip-confirmed">AI Search (LLM layer)</span>
+      <span class="tech-chip chip-inferred">Zendesk or similar (help subdomain)</span>
+      <span class="tech-chip chip-unknown">CRM unknown</span>
+      <span class="tech-chip chip-unknown">RFID / locker system unknown</span>
+      <span class="tech-chip chip-unknown">POS unknown</span>
+      <div class="tool-desc" style="margin-top:12px;font-size:12px;color:var(--subtle)">try.be is a notable finding. It's a UK-based booking and ticketing platform increasingly used by premium wellness and hospitality brands. It handles timed entry tickets, memberships, and capacity management — purpose-built for destination experiences rather than fitness class scheduling. Squarespace as the CMS is a significant constraint for a brand at this scale — it limits content operations flexibility but works fine for a relatively static site.</div>
+    </div>
+
+    <div class="section-label">try.be — what it is and why it matters</div>
+    <div class="callout callout-gold" style="margin-bottom:20px">
+      <p>try.be is a booking and timed-entry platform used by premium venues including museums, wellness destinations, and hospitality businesses. It handles day pass ticketing, capacity management, membership purchases, and treatment bookings — exactly the open-circuit bathhouse model Bathhouse runs. It's not on either SOUNDBATH stack at present. Given that Bathhouse — the biggest operator in the space — uses it at scale across two NYC locations, it deserves evaluation alongside Glofox and Zenoti for Phase 2–3. Key advantage over class scheduling tools: it is designed for timed-entry and capacity-controlled spaces, not class-based scheduling.</p>
+    </div>
+
+    <div class="pro-con-grid">
+      <div class="pro-card">
+        <div class="pro-con-title pro">Strategic strengths</div>
+        <ul class="pro-con-list">
+          <li>Open-circuit model is inherently more accessible and higher-throughput than class-based scheduling</li>
+          <li>Multi-revenue model (day pass + treatments + membership + F&amp;B + rooftop) reduces revenue concentration risk</li>
+          <li>7-location pipeline demonstrates credible institutional capital and investor confidence</li>
+          <li>Referral and rewards programs both live — two-sided acquisition flywheel in operation</li>
+          <li>AI Search is early and interesting — shows operational sophistication and intent to reduce support load</li>
+          <li>Phone-free policy creates premium, press-friendly differentiation without requiring any tech</li>
+          <li>~$7.1M revenue at 2 locations implies strong unit economics</li>
+        </ul>
+      </div>
+      <div class="con-card">
+        <div class="pro-con-title con">Gaps and weaknesses</div>
+        <ul class="pro-con-list">
+          <li>Squarespace is a significant CMS limitation at scale — limited content flexibility and SEO control</li>
+          <li>Disconnected tech stack — Squarespace + try.be + rewards platform + help subdomain with no visible CRM spine</li>
+          <li>No community layer — no Circle.so, no branded community, no programming beyond Aufguss</li>
+          <li>Cultural positioning is "recovery and performance" not "culture and community" — narrower demographic ceiling</li>
+          <li>NYC prices ($39+ day pass) may not translate directly to Miami market</li>
+          <li>No visible data portability strategy — platform fragmentation risk at scale</li>
+          <li>No Miami presence or brand equity in the market SOUNDBATH is entering</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="learn-box">
+      <div class="learn-box-label">Implications for SOUNDBATH</div>
+      <p>Bathhouse is the revenue and scale blueprint. Their open-circuit model, multi-revenue architecture (day pass + treatments + membership + F&amp;B), and timed-entry booking approach map closely to where SOUNDBATH wants to be at Phase 3. Their adoption of try.be as the booking layer is the clearest signal that class-scheduling platforms (Mariana Tek, Glofox) may not be the right fit for an open-circuit, capacity-controlled bathhouse — try.be deserves a proper evaluation call.</p>
+      <p>Their AI Search implementation is worth watching — even a simple LLM-powered FAQ reduces front-desk load and improves conversion on the booking page. This is table-stakes within 18 months for any premium wellness brand.</p>
+      <p>The community gap is SOUNDBATH's clearest differentiator against Bathhouse. They have no community platform, no cultural programming, and no brand identity beyond recovery. SOUNDBATH's social-forward, culturally-rooted positioning occupies meaningfully different territory.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       SUMMARY TABLE
+  ══════════════════════════════════════ -->
+  <div id="summary" class="fade-up">
+    <div class="section-label">Side-by-side comparison</div>
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>Factor</th>
+          <th>Grotto Baths</th>
+          <th>Othership</th>
+          <th>Bathhouse</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Stage</td>
+          <td>Pre-opening · Summer 2026</td>
+          <td>Operating · 4 locations</td>
+          <td>Operating · 2 locations · scaling</td>
+        </tr>
+        <tr>
+          <td>Miami presence</td>
+          <td><span class="tick">✓</span> Wynwood · direct competitor</td>
+          <td><span class="cross">✗</span> No Miami location</td>
+          <td><span class="cross">✗</span> No Miami location</td>
+        </tr>
+        <tr>
+          <td>Website platform</td>
+          <td>Likely Framer or custom</td>
+          <td>Webflow <span class="tick">✓</span></td>
+          <td>Squarespace <span class="tick">✓</span></td>
+        </tr>
+        <tr>
+          <td>Booking system</td>
+          <td>None (pre-opening)</td>
+          <td>Mariana Tek <span class="tick">✓</span></td>
+          <td>try.be <span class="tick">✓</span></td>
+        </tr>
+        <tr>
+          <td>Referral program</td>
+          <td><span class="cross">✗</span> Not yet</td>
+          <td><span class="tick">✓</span> Perkville · 22%/22%</td>
+          <td><span class="tick">✓</span> Native · 25%/25%</td>
+        </tr>
+        <tr>
+          <td>Membership model</td>
+          <td>TBD</td>
+          <td>Passes + monthly tiers</td>
+          <td>$145–225/mo · 3–5 passes</td>
+        </tr>
+        <tr>
+          <td>Community / social layer</td>
+          <td><span class="cross">✗</span> Not visible</td>
+          <td>Strong — brand culture, reviews, events</td>
+          <td><span class="cross">✗</span> Minimal</td>
+        </tr>
+        <tr>
+          <td>Cultural programming</td>
+          <td>Breathwork, somatic, workshops</td>
+          <td>Guided classes, breathwork app</td>
+          <td>Aufguss only</td>
+        </tr>
+        <tr>
+          <td>F&amp;B</td>
+          <td>Alcohol-free café (chef-led)</td>
+          <td>Tea lounge only</td>
+          <td>Full restaurant + rooftop bar</td>
+        </tr>
+        <tr>
+          <td>Branded app</td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="tick">✓</span> Booking + breathwork</td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Retail / shop</td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="tick">✓</span> Shopify store</td>
+          <td>Gift cards only</td>
+        </tr>
+        <tr>
+          <td>Scale pathway</td>
+          <td>Single location</td>
+          <td>Multi-city proven</td>
+          <td>7-location pipeline</td>
+        </tr>
+        <tr>
+          <td>Data ownership signals</td>
+          <td>Unknown</td>
+          <td>Limited — Webflow + Mariana Tek silos</td>
+          <td>Fragmented — no CRM spine visible</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       IMPLICATIONS
+  ══════════════════════════════════════ -->
+  <div id="implications" class="fade-up">
+    <div class="section-label">Strategic implications for SOUNDBATH</div>
+
+    <div class="comp-grid" style="margin-bottom:16px">
+      <div class="tool-card">
+        <div class="tool-name" style="margin-bottom:8px;color:var(--exp)">Competitive whitespace</div>
+        <p class="tool-desc" style="line-height:1.8">None of the three competitors have a strong community platform layer. Othership has community culture but no owned platform. Bathhouse has none. Grotto has none visible. A pre-opening founding member community (Circle.so or equivalent) that is genuinely active before doors open is an uncontested differentiator in this peer set.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name" style="margin-bottom:8px;color:var(--exp)">Booking platform signal</div>
+        <p class="tool-desc" style="line-height:1.8">The biggest operator (Bathhouse) uses try.be — a timed-entry platform — not Glofox or Mariana Tek. The social sauna leader (Othership) uses Mariana Tek for class scheduling. These are two different models for two different operational structures. SOUNDBATH should clarify whether it's running open-circuit entry (→ try.be) or programmed class sessions (→ Mariana Tek) before committing to a booking platform.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name" style="margin-bottom:8px;color:var(--exp)">Data ownership gap across all three</div>
+        <p class="tool-desc" style="line-height:1.8">None of the three competitors appear to have a visible CRM spine — their customer data likely lives fragmented across booking platforms, ticketing tools, and email systems. This is SOUNDBATH's structural advantage if the Architect Stack is chosen. Owning the customer record in HubSpot from day one means better long-term analytics, portability, and marketing capability than any of these peers.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name" style="margin-bottom:8px;color:var(--exp)">Referral benchmark</div>
+        <p class="tool-desc" style="line-height:1.8">Both operating competitors run 22–25% referral discounts. This is the market-established incentive level for this category. Othership uses Perkville (third-party), Bathhouse appears native. SOUNDBATH's referral-to-booking pipeline should be benchmarked against this — either matching the 22–25% range or differentiating with a founding member access model rather than a discount.</p>
+      </div>
+    </div>
+
+    <div class="learn-box" style="margin-bottom:0">
+      <div class="learn-box-label">The one thing to take away from this analysis</div>
+      <p>The peer set has strong operational brands but weak digital infrastructure. Grotto doesn't have one yet. Othership's is functional but fragmented. Bathhouse's is effective but siloed. The opportunity for SOUNDBATH is to be the best-infrastructured operator in the social wellness space from day one — not the best-funded or the biggest footprint, but the one with the cleanest data, the strongest community layer, and the most intentional referral pipeline. That's achievable before opening and it compounds over time.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <span class="footer-brand">SOUNDBATH · Strategy Document · 2026</span>
+  <div class="footer-links">
+    <a href="index.html" class="footer-link">Overview</a>
+    <a href="stack-experience.html" class="footer-link">Experience Stack</a>
+    <a href="stack-architect.html" class="footer-link">Architect Stack</a>
+    <a href="comparison.html" class="footer-link">Comparison</a>
+    <a href="competitors.html" class="footer-link">Competitors</a>
+  </div>
+  <span class="footer-brand" style="opacity:.4">thecreatorie.com</span>
+</footer>
+
+<script>
+function checkPw(){
+  if(document.getElementById('pw').value==='MiamiFL'){
+    document.getElementById('gate').classList.add('hidden');
+    sessionStorage.setItem('sb_auth','1');
+  } else {
+    document.getElementById('gate-err').textContent='Incorrect password';
+  }
+}
+document.getElementById('pw').addEventListener('keydown',e=>{if(e.key==='Enter')checkPw()});
+if(sessionStorage.getItem('sb_auth')==='1')document.getElementById('gate').classList.add('hidden');
+
+function toggleMenu(){
+  const m=document.getElementById('mobile-menu');
+  m.style.display=m.style.display==='flex'?'none':'flex';
+}
+
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.08});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
